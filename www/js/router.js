@@ -9,11 +9,13 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider) {
   })
   .state('product', {
       url: '/product',
+      cache: false,
       templateUrl: 'templates/tab-product.html',
       controller: 'ProductController'
   })
   .state('productDesign', {
     url: '/productDesign',
+    cache: false,
     templateUrl: 'templates/tab-productDesign.html',
     controller: 'ProductDesignController'
   })

@@ -27,30 +27,18 @@ angular.module('starter').service('CategoryService', function($q, $http) {
             });
         });
     };
-    return {
-      createCategory: createCategory
-    };
-    
-}).service('ProductService', function($q, $http) {
-  var createCategory = function(userData) {
+    var fetchAllCategory = function() {
         return $q(function(resolve, reject) {
             var req = {
                 url: "http://localhost:8080/zeus/category",
-                method: 'POST',
-                data: { 
-                  "name": userData.name,
-                  "displayName" : userData.displayname,
-                  "orderOfDisplay" : userData.orderingDis,
-                  "commissionDate" : userData.commissionDate,
-                  "sunsetDate" : userData.sunsetDate
-                },
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
             $http(req).then(function(data) {
                 console.log(data);
-                if (data.data.status == 'SUCCESS') {
+                if (data.statusText == 'OK') {
                     resolve(data);
                 } else {
                     reject('Update Expertise Failed!');
@@ -61,7 +49,63 @@ angular.module('starter').service('CategoryService', function($q, $http) {
         });
     };
     return {
-      createCategory: createCategory
+      createCategory: createCategory,
+      fetchAllCategory: fetchAllCategory
+    };
+    
+}).service('ProductService', function($q, $http) {
+  var createProduct = function(userData) {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: "http://localhost:8080/zeus/product",
+                method: 'POST',
+                data: { 
+                  "categoryId": userData.selectCategory,
+                  "name": userData.name,
+                  "displayName" : userData.displayname,
+                  "commissionDate" : userData.commissionDate,
+                  "sunsetDate" : userData.sunsetDate
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                console.log(data);
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var fetchAllProducts = function() {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: "http://localhost:8080/zeus/product",
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                console.log(data);
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    return {
+    	createProduct: createProduct,
+    	fetchAllProducts: fetchAllProducts
     };
     
 });

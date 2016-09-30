@@ -2,43 +2,40 @@
 <ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
    <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
       <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Product Design</h2>
-      <form class="list animated bounceIn " name="catgoryform" class="css-form" novalidate id="signup-form4" ng-submit="catgoryform.$valid && addCategory(data)">
+      <form class="list animated bounceIn " name="productDesignForm" class="css-form" novalidate id="signup-form4" ng-submit="catgoryform.$valid && addCategory(data)">
          <ion-list id="signup-list5" class=" ">
-            <label class="item item-input " id="signup-input4" name="name">
+         
+           <label class="item item-input " id="signup-input4" name="selectCategory">
+           <span class="input-label">Select Category</span>
+           <select  name="selectCategory" required="" ng-model="data.selectCategory">
+		     <option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
+		   </select>
+           </label>
+           <div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
+           <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
+           </div>
+           
+           <label class="item item-input " id="signup-input4" name="selectProduct">
+           <span class="input-label">Select Product</span>
+           <select  name="selectProduct" required="" ng-model="data.selectProduct">
+		     <option ng-repeat="option in productOptions" ng-value="option.categoryId">{{option.name}}</option>
+		   </select>
+           </label>
+           <div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
+           <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
+           </div>
+    		<button ng-click="addInput()" class="button icon ion-plus"></button>
+    		<div ng-repeat="input in inputs">
+		        <input type="text" ng-model="input.field" />
+		        <input type="text" ng-model="input.value" />
+		        <button ng-click="removeInput($index)" class="button icon ion-minus"></button>
+		    </div>
+    		
+    		<label ng-repeat="input in inputs" class="item item-input " id="signup-input4" name="name">
             <span class="input-label">Name</span>
             <input type="text" placeholder="" required=""  name="name" ng-model="data.name">
             </label>
-            <div ng-show="catgoryform.$submitted || catgoryform.name.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="catgoryform.name.$error.required">Please enter Name.</div>
-            </div>
-            <label class="item item-input " id="signup-input7">
-            <span class="input-label">Display name</span>
-            <input type="text" placeholder="" required=""  name="displayname" ng-model="data.displayname">
-            </label>
-            <div ng-show="catgoryform.$submitted || catgoryform.displayname.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="catgoryform.displayname.$error.required">Please enter last name.</div>
-            </div>
-            <label class="item item-input " id="signup-input5" name="orderingDis">
-            <span class="input-label">Ordering Display</span>
-            <input type="text" placeholder="" required=""  name="orderingDis" ng-model="data.orderingDis">
-            </label>
-            <div ng-show="catgoryform.$submitted || catgoryform.orderingDis.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="catgoryform.orderingDis.$error.required">Please enter email.</div>
-            </div>
-            <label class="item item-input " id="signup-input8" name="commissionDate">
-            <span class="input-label">Commission Date</span>
-            <input type="text" placeholder="" required=""  name="commissionDate" ng-model="data.commissionDate">
-            </label>
-            <div ng-show="catgoryform.$submitted || catgoryform.commissionDate.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="catgoryform.commissionDate.$error.required">Please enter phone no.</div>
-            </div>
-            <label class="item item-input " id="signup-input6" name="sunsetDate">
-            <span class="input-label">Sunset Date</span>
-            <input type="text" placeholder="" required=""  name="sunsetDate" ng-model="data.sunsetDate">
-            </label>
-            <div ng-show="catgoryform.$submitted || catgoryform.sunsetDate.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="catgoryform.sunsetDate.$error.required">Please enter password.</div>
-            </div>
+           
          </ion-list>
          <div class="row">
             <div class="col text-center">

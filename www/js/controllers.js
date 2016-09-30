@@ -1,21 +1,50 @@
 angular.module('starter')
 
 .controller('CategoryController', function($scope, CategoryService) {
-  $scope.addCategory = function(data){
-  	CategoryService.createCategory(data).then(function(categoryResponse) {
-        console.log(categoryResponse);
-    }, function(err) {
-        console.log('not saved');
-    });
-  }
+	  $scope.addCategory = function(data){
+		  CategoryService.createCategory(data).then(function(categoryResponse) {
+			  alsert('Success');
+		  	}, function(err) {
+		  	  console.log('not saved');
+		 });
+	  }
 })
 
-.controller('ProductController', function($scope) {
-  
+.controller('ProductController', function($scope, ProductService, CategoryService) {
+	 CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
+		 	$scope.options = allCategoryResponse.data;
+    	}, function(err) {
+    		console.log('not saved');
+     });
+	 $scope.addProduct = function(data){
+		 ProductService.createProduct(data).then(function(productResponse) {
+		       alsert('Success');		        
+		    }, function(err) {
+		        console.log('not saved');
+	    });
+	  }
 })
 
-.controller('ProductDesignController', function($scope) {
-  
+.controller('ProductDesignController', function($scope, ProductService,CategoryService) {
+	CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
+	 	$scope.categoryOptions = allCategoryResponse.data;
+	}, function(err) {
+		console.log('not saved');
+	});
+	ProductService.fetchAllProducts().then(function(allProductResponse) {
+	 	$scope.productOptions = allProductResponse.data;
+	}, function(err) {
+		console.log('not saved');
+	});
+	$scope.inputs = [];
+
+	$scope.addInput = function(){
+	    $scope.inputs.push({field:'', value:''});
+	}
+
+	$scope.removeInput = function(index){
+	    $scope.inputs.splice(index,1);
+	}
 })
 
 .controller('ProductViewController', function($scope) {
