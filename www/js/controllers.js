@@ -47,6 +47,11 @@ angular.module('starter')
 	}, function(err) {
 		console.log('not saved');
 	});
+	CategoryService.fetchAllGroup().then(function(allGroupResponse) {
+	 	$scope.groups = allGroupResponse.data;
+	}, function(err) {
+		console.log('not saved');
+	});
 	$scope.inputs = [];
 
 	$scope.addInput = function(){
