@@ -24,22 +24,50 @@
            <div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
            <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
            </div>
-    		<button ng-click="addInput()" class="button icon ion-plus"></button>
-    		<div ng-repeat="input in inputs">
-		        <input type="text" ng-model="input.field" />
-		        <input type="text" ng-model="input.value" />
-		        <button ng-click="removeInput($index)" class="button icon ion-minus"></button>
-		    </div>
-    		
-    		<label ng-repeat="input in inputs" class="item item-input " id="signup-input4" name="name">
-            <span class="input-label">Name</span>
-            <input type="text" placeholder="" required=""  name="name" ng-model="data.name">
-            </label>
-           
+    	   <button ng-click="addInput()" class="button icon ion-plus"></button>
+    	   <fieldset  data-ng-repeat="input in inputs">
+	    	   <label class="item item-input " id="signup-input4" name="selectProduct">
+	           <span class="input-label">Enter Group</span>
+	           <input type="text" ng-model="data.group" name="groupName" placeholder="Enter Group name">
+	           </label>
+	           <label class="item item-input "  id="signup-input4" name="groupName">
+	           <span class="input-label">Select Form Group</span>
+	           <select name="groupName" ng-model="data.groupName" >
+	           <option ng-repeat="group in groups" ng-value="group.groupId">{{group.name}}</option>
+		       </select>
+	           </label>
+	           <label class="item item-input "  id="signup-input4" name="selectInput">
+	           <span class="input-label">Select Input Type</span>
+	           <select name="selectInput" ng-model="data.selectInput" >
+		         <option>Text</option>
+		         <option>Radio</option>
+		         <option>Checkbox</option>
+		         <option>Email</option>
+		         <option>Password</option>
+		       </select>
+	           </label>
+	           <label class="item item-input " id="signup-input4" name="lableName">
+	           <span class="input-label">Lable Name</span>
+	           <input type="text" ng-model="data.lableName" name="lableName" placeholder="Enter Lable name">
+	           </label>
+	           <label class="item item-input " id="signup-input4" name="sequenceNo">
+	           <span class="input-label">Sequence in Group</span>
+	           <input type="text" ng-model="data.sequenceNo" name="sequenceNo" placeholder="Enter sequence number">
+	           </label>
+	           <label class="item item-input " id="signup-input4" name="commissionDate">
+	           <span class="input-label">Commission date</span>
+	           <input type="text" ng-model="data.commissionDate" name="commissionDate" placeholder="Enter Commission date">
+	           </label>
+	           <label class="item item-input " id="signup-input4" name="sunsetDate">
+	           <span class="input-label">Sunset date</span>
+	           <input type="text" ng-model="data.sunsetDate" name="sunsetDate" placeholder="Enter Sunset date">
+	           </label>
+		       <button class="remove" ng-click="removeInput($index)">-</button>
+		   </fieldset>  		
          </ion-list>
-         <div class="row">
+         <div class="row" style="margin-bottom: 68%;">
             <div class="col text-center">
-               <button class="button  button  button-calm">
+               <button ng-click="saveProductTemplate(data);" class="button  button  button-calm">
                  Submit
                </button>
             </div>

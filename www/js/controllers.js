@@ -1,16 +1,24 @@
 angular.module('starter')
 
 .controller('CategoryController', function($scope, CategoryService) {
+	  $scope.successMessage = false;
+	  $scope.errorMessage = false;
 	  $scope.addCategory = function(data){
 		  CategoryService.createCategory(data).then(function(categoryResponse) {
-			  alsert('Success');
+			  $scope.successMessage = true;
+			  $scope.errorMessage = false;
+			  $scope.data = {};
 		  	}, function(err) {
+		  	  $scope.successMessage = false;
+		  	  $scope.errorMessage = true;
 		  	  console.log('not saved');
 		 });
 	  }
 })
 
 .controller('ProductController', function($scope, ProductService, CategoryService) {
+	 $scope.successMessage = false;
+	 $scope.errorMessage = false;
 	 CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
 		 	$scope.options = allCategoryResponse.data;
     	}, function(err) {
@@ -18,14 +26,18 @@ angular.module('starter')
      });
 	 $scope.addProduct = function(data){
 		 ProductService.createProduct(data).then(function(productResponse) {
-		       alsert('Success');		        
+			 $scope.successMessage = true;
+			 $scope.errorMessage = false; 
 		    }, function(err) {
-		        console.log('not saved');
+		     $scope.successMessage = false;
+			 $scope.errorMessage = true;
+		     console.log('not saved');
 	    });
 	  }
 })
 
 .controller('ProductDesignController', function($scope, ProductService,CategoryService) {
+	$scope.data = [];
 	CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
 	 	$scope.categoryOptions = allCategoryResponse.data;
 	}, function(err) {
@@ -41,10 +53,19 @@ angular.module('starter')
 	$scope.addInput = function(){
 	    $scope.inputs.push({field:'', value:''});
 	}
-
 	$scope.removeInput = function(index){
 	    $scope.inputs.splice(index,1);
 	}
+	$scope.saveProductTemplate = function(data){
+		$scope.data.push({ 
+            category: data.selectCategory,
+            product: data.selectProduct,
+            group: data.group,
+            inputtype: data.selectInput
+          });
+		console.log(data);
+	}
+	
 })
 
 .controller('ProductViewController', function($scope) {
