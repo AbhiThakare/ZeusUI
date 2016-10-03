@@ -1,55 +1,55 @@
 <ion-view style="" class=" " hide-nav-bar="true" id="page17" title="Create New Product">
-   <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-      <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Create New Product</h2>
-      <div ng-show="successMessage" class="success">Product created successfully </div>
-      <div ng-show="errorMessage"class="error">There was some problem creating new product</div>
-      <form class="list animated bounceIn " name="productForm" class="css-form" novalidate id="signup-form4" ng-submit="productForm.$valid && addProduct(data)">
-         <ion-list id="signup-list5" class=" ">
-            <label class="item item-input " id="signup-input4" name="selectCategory">
-               <span class="input-label">Select Category</span>
-               <select  name="selectCategory" required="" ng-model="data.selectCategory">
-                  <option ng-repeat="option in options" ng-value="option.categoryId">{{option.name}}</option>
-               </select>
-            </label>
-            <div ng-show="productForm.$submitted || productForm.selectCategory.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.selectCategory.$error.required">Please select category.</div>
+    <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
+        <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Create New Product</h2>
+        <div ng-show="successMessage" class="success">Product created successfully </div>
+        <div ng-show="errorMessage"class="error">There was some problem creating new product</div>
+        <form class="list animated bounceIn " name="productForm" class="css-form" novalidate id="signup-form4" ng-submit="productForm.$valid && addProduct(data)">
+            <ion-list id="signup-list5" class=" ">
+                <label class="item item-input " id="signup-input4" name="selectCategory">
+                    <span class="input-label">Select Category</span>
+                    <select  name="selectCategory" required="" ng-model="data.selectCategory">
+                        <option ng-repeat="option in options" ng-value="option.categoryId">{{option.name}}</option>
+                    </select>
+                </label>
+                <div ng-show="productForm.$submitted || productForm.selectCategory.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.selectCategory.$error.required">Please select category.</div>
+                </div>
+                <label class="item item-input " id="signup-input4" name="name">
+                <span class="input-label">Name</span>
+                <input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
+                </label>
+                <div ng-show="productForm.$submitted || productForm.name.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.name.$error.required">Please enter Name.</div>
+                </div>
+                <label class="item item-input " id="signup-input7">
+                <span class="input-label">Display name</span>
+                <input type="text"  required=""  name="displayname" ng-model="data.displayname" placeholder="Enter display name">
+                </label>
+                <div ng-show="productForm.$submitted || productForm.displayname.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.displayname.$error.required">Please enter Display name.</div>
+                </div>
+                <label class="item item-input " id="signup-input8" name="commissionDate">
+                <span class="input-label">Commission Date</span>
+                <input type="text" required=""  name="commissionDate" ng-model="data.commissionDate" placeholder="Enter commission date">
+                </label>
+                <div ng-show="productForm.$submitted ||productForm.commissionDate.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.commissionDate.$error.required">Please enter Commission date.</div>
+                </div>
+                <label class="item item-input " id="signup-input6" name="sunsetDate">
+                <span class="input-label">Sunset Date</span>
+                <input type="text" required=""  name="sunsetDate" ng-model="data.sunsetDate" placeholder="Enter sunset date">
+                </label>
+                <div ng-show="productForm.$submitted || productForm.sunsetDate.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.sunsetDate.$error.required">Please enter Sunset date.</div>
+                </div>
+            </ion-list>
+            <div class="row">
+                <div class="col text-center">
+                    <button class="button  button  button-calm">
+                    Submit
+                    </button>
+                </div>
             </div>
-            <label class="item item-input " id="signup-input4" name="name">
-            <span class="input-label">Name</span>
-            <input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
-            </label>
-            <div ng-show="productForm.$submitted || productForm.name.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.name.$error.required">Please enter Name.</div>
-            </div>
-            <label class="item item-input " id="signup-input7">
-            <span class="input-label">Display name</span>
-            <input type="text"  required=""  name="displayname" ng-model="data.displayname" placeholder="Enter display name">
-            </label>
-            <div ng-show="productForm.$submitted || productForm.displayname.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.displayname.$error.required">Please enter Display name.</div>
-            </div>
-            <label class="item item-input " id="signup-input8" name="commissionDate">
-            <span class="input-label">Commission Date</span>
-            <input type="text" required=""  name="commissionDate" ng-model="data.commissionDate" placeholder="Enter commission date">
-            </label>
-            <div ng-show="productForm.$submitted ||productForm.commissionDate.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.commissionDate.$error.required">Please enter Commission date.</div>
-            </div>
-            <label class="item item-input " id="signup-input6" name="sunsetDate">
-            <span class="input-label">Sunset Date</span>
-            <input type="text" required=""  name="sunsetDate" ng-model="data.sunsetDate" placeholder="Enter sunset date">
-            </label>
-            <div ng-show="productForm.$submitted || productForm.sunsetDate.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.sunsetDate.$error.required">Please enter Sunset date.</div>
-            </div>
-         </ion-list>
-         <div class="row">
-            <div class="col text-center">
-               <button class="button  button  button-calm">
-               Submit
-               </button>
-            </div>
-         </div>
-      </form>
-   </ion-content>
+        </form>
+    </ion-content>
 </ion-view>

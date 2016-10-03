@@ -1,108 +1,98 @@
 <div style="">
-   <ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
-      <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-         <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Product View</h2>
-         <form class="list animated bounceIn " name = "{{entity.formName}}"class="css-form" novalidate ng-submit="getFormView(input)">
-            <label class="item item-input " id="signup-input4" name="selectCategory">
-               <span class="input-label">Select Category</span>
-               <select  name="selectCategory" required="" ng-model="input.selectCategory">
-                  <option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
-               </select>
-            </label>
-            <div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
-            </div>
-            <label class="item item-input " id="signup-input4" name="selectProduct">
-               <span class="input-label">Select Product</span>
-               <select  name="selectProduct" required="" ng-model="input.selectProduct">
-                  <option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
-               </select>
-            </label>
-            <div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
-            </div>
-            <div class="row">
-               <div class="col text-center">
-                  <button  class="button  button  button-calm">
-                  Submit
-                  </button>
-               </div>
-            </div>
-            <div ng-repeat="field in entity">
-               <ng-form name="form">
-                  <!-- TEXT FIELDS -->
-                  <label ng-if="field.inputType=='text'"  class="item item-input " id="signup-input4" name="name">
-                  <span class="input-label">{{field.labelName}}</span>
-                  <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="name" ng-model="data.name">
-                  </label>
-                  
-                  <!-- TEXTAREA FIELDS -->
-                  <label ng-if="field.inputType=='textarea'"  class="item item-input " id="signup-input4" name="name">
-                  <span class="input-label">{{field.labelName}}</span>
-                  <textarea ng-model="data.name" rows="" cols=""></textarea>
-                  </label>
-                  
-                  <!-- RADIO FIELDS -->
-                  <label ng-if="field.inputType=='radio'" class="form-group " id="signup-input4" name="name">
-                     <span class="input-label">{{field.labelName}}</span>
-                     <div class="checkbox" ng-repeat="option in field.options" >
-                  <label>                
-                  <input type="{{ field.type}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}">{{option.name}}
-                  </label>
-                  </div>
-                  <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-                     <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-                  </div>
-                  </label>
-                  
-                  <!-- EMAIL FIELDS -->
-                  <label ng-if="field.inputType=='email'"  class="item item-input " id="signup-input4" name="name">
-                  <span class="input-label">{{field.labelName}}</span>
-                  <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="name" ng-model="data.name">
-                  </label>
-                  
-                  
-                  <!-- PASSWORD FIELDS -->
-                  <label ng-if="field.inputType=='password'"  class="item item-input " id="signup-input4" name="name">
-                  <span class="input-label">{{field.label}}</span>
-                  <input type="{{ field.type }}" placeholder="Please enter {{field.label}}" required=""  name="name" ng-model="data.name">
-                    <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-                     <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-                     <div style="color:red;margin:5px;padding:5px;" ng-show=" {{'!form.'+field.name+'.required && (form.'+field.name+'.$error.minlength || form.'+field.name+'.$error.maxlength)' }}">Passwords must be between 8 and 20 characters.</div>
-                  </div>
-                  
-                  </label>
-                
-                  <!-- CHECKBOX FIELDS -->
-                  <label ng-if="field.inputType=='checkbox'"  class="form-group " id="signup-input4" name="name">
-                     <span class="input-label">{{field.label}}</span>
-                     <div class="col-sm-6">
-                        <div class="checkbox" ng-repeat="option in field.options" >
-                  <label>
-                  <input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
-                  </label>
-                  </div>
-                  </div>
-                   <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-                     <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-                  </div>
-                  </label>
-                 
-                  
-                  <!-- SELECTBOX FIELDS -->
-                  <label ng-if="field.inputType=='select'" class="item item-input " id="signup-input4" name="selectCategory">
-                     <span class="input-label">{{field.label}}</span>
-                     <select  required="" data-ng-model="field.data">
-                        <option ng-repeat="option in field.options" ng-value="option.name">{{option.name}}</option>
-                     </select>
-                      <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-					 <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-				  </div>
-                  </label>
-                 
-               </ng-form>
-            </div>
-         </form>
-      </ion-content>
-   </ion-view>
+    <ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
+        <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
+            <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Product View</h2>
+            <form class="list animated bounceIn " name = "{{entity.formName}}"class="css-form" novalidate ng-submit="getFormView(input)">
+                <label class="item item-input " id="signup-input4" name="selectCategory">
+                    <span class="input-label">Select Category</span>
+                    <select  name="selectCategory" required="" ng-model="input.selectCategory">
+                        <option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
+                    </select>
+                </label>
+                <div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
+                </div>
+                <label class="item item-input " id="signup-input4" name="selectProduct">
+                    <span class="input-label">Select Product</span>
+                    <select  name="selectProduct" required="" ng-model="input.selectProduct">
+                        <option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
+                    </select>
+                </label>
+                <div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
+                    <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button  class="button  button  button-calm">
+                        Submit
+                        </button>
+                    </div>
+                </div>
+                <div ng-repeat="field in entity">
+                    <ng-form name="form">
+                        <!-- TEXT FIELDS -->
+                        <label ng-if="field.inputType=='text'"  class="item item-input " id="signup-input4" name="name">
+                        <span class="input-label">{{field.labelName}}</span>
+                        <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="{{field.name}}" ng-model="data.name">
+                        </label>
+                        <!-- TEXTAREA FIELDS -->
+                        <label ng-if="field.inputType=='textarea'"  class="item item-input " id="signup-input4" name="{{field.name}}">
+                        <span class="input-label">{{field.labelName}}</span>
+                        <textarea ng-model="data.name" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
+                        </label>
+                        <!-- RADIO FIELDS -->
+                        <label ng-if="field.inputType=='radio'" class="form-group " id="signup-input4" name="{{field.name}}">
+                            <span class="input-label">{{field.labelName}}</span>
+                            <div class="checkbox" ng-repeat="option in field.options" >
+                        <label>                
+                        <input type="{{ field.type}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}">{{option.name}}
+                        </label>
+                        </div>
+                        <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+                            <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+                        </div>
+                        </label>
+                        <!-- EMAIL FIELDS -->
+                        <label ng-if="field.inputType=='email'"  class="item item-input " id="signup-input4" name="name">
+                        <span class="input-label">{{field.labelName}}</span>
+                        <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="{{field.name}}" ng-model="data.name">
+                        </label>
+                        <!-- PASSWORD FIELDS -->
+                        <label ng-if="field.inputType=='password'"  class="item item-input " id="signup-input4" name="name">
+                            <span class="input-label">{{field.label}}</span>
+                            <input type="{{ field.type }}" placeholder="Please enter {{field.label}}" required=""  name="{{field.name}}" ng-model="data.name">
+                            <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+                                <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+                                <div style="color:red;margin:5px;padding:5px;" ng-show=" {{'!form.'+field.name+'.required && (form.'+field.name+'.$error.minlength || form.'+field.name+'.$error.maxlength)' }}">Passwords must be between 8 and 20 characters.</div>
+                            </div>
+                        </label>
+                        <!-- CHECKBOX FIELDS -->
+                        <label ng-if="field.inputType=='checkbox'"  class="form-group " id="signup-input4" name="name">
+                            <span class="input-label">{{field.label}}</span>
+                            <div class="col-sm-6">
+                                <div class="checkbox" ng-repeat="option in field.options" >
+                        <label>
+                        <input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
+                        </label>
+                        </div>
+                        </div>
+                        <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+                            <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+                        </div>
+                        </label>
+                        <!-- SELECTBOX FIELDS -->
+                        <label ng-if="field.inputType=='select'" class="item item-input " id="signup-input4" name="selectCategory">
+                            <span class="input-label">{{field.label}}</span>
+                            <select  required="" data-ng-model="field.data">
+                                <option ng-repeat="option in field.options" ng-value="option.name">{{option.name}}</option>
+                            </select>
+                            <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+                                <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+                            </div>
+                        </label>
+                    </ng-form>
+                </div>
+            </form>
+        </ion-content>
+    </ion-view>
 </div>

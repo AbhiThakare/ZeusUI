@@ -1,15 +1,15 @@
 angular.module('starter').service('CategoryService', function($q, $http, URL) {
-  var createCategory = function(userData) {
+    var createCategory = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"category",
+                url: URL.url + "category",
                 method: 'POST',
-                data: { 
-                  "name": userData.name,
-                  "displayName" : userData.displayname,
-                  "orderOfDisplay" : userData.orderingDis,
-                  "commissionDate" : userData.commissionDate,
-                  "sunsetDate" : userData.sunsetDate
+                data: {
+                    "name": userData.name,
+                    "displayName": userData.displayname,
+                    "orderOfDisplay": userData.orderingDis,
+                    "commissionDate": userData.commissionDate,
+                    "sunsetDate": userData.sunsetDate
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,16 +29,16 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var addGroup = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"feild/group",
+                url: URL.url + "feild/group",
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data:  { 
-	                "name": userData.name,
-	                "label" : userData.displayname,
-	                "displaySequence" : userData.orderingDis
-	            },
+                data: {
+                    "name": userData.name,
+                    "label": userData.displayname,
+                    "displaySequence": userData.orderingDis
+                },
             }
             $http(req).then(function(data) {
                 if (data.statusText == 'OK') {
@@ -54,7 +54,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var fetchAllGroup = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"feild/group",
+                url: URL.url + "feild/group",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var fetchAllCategory = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"category",
+                url: URL.url + "category",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -92,36 +92,34 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
         });
     };
     return {
-      createCategory: createCategory,
-      fetchAllCategory: fetchAllCategory,
-      addGroup: addGroup,
-      fetchAllGroup: fetchAllGroup
+        createCategory: createCategory,
+        fetchAllCategory: fetchAllCategory,
+        addGroup: addGroup,
+        fetchAllGroup: fetchAllGroup
     };
-    
 }).service('ProductService', function($q, $http, URL) {
-	var saveProductTemplate = function(categoryData, fieldData) {
+    var saveProductTemplate = function(categoryData, fieldData) {
         return $q(function(resolve, reject) {
-        	var formFieldbean = [];
-        	for(var i=0; i < fieldData.length; i++){
-        		formFieldbean[i] = {
-        			  "groupId": fieldData[i].groupId,
-                   	  "productId" : categoryData.selectProduct,
-                   	  "categoryId" : categoryData.selectCategory,
-                   	  "name": fieldData[i].name,
-                   	  "labelName" : fieldData[i].lableName,
-                   	  "inputType" : fieldData[i].selectInput,
-                   	  "commissionDate" :fieldData[i].commissionDate,
-                   	  "sunsetDate" : fieldData[i].sunsetDate,
-                   	  "sequenceInGroup" : fieldData[i].sequenceNo, 
-                   	  "minLength" :144,
-                   	  "maxLength" : 122,
-                   	  "mandatoryValue" : fieldData[i].isMandatory,
-                   	  "defaultValue" : fieldData[i].defaultValue
-        		}
-        	}
-        		
+            var formFieldbean = [];
+            for (var i = 0; i < fieldData.length; i++) {
+                formFieldbean[i] = {
+                    "groupId": fieldData[i].groupId,
+                    "productId": categoryData.selectProduct,
+                    "categoryId": categoryData.selectCategory,
+                    "name": fieldData[i].name,
+                    "labelName": fieldData[i].lableName,
+                    "inputType": fieldData[i].selectInput,
+                    "commissionDate": fieldData[i].commissionDate,
+                    "sunsetDate": fieldData[i].sunsetDate,
+                    "sequenceInGroup": fieldData[i].sequenceNo,
+                    "minLength": 144,
+                    "maxLength": 122,
+                    "mandatoryValue": fieldData[i].isMandatory,
+                    "defaultValue": fieldData[i].defaultValue
+                }
+            }
             var req = {
-                url: URL.url+"feild",
+                url: URL.url + "feild",
                 method: 'POST',
                 data: formFieldbean,
                 headers: {
@@ -139,18 +137,17 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
             });
         });
     };
-	
     var createProduct = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"product",
+                url: URL.url + "product",
                 method: 'POST',
-                data: { 
-                  "categoryId": userData.selectCategory,
-                  "name": userData.name,
-                  "displayName" : userData.displayname,
-                  "commissionDate" : userData.commissionDate,
-                  "sunsetDate" : userData.sunsetDate
+                data: {
+                    "categoryId": userData.selectCategory,
+                    "name": userData.name,
+                    "displayName": userData.displayname,
+                    "commissionDate": userData.commissionDate,
+                    "sunsetDate": userData.sunsetDate
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -170,7 +167,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var fetchAllProducts = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"product",
+                url: URL.url + "product",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -190,7 +187,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var getFormDetails = function(input) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url+"feild/"+input.selectCategory+"/"+input.selectProduct,
+                url: URL.url + "feild/" + input.selectCategory + "/" + input.selectProduct,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -208,10 +205,9 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
         });
     };
     return {
-    	createProduct: createProduct,
-    	fetchAllProducts: fetchAllProducts,
-    	getFormDetails: getFormDetails,
-    	saveProductTemplate: saveProductTemplate
+        createProduct: createProduct,
+        fetchAllProducts: fetchAllProducts,
+        getFormDetails: getFormDetails,
+        saveProductTemplate: saveProductTemplate
     };
-    
 });
