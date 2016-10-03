@@ -104,19 +104,19 @@ angular.module('starter').service('CategoryService', function($q, $http) {
         	var formFieldbean = [];
         	for(var i=0; i < fieldData.length; i++){
         		formFieldbean[i] = {
-        			  "groupId": fieldData.groupId,
+        			  "groupId": fieldData[i].groupId,
                    	  "productId" : categoryData.selectProduct,
                    	  "categoryId" : categoryData.selectCategory,
-                   	  "name": fieldData.name,
-                   	  "labelName" : fieldData.lableName,
-                   	  "inputType" : fieldData.selectInput,
-                   	  "commissionDate" :fieldData.commissionDate,
-                   	  "sunsetDate" : fieldData.sunsetDate,
-                   	  "sequenceInGroup" : fieldData.sequenceNo, 
+                   	  "name": fieldData[i].name,
+                   	  "labelName" : fieldData[i].lableName,
+                   	  "inputType" : fieldData[i].selectInput,
+                   	  "commissionDate" :fieldData[i].commissionDate,
+                   	  "sunsetDate" : fieldData[i].sunsetDate,
+                   	  "sequenceInGroup" : fieldData[i].sequenceNo, 
                    	  "minLength" :144,
                    	  "maxLength" : 122,
-                   	  "mandatoryValue" : fieldData.isMandatory,
-                   	  "defaultValue" : fieldData.defaultValue
+                   	  "mandatoryValue" : fieldData[i].isMandatory,
+                   	  "defaultValue" : fieldData[i].defaultValue
         		}
         	}
         		
@@ -190,15 +190,11 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var getFormDetails = function(input) {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/product",
-                method: 'POST',
+                url: "http://localhost:8080/zeus/feild/"+input.selectCategory+"/"+input.selectProduct,
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                data: { 
-                    "categoryId": input.selectCategory,
-                    "productId": input.selectProduct
-                  },
+                }
             }
             $http(req).then(function(data) {
                 if (data.statusText == 'OK') {
