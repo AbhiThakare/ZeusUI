@@ -104,7 +104,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
         	var formFieldbean = [];
         	for(var i=0; i < fieldData.length; i++){
         		formFieldbean[i] = {
-        			  "groupId": fieldData.groupName,
+        			  "groupId": fieldData.groupId,
                    	  "productId" : categoryData.selectProduct,
                    	  "categoryId" : categoryData.selectCategory,
                    	  "name": fieldData.name,
