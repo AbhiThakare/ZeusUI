@@ -36,8 +36,7 @@ angular.module('starter')
 	  }
 })
 
-.controller('ProductDesignController', function($scope, ProductService,CategoryService) {
-	$scope.data = [];
+.controller('ProductDesignController', function($scope, ProductService, CategoryService) {
 	CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
 	 	$scope.categoryOptions = allCategoryResponse.data;
 	}, function(err) {
@@ -57,18 +56,47 @@ angular.module('starter')
 	    $scope.inputs.splice(index,1);
 	}
 	$scope.saveProductTemplate = function(data){
-		$scope.data.push({ 
-            category: data.selectCategory,
-            product: data.selectProduct,
-            group: data.group,
-            inputtype: data.selectInput
-          });
-		console.log(data);
+		
+		console.log(inputs);
 	}
 	
 })
 
-.controller('ProductViewController', function($scope) {
+.controller('groupController', function($scope, CategoryService) {
+	$scope.successMessage = false;
+	$scope.errorMessage = false;
+	$scope.addGroup = function(data){
+	  CategoryService.addGroup(data).then(function(gruopResponse) {
+		  $scope.successMessage = true;
+		  $scope.errorMessage = false;
+		  $scope.data = {};
+	  	}, function(err) {
+	  	  $scope.successMessage = false;
+	  	  $scope.errorMessage = true;
+	  	  console.log('not saved');
+	  	});
+	}
+})
+
+.controller('ProductViewController', function($scope, ProductService, CategoryService) {
+	CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
+	 	$scope.categoryOptions = allCategoryResponse.data;
+	}, function(err) {
+		console.log('not saved');
+	});
+	ProductService.fetchAllProducts().then(function(allProductResponse) {
+	 	$scope.productOptions = allProductResponse.data;
+	}, function(err) {
+		console.log('not saved');
+	});
+	$scope.getFormView = function(input){
+		console.log(input);
+		ProductService.getFormDetails(input).then(function(formViewResponse) {
+			$scope.entit = formViewResponse.data;
+		}, function(err) {
+			console.log('not saved');
+		});
+	}
 	$scope.entity={
 	   formName:"catgoryform",
        fields:[

@@ -16,8 +16,32 @@ angular.module('starter').service('CategoryService', function($q, $http) {
                 }
             }
             $http(req).then(function(data) {
-                console.log(data);
                 if (data.data.status == 'SUCCESS') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var addGroup = function(userData) {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: "http://localhost:8080/zeus/group",
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: { 
+                    "name": userData.name,
+                    "labelName" : userData.displayname,
+                    "orderOfDisplay" : userData.orderingDis
+                  },
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
                     resolve(data);
                 } else {
                     reject('Update Expertise Failed!');
@@ -37,7 +61,6 @@ angular.module('starter').service('CategoryService', function($q, $http) {
                 }
             }
             $http(req).then(function(data) {
-                console.log(data);
                 if (data.statusText == 'OK') {
                     resolve(data);
                 } else {
@@ -50,7 +73,8 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     };
     return {
       createCategory: createCategory,
-      fetchAllCategory: fetchAllCategory
+      fetchAllCategory: fetchAllCategory,
+      addGroup: addGroup
     };
     
 }).service('ProductService', function($q, $http) {
@@ -71,7 +95,6 @@ angular.module('starter').service('CategoryService', function($q, $http) {
                 }
             }
             $http(req).then(function(data) {
-                console.log(data);
                 if (data.statusText == 'OK') {
                     resolve(data);
                 } else {
@@ -92,7 +115,30 @@ angular.module('starter').service('CategoryService', function($q, $http) {
                 }
             }
             $http(req).then(function(data) {
-                console.log(data);
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var getFormDetails = function(input) {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: "http://localhost:8080/zeus/product",
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: { 
+                    "categoryId": input.selectCategory,
+                    "productId": input.selectProduct
+                  },
+            }
+            $http(req).then(function(data) {
                 if (data.statusText == 'OK') {
                     resolve(data);
                 } else {
@@ -104,8 +150,9 @@ angular.module('starter').service('CategoryService', function($q, $http) {
         });
     };
     return {
-    	createProduct: createProduct,
-    	fetchAllProducts: fetchAllProducts
+    	createProduct: getFormDetails,
+    	fetchAllProducts: fetchAllProducts,
+    	getFormDetails: getFormDetails
     };
     
 });

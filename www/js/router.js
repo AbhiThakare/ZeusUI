@@ -13,6 +13,13 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/tab-product.html',
       controller: 'ProductController'
   })
+   .state('group', {
+      url: '/group',
+      cache: false,
+      templateUrl: 'templates/tab-group.html',
+      controller: 'groupController'
+  })
+
   .state('productDesign', {
     url: '/productDesign',
     cache: false,

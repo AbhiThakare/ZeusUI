@@ -5,16 +5,16 @@
       <div ng-show="errorMessage"class="error">There was some problem creating new product</div>
       <form class="list animated bounceIn " name="productForm" class="css-form" novalidate id="signup-form4" ng-submit="productForm.$valid && addProduct(data)">
          <ion-list id="signup-list5" class=" ">
-           <label class="item item-input " id="signup-input4" name="selectCategory">
-           <span class="input-label">Select Category</span>
-           <select  name="selectCategory" required="" ng-model="data.selectCategory">
-		     <option ng-repeat="option in options" ng-value="option.categoryId">{{option.name}}</option>
-		   </select>
-           </label>
-           <div ng-show="productForm.$submitted || productForm.selectCategory.$touched">
-           <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.selectCategory.$error.required">Please select category.</div>
-           </div>
-           <label class="item item-input " id="signup-input4" name="name">
+            <label class="item item-input " id="signup-input4" name="selectCategory">
+               <span class="input-label">Select Category</span>
+               <select  name="selectCategory" required="" ng-model="data.selectCategory">
+                  <option ng-repeat="option in options" ng-value="option.categoryId">{{option.name}}</option>
+               </select>
+            </label>
+            <div ng-show="productForm.$submitted || productForm.selectCategory.$touched">
+               <div style="color:red;margin:5px;padding:5px;" ng-show="productForm.selectCategory.$error.required">Please select category.</div>
+            </div>
+            <label class="item item-input " id="signup-input4" name="name">
             <span class="input-label">Name</span>
             <input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
             </label>
@@ -46,7 +46,7 @@
          <div class="row">
             <div class="col text-center">
                <button class="button  button  button-calm">
-                 Submit
+               Submit
                </button>
             </div>
          </div>
