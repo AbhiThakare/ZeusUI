@@ -1,8 +1,8 @@
-angular.module('starter').service('CategoryService', function($q, $http) {
+angular.module('starter').service('CategoryService', function($q, $http, URL) {
   var createCategory = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/category",
+                url: URL.url+"category",
                 method: 'POST',
                 data: { 
                   "name": userData.name,
@@ -29,7 +29,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var addGroup = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/feild/group",
+                url: URL.url+"feild/group",
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var fetchAllGroup = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/feild/group",
+                url: URL.url+"feild/group",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var fetchAllCategory = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/category",
+                url: URL.url+"category",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
       fetchAllGroup: fetchAllGroup
     };
     
-}).service('ProductService', function($q, $http) {
+}).service('ProductService', function($q, $http, URL) {
 	var saveProductTemplate = function(categoryData, fieldData) {
         return $q(function(resolve, reject) {
         	var formFieldbean = [];
@@ -121,7 +121,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
         	}
         		
             var req = {
-                url: "http://localhost:8080/zeus/feild",
+                url: URL.url+"feild",
                 method: 'POST',
                 data: formFieldbean,
                 headers: {
@@ -143,7 +143,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var createProduct = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/product",
+                url: URL.url+"product",
                 method: 'POST',
                 data: { 
                   "categoryId": userData.selectCategory,
@@ -170,7 +170,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var fetchAllProducts = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/product",
+                url: URL.url+"product",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -190,7 +190,7 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     var getFormDetails = function(input) {
         return $q(function(resolve, reject) {
             var req = {
-                url: "http://localhost:8080/zeus/feild/"+input.selectCategory+"/"+input.selectProduct,
+                url: URL.url+"feild/"+input.selectCategory+"/"+input.selectProduct,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

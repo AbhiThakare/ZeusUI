@@ -55,11 +55,10 @@
                   </div>
                   </label>
                   
-                 
                   <!-- EMAIL FIELDS -->
                   <label ng-if="field.inputType=='email'"  class="item item-input " id="signup-input4" name="name">
                   <span class="input-label">{{field.labelName}}</span>
-                  <input type="{{ field.type }}" placeholder="Please enter {{field.labelName}}" required=""  name="name" ng-model="data.name">
+                  <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="name" ng-model="data.name">
                   </label>
                   
                   
