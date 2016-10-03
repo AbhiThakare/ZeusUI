@@ -23,7 +23,7 @@
                   <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
                </div>
                <button ng-click="addInput()" class="button icon ion-plus"></button>
-               <fieldset  data-ng-repeat="input in inputs">
+               <div  data-ng-repeat="input in inputs">
                   <label class="item item-input " id="signup-input4" name="selectProduct">
                   <span class="input-label">Enter Group</span>
                   <input type="text" ng-model="input.group" name="groupName" placeholder="Enter Group name">
@@ -37,11 +37,11 @@
                   <label class="item item-input "  id="signup-input4" name="selectInput">
                      <span class="input-label">Select Input Type</span>
                      <select name="selectInput" ng-model="input.selectInput" >
-                        <option>Text</option>
-                        <option>Radio</option>
-                        <option>Checkbox</option>
-                        <option>Email</option>
-                        <option>Password</option>
+                        <option value="text">Text</option>
+                        <option value="radio">Radio</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="email">Email</option>
+                        <option value="password">Password</option>
                      </select>
                   </label>
                   <label class="item item-input " id="signup-input4" name="lableName">
@@ -60,8 +60,19 @@
                   <span class="input-label">Sunset date</span>
                   <input type="text" ng-model="input.sunsetDate" name="sunsetDate" placeholder="Enter Sunset date">
                   </label>
+                  <label class="item item-input " id="signup-input4" name="isMandatory">
+                  <span class="input-label">Is mandatory</span>
+                  <select name="isMandatory" ng-model="input.isMandatory" >
+                     <option value='yes'> Yes </option>
+                     <option value="no"> No </option>
+                  </select>
+                  </label>
+                  <label class="item item-input " id="signup-input4" name="defaultValue">
+                  <span class="input-label">Default value</span>
+                  <input type="text" ng-model="input.defaultValue" name="sunsetDate" placeholder="Enter dafault value">
+                  </label>
                   <button class="remove" ng-click="removeInput($index)">-</button>
-               </fieldset>
+               </div>
             </ion-list>
             <div class="row" style="margin-bottom: 68%;">
                <div class="col text-center">

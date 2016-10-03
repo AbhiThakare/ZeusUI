@@ -78,7 +78,35 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     };
     
 }).service('ProductService', function($q, $http) {
-  var createProduct = function(userData) {
+	var saveProductTemplate = function(categoryData, fieldData) {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: "http://localhost:8080/zeus/product",
+                method: 'POST',
+                data: { 
+                  "categoryId": categoryData.selectCategory,
+                  "name": fieldData.name,
+                  "displayName" : fieldData.displayname,
+                  "commissionDate" : fieldData.commissionDate,
+                  "sunsetDate" : fieldData.sunsetDate
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+	
+    var createProduct = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
                 url: "http://localhost:8080/zeus/product",
@@ -152,7 +180,8 @@ angular.module('starter').service('CategoryService', function($q, $http) {
     return {
     	createProduct: getFormDetails,
     	fetchAllProducts: fetchAllProducts,
-    	getFormDetails: getFormDetails
+    	getFormDetails: getFormDetails,
+    	saveProductTemplate: saveProductTemplate
     };
     
 });

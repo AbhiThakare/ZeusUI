@@ -50,14 +50,18 @@ angular.module('starter')
 	$scope.inputs = [];
 
 	$scope.addInput = function(){
-	    $scope.inputs.push({field:'', value:''});
+	    $scope.inputs.push({});
 	}
 	$scope.removeInput = function(index){
 	    $scope.inputs.splice(index,1);
 	}
 	$scope.saveProductTemplate = function(data){
-		
-		console.log(inputs);
+		ProductService.saveProductTemplate(data, $scope.inputs).then(function(templateSaveResponse) {
+		 	$scope.productOptions = templateSaveResponse.data;
+		}, function(err) {
+			console.log('not saved');
+		});
+		console.log($scope.inputs);
 	}
 	
 })
