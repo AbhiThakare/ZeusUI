@@ -1,17 +1,7 @@
 angular.module('starter').config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     // Each tab has its own nav history stack:
-        .state('category', {
-        url: '/category',
-        cache: false,
-        templateUrl: 'templates/tab-category.html',
-        controller: 'CategoryController'
-    }).state('product', {
-        url: '/product',
-        cache: false,
-        templateUrl: 'templates/tab-product.html',
-        controller: 'ProductController'
-    }).state('group', {
+    .state('group', {
         url: '/group',
         cache: false,
         templateUrl: 'templates/tab-group.html',
@@ -28,5 +18,5 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider) {
         controller: 'ProductViewController'
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/category');
+    $urlRouterProvider.otherwise('/productDesign');
 });

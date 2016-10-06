@@ -16,6 +16,16 @@
         <script src="js/services.js"></script>
         <script src="js/router.js"></script>
         <script src="js/constants.js"></script>
+        <script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">My Modal title</h1>
+    </ion-header-bar>
+    <ion-content>
+      Hello!
+    </ion-content>
+  </ion-modal-view>
+	</script>
     </head>
     <body scroll="true" ng-app="starter">
         <header  class="header-two-bars sidepadding">
@@ -29,8 +39,6 @@
                 <div class="header-limiter">
                     <h2><a href="#"><img class="title-image" widht="250" height="40" src="img/barclays.png" /></a></h2>
                     <nav>
-                        <a href="#/category"><i class="fa fa-comments-o"></i> Category</a>
-                        <a href="#/product"><i class="fa fa-comments-o"></i> Product</a>
                         <a href="#/group"><i class="fa fa-comments-o"></i> Group</a>
                         <a href="#/productDesign"><i class="fa fa-file-text"></i> Product Form Design</a>
                         <a href="#/viewProduct"><i class="fa fa-group"></i> View Product</a>

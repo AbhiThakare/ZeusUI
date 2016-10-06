@@ -1,58 +1,76 @@
-angular.module('starter').controller('CategoryController', function($scope, CategoryService) {
+angular.module('starter')
+.controller('ProductDesignController', function($scope, $ionicModal, ProductService, CategoryService) {
     $scope.successMessage = false;
     $scope.errorMessage = false;
-    $scope.addCategory = function(data) {
-        CategoryService.createCategory(data).then(function(categoryResponse) {
-            $scope.successMessage = true;
-            $scope.errorMessage = false;
-            $scope.data = {};
-        }, function(err) {
-            $scope.successMessage = false;
-            $scope.errorMessage = true;
-            console.log('not saved');
-        });
-    }
-}).controller('ProductController', function($scope, ProductService, CategoryService) {
-    $scope.successMessage = false;
-    $scope.errorMessage = false;
-    CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
-        $scope.options = allCategoryResponse.data;
-    }, function(err) {
-        console.log('not saved');
+    $scope.ProductSuccessMessage = false;
+    $scope.ProductErrorMessage = false;
+    $scope.CategorySuccessMessage = false;
+    $scope.CategoryErrorMessage = false;
+    $ionicModal.fromTemplateUrl('templates/tab-product.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.productModal = modal;
     });
-    $scope.addProduct = function(data) {
-        ProductService.createProduct(data).then(function(productResponse) {
-            $scope.successMessage = true;
-            $scope.errorMessage = false;
-        }, function(err) {
-            $scope.successMessage = false;
-            $scope.errorMessage = true;
-            console.log('not saved');
-        });
-    }
-}).controller('ProductDesignController', function($scope, ProductService, CategoryService) {
-    $scope.successMessage = false;
-    $scope.errorMessage = false;
+    $ionicModal.fromTemplateUrl('templates/tab-category.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.categoryModal = modal;
+    });
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
         $scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
-        console.log('not saved');
+        console.log('Problem in loading all categories');
     });
     ProductService.fetchAllProducts().then(function(allProductResponse) {
         $scope.productOptions = allProductResponse.data;
     }, function(err) {
-        console.log('not saved');
+        console.log('Problem in loading all products');
     });
     CategoryService.fetchAllGroup().then(function(allGroupResponse) {
         $scope.groups = allGroupResponse.data;
     }, function(err) {
-        console.log('not saved');
+        console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
         }, function(err) {
-            console.log('not saved');
+            console.log('Problem in loading all fields');
+        });
+    }
+    $scope.addNewProduct = function() {
+        $scope.productModal.show();
+    }
+    $scope.closeProuctModal = function() {
+        $scope.productModal.hide();
+    }
+    $scope.addNewCategory = function() {
+        $scope.categoryModal.show();
+    }
+    $scope.closeCategoryModal = function() {
+        $scope.categoryModal.hide();
+    }
+    $scope.addProduct = function(data) {
+        ProductService.createProduct(data).then(function(productResponse) {
+            $scope.ProductSuccessMessage = true;
+            $scope.ProductErrorMessage = false;
+        }, function(err) {
+            $scope.ProductSuccessMessage = false;
+            $scope.ProductErrorMessage = true;
+            console.log('There was some Probmem in add products');
+        });
+    }
+    $scope.addCategory = function(data) {
+        CategoryService.createCategory(data).then(function(categoryResponse) {
+            $scope.CategorySuccessMessage = true;
+            $scope.CategoryErrorMessage = false;
+            $scope.data = {};
+        }, function(err) {
+            $scope.CategorySuccessMessage = false;
+            $scope.CategoryErrorMessage = true;
+            console.log('There was some problem in add category');
         });
     }
     $scope.inputs = [];
@@ -70,9 +88,8 @@ angular.module('starter').controller('CategoryController', function($scope, Cate
         }, function(err) {
             $scope.successMessage = false;
             $scope.errorMessage = true;
-            console.log('not saved');
+            console.log('There was some problem in save product template');
         });
-        console.log($scope.inputs);
     }
 }).controller('groupController', function($scope, CategoryService) {
     $scope.successMessage = false;
