@@ -29,7 +29,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var addGroup = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "feild/group",
+                url: URL.url + "field/group",
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var fetchAllGroup = function() {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "feild/group",
+                url: URL.url + "field/group",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                 }
             }
             var req = {
-                url: URL.url + "feild",
+                url: URL.url + "field",
                 method: 'POST',
                 data: formFieldbean,
                 headers: {
@@ -187,7 +187,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var getFormDetails = function(input) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "feild/" + input.selectCategory + "/" + input.selectProduct,
+                url: URL.url + "field/" + input.selectCategory + "/" + input.selectProduct,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
