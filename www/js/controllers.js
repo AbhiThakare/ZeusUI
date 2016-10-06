@@ -6,6 +6,8 @@ angular.module('starter')
     $scope.ProductErrorMessage = false;
     $scope.CategorySuccessMessage = false;
     $scope.CategoryErrorMessage = false;
+    $scope.groups = [];
+    $scope.inputs = [];
     $ionicModal.fromTemplateUrl('templates/tab-product.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -29,16 +31,107 @@ angular.module('starter')
         console.log('Problem in loading all products');
     });
     CategoryService.fetchAllGroup().then(function(allGroupResponse) {
-        $scope.groups = allGroupResponse.data;
+        $scope.fieldGroups = allGroupResponse.data;
     }, function(err) {
         console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
-        ProductService.getFormDetails(input).then(function(formViewResponse) {
-            $scope.entity = formViewResponse.data;
-        }, function(err) {
-            console.log('Problem in loading all fields');
-        });
+    	 $scope.entity = [
+    	  {
+    	    "feildId": 6,
+    	    "groupId": 1,
+    	    "groupName": "Personal Details",
+    	    "productId": 2,
+    	    "categoryId": 2,
+    	    "name": "firstname",
+    	    "labelName": "First Name",
+    	    "inputType": "text",
+    	    "commissionDate": "2016-01-22",
+    	    "sunsetDate": "0207-01-22",
+    	    "sequenceInGroup": 1,
+    	    "minLength": 144,
+    	    "maxLength": 122,
+    	    "mandatoryValue": "yes",
+    	    "defaultValue": "Abhinav"
+    	  },
+    	  {
+    	    "feildId": 7,
+    	    "groupId": 1,
+    	    "groupName": "Personal Details",
+    	    "productId": 2,
+    	    "categoryId": 2,
+    	    "name": "lastName",
+    	    "labelName": "Last Name",
+    	    "inputType": "text",
+    	    "commissionDate": "2016-01-22",
+    	    "sunsetDate": "0207-01-22",
+    	    "sequenceInGroup": 2,
+    	    "minLength": 144,
+    	    "maxLength": 122,
+    	    "mandatoryValue": "yes",
+    	    "defaultValue": "Thakare"
+    	  },
+    	  {
+    	    "feildId": 7,
+    	    "groupId": 2,
+    	    "groupName": "Account Details",
+    	    "productId": 2,
+    	    "categoryId": 2,
+    	    "name": "sortCode",
+    	    "labelName": "Sort Code",
+    	    "inputType": "text",
+    	    "commissionDate": "2016-01-22",
+    	    "sunsetDate": "0207-01-22",
+    	    "sequenceInGroup": 2,
+    	    "minLength": 144,
+    	    "maxLength": 122,
+    	    "mandatoryValue": "yes",
+    	    "defaultValue": "0000"
+    	  },
+    	  {
+    	    "feildId": 7,
+    	    "groupId": 2,
+    	    "groupName": "Account Details",
+    	    "productId": 2,
+    	    "categoryId": 2,
+    	    "name": "accountNumber",
+    	    "labelName": "Account Number",
+    	    "inputType": "text",
+    	    "commissionDate": "2016-01-22",
+    	    "sunsetDate": "0207-01-22",
+    	    "sequenceInGroup": 2,
+    	    "minLength": 144,
+    	    "maxLength": 122,
+    	    "mandatoryValue": "yes",
+    	    "defaultValue": "0000"
+    	  }
+    	];
+    	 $scope.entity.items = [
+       	 {
+       		"groupId": 1,
+        	"groupName": "Personal Details",
+       	 },
+       	 {
+    		"groupId": 2,
+     	    "groupName": "Account Details",
+    	 },
+       	];
+    	 for (var i=0; i< $scope.entity.items.length; i++) {
+    	      $scope.groups[i] = {
+    	        name: $scope.entity.items[i].groupName,
+    	        items: []
+    	      };
+    	      for (var j=0; j<$scope.entity.length; j++) {
+    	    	  if($scope.entity[j].groupId == $scope.entity.items[i].groupId){
+    	    		  $scope.groups[i].items.push(i + '-' + j);
+    	    	  }
+    	      }
+    	    }
+//        ProductService.getFormDetails(input).then(function(formViewResponse) {
+//            $scope.entity = formViewResponse.data;
+//        }, function(err) {
+//            console.log('Problem in loading all fields');
+//        });
     }
     $scope.addNewProduct = function() {
         $scope.productModal.show();
@@ -73,7 +166,6 @@ angular.module('starter')
             console.log('There was some problem in add category');
         });
     }
-    $scope.inputs = [];
     $scope.addInput = function() {
         $scope.inputs.push({});
     }
@@ -91,6 +183,17 @@ angular.module('starter')
             console.log('There was some problem in save product template');
         });
     }
+    $scope.toggleGroup = function(group) {
+      if ($scope.isGroupShown(group)) {
+        $scope.shownGroup = null;
+      } else {
+        $scope.shownGroup = group;
+      }
+    };
+    $scope.isGroupShown = function(group) {
+      return $scope.shownGroup === group;
+    };
+    
 }).controller('groupController', function($scope, CategoryService) {
     $scope.successMessage = false;
     $scope.errorMessage = false;
