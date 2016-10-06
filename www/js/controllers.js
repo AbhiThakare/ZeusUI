@@ -36,76 +36,87 @@ angular.module('starter')
         console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
-    	 $scope.entity = [
-    	  {
-    	    "feildId": 6,
-    	    "groupId": 1,
-    	    "groupName": "Personal Details",
-    	    "productId": 2,
-    	    "categoryId": 2,
-    	    "name": "firstname",
-    	    "labelName": "First Name",
-    	    "inputType": "text",
-    	    "commissionDate": "2016-01-22",
-    	    "sunsetDate": "0207-01-22",
-    	    "sequenceInGroup": 1,
-    	    "minLength": 144,
-    	    "maxLength": 122,
-    	    "mandatoryValue": "yes",
-    	    "defaultValue": "Abhinav"
-    	  },
-    	  {
-    	    "feildId": 7,
-    	    "groupId": 1,
-    	    "groupName": "Personal Details",
-    	    "productId": 2,
-    	    "categoryId": 2,
-    	    "name": "lastName",
-    	    "labelName": "Last Name",
-    	    "inputType": "text",
-    	    "commissionDate": "2016-01-22",
-    	    "sunsetDate": "0207-01-22",
-    	    "sequenceInGroup": 2,
-    	    "minLength": 144,
-    	    "maxLength": 122,
-    	    "mandatoryValue": "yes",
-    	    "defaultValue": "Thakare"
-    	  },
-    	  {
-    	    "feildId": 7,
-    	    "groupId": 2,
-    	    "groupName": "Account Details",
-    	    "productId": 2,
-    	    "categoryId": 2,
-    	    "name": "sortCode",
-    	    "labelName": "Sort Code",
-    	    "inputType": "text",
-    	    "commissionDate": "2016-01-22",
-    	    "sunsetDate": "0207-01-22",
-    	    "sequenceInGroup": 2,
-    	    "minLength": 144,
-    	    "maxLength": 122,
-    	    "mandatoryValue": "yes",
-    	    "defaultValue": "0000"
-    	  },
-    	  {
-    	    "feildId": 7,
-    	    "groupId": 2,
-    	    "groupName": "Account Details",
-    	    "productId": 2,
-    	    "categoryId": 2,
-    	    "name": "accountNumber",
-    	    "labelName": "Account Number",
-    	    "inputType": "text",
-    	    "commissionDate": "2016-01-22",
-    	    "sunsetDate": "0207-01-22",
-    	    "sequenceInGroup": 2,
-    	    "minLength": 144,
-    	    "maxLength": 122,
-    	    "mandatoryValue": "yes",
-    	    "defaultValue": "0000"
-    	  }
-    	];
+    	ProductService.getFormDetails(input).then(function(formViewResponse) {
+    		$scope.entity.items = formViewResponse.data;
+	      }, function(err) {
+	          console.log('Problem in loading all fields');
+	      });
+    	CategoryService.fetchAllGroup().then(function(allGroupResponse) {
+	          $scope.entity = allGroupResponse.data;
+	      }, function(err) {
+	          console.log('Problem in loading all fields');
+	      });
+  	
+//    	 $scope.entity = [
+//    	  {
+//    	    "feildId": 6,
+//    	    "groupId": 1,
+//    	    "groupName": "Personal Details",
+//    	    "productId": 2,
+//    	    "categoryId": 2,
+//    	    "name": "firstname",
+//    	    "labelName": "First Name",
+//    	    "inputType": "text",
+//    	    "commissionDate": "2016-01-22",
+//    	    "sunsetDate": "0207-01-22",
+//    	    "sequenceInGroup": 1,
+//    	    "minLength": 144,
+//    	    "maxLength": 122,
+//    	    "mandatoryValue": "yes",
+//    	    "defaultValue": "Abhinav"
+//    	  },
+//    	  {
+//    	    "feildId": 7,
+//    	    "groupId": 1,
+//    	    "groupName": "Personal Details",
+//    	    "productId": 2,
+//    	    "categoryId": 2,
+//    	    "name": "lastName",
+//    	    "labelName": "Last Name",
+//    	    "inputType": "text",
+//    	    "commissionDate": "2016-01-22",
+//    	    "sunsetDate": "0207-01-22",
+//    	    "sequenceInGroup": 2,
+//    	    "minLength": 144,
+//    	    "maxLength": 122,
+//    	    "mandatoryValue": "yes",
+//    	    "defaultValue": "Thakare"
+//    	  },
+//    	  {
+//    	    "feildId": 7,
+//    	    "groupId": 2,
+//    	    "groupName": "Account Details",
+//    	    "productId": 2,
+//    	    "categoryId": 2,
+//    	    "name": "sortCode",
+//    	    "labelName": "Sort Code",
+//    	    "inputType": "text",
+//    	    "commissionDate": "2016-01-22",
+//    	    "sunsetDate": "0207-01-22",
+//    	    "sequenceInGroup": 2,
+//    	    "minLength": 144,
+//    	    "maxLength": 122,
+//    	    "mandatoryValue": "yes",
+//    	    "defaultValue": "0000"
+//    	  },
+//    	  {
+//    	    "feildId": 7,
+//    	    "groupId": 2,
+//    	    "groupName": "Account Details",
+//    	    "productId": 2,
+//    	    "categoryId": 2,
+//    	    "name": "accountNumber",
+//    	    "labelName": "Account Number",
+//    	    "inputType": "text",
+//    	    "commissionDate": "2016-01-22",
+//    	    "sunsetDate": "0207-01-22",
+//    	    "sequenceInGroup": 2,
+//    	    "minLength": 144,
+//    	    "maxLength": 122,
+//    	    "mandatoryValue": "yes",
+//    	    "defaultValue": "0000"
+//    	  }
+//    	];
     	 $scope.entity.items = [
        	 {
        		"groupId": 1,
@@ -123,15 +134,10 @@ angular.module('starter')
     	      };
     	      for (var j=0; j<$scope.entity.length; j++) {
     	    	  if($scope.entity[j].groupId == $scope.entity.items[i].groupId){
-    	    		  $scope.groups[i].items.push(i + '-' + j);
+    	    		  $scope.groups[i].items.push($scope.entity[j]);
     	    	  }
     	      }
     	    }
-//        ProductService.getFormDetails(input).then(function(formViewResponse) {
-//            $scope.entity = formViewResponse.data;
-//        }, function(err) {
-//            console.log('Problem in loading all fields');
-//        });
     }
     $scope.addNewProduct = function() {
         $scope.productModal.show();
