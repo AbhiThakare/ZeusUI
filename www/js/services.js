@@ -105,7 +105,6 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                 formFieldbean[i] = {
                     "groupId": fieldData[i].groupId,
                     "productId": categoryData.selectProduct,
-                    "categoryId": categoryData.selectCategory,
                     "name": fieldData[i].name,
                     "labelName": fieldData[i].lableName,
                     "inputType": fieldData[i].selectInput,
@@ -114,7 +113,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                     "sequenceInGroup": fieldData[i].sequenceNo,
                     "minLength": 144,
                     "maxLength": 122,
-                    "mandatoryValue": fieldData[i].isMandatory,
+                    "isMandatory": fieldData[i].isMandatory,
                     "defaultValue": fieldData[i].defaultValue
                 }
             }
@@ -147,7 +146,8 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                     "name": userData.name,
                     "displayName": userData.displayname,
                     "commissionDate": userData.commissionDate,
-                    "sunsetDate": userData.sunsetDate
+                    "sunsetDate": userData.sunsetDate,
+                    "saveAsTemplate": "Yes"
                 },
                 headers: {
                     'Content-Type': 'application/json'

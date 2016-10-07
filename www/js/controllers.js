@@ -43,6 +43,17 @@ angular.module('starter')
 	      });
     	CategoryService.fetchAllGroup().then(function(allGroupResponse) {
 	          $scope.entity = allGroupResponse.data;
+	          for (var i=0; i< $scope.entity.length; i++) {
+	    	      $scope.groups[i] = {
+	    	        name: $scope.entity[i].groupName,
+	    	        items: []
+	    	      };
+	    	      for (var j=0; j<$scope.entity.length; j++) {
+	    	    	  if($scope.entity[j].groupId == $scope.entity.items[i].groupId){
+	    	    		  $scope.groups[i].items.push($scope.entity[j]);
+	    	    	  }
+	    	      }
+	    	    }
 	      }, function(err) {
 	          console.log('Problem in loading all fields');
 	      });
@@ -117,27 +128,16 @@ angular.module('starter')
 //    	    "defaultValue": "0000"
 //    	  }
 //    	];
-    	 $scope.entity.items = [
-       	 {
-       		"groupId": 1,
-        	"groupName": "Personal Details",
-       	 },
-       	 {
-    		"groupId": 2,
-     	    "groupName": "Account Details",
-    	 },
-       	];
-    	 for (var i=0; i< $scope.entity.items.length; i++) {
-    	      $scope.groups[i] = {
-    	        name: $scope.entity.items[i].groupName,
-    	        items: []
-    	      };
-    	      for (var j=0; j<$scope.entity.length; j++) {
-    	    	  if($scope.entity[j].groupId == $scope.entity.items[i].groupId){
-    	    		  $scope.groups[i].items.push($scope.entity[j]);
-    	    	  }
-    	      }
-    	    }
+//    	 $scope.entity.items = [
+//       	 {
+//       		"groupId": 1,
+//        	"groupName": "Personal Details",
+//       	 },
+//       	 {
+//    		"groupId": 2,
+//     	    "groupName": "Account Details",
+//    	 },
+//       	];
     }
     $scope.addNewProduct = function() {
         $scope.productModal.show();
