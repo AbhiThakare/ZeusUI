@@ -1,13 +1,15 @@
 angular.module('starter')
-.controller('ProductDesignController', function($scope, $ionicModal, ProductService, CategoryService) {
+.controller('ProductDesignController', function($scope, $ionicModal, ProductService, CategoryService, FieldService) {
     $scope.successMessage = false;
     $scope.errorMessage = false;
     $scope.ProductSuccessMessage = false;
     $scope.ProductErrorMessage = false;
     $scope.CategorySuccessMessage = false;
     $scope.CategoryErrorMessage = false;
+    $scope.fieldErrorMessage = false;
     $scope.groups = [];
     $scope.inputs = [];
+    $scope.selection = [];
     $ionicModal.fromTemplateUrl('templates/tab-product.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -19,6 +21,12 @@ angular.module('starter')
         animation: 'slide-in-up'
     }).then(function(modal) {
         $scope.categoryModal = modal;
+    });
+    $ionicModal.fromTemplateUrl('templates/tab-fieldSearch.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.fieldModal = modal;
     });
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
         $scope.categoryOptions = allCategoryResponse.data;
@@ -36,108 +44,12 @@ angular.module('starter')
         console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
-    	ProductService.getFormDetails(input).then(function(formViewResponse) {
-    		$scope.entity.items = formViewResponse.data;
-	      }, function(err) {
-	          console.log('Problem in loading all fields');
-	      });
-    	CategoryService.fetchAllGroup().then(function(allGroupResponse) {
-	          $scope.entity = allGroupResponse.data;
-	          for (var i=0; i< $scope.entity.length; i++) {
-	    	      $scope.groups[i] = {
-	    	        name: $scope.entity[i].groupName,
-	    	        items: []
-	    	      };
-	    	      for (var j=0; j<$scope.entity.length; j++) {
-	    	    	  if($scope.entity[j].groupId == $scope.entity.items[i].groupId){
-	    	    		  $scope.groups[i].items.push($scope.entity[j]);
-	    	    	  }
-	    	      }
-	    	    }
-	      }, function(err) {
-	          console.log('Problem in loading all fields');
-	      });
-  	
-//    	 $scope.entity = [
-//    	  {
-//    	    "feildId": 6,
-//    	    "groupId": 1,
-//    	    "groupName": "Personal Details",
-//    	    "productId": 2,
-//    	    "categoryId": 2,
-//    	    "name": "firstname",
-//    	    "labelName": "First Name",
-//    	    "inputType": "text",
-//    	    "commissionDate": "2016-01-22",
-//    	    "sunsetDate": "0207-01-22",
-//    	    "sequenceInGroup": 1,
-//    	    "minLength": 144,
-//    	    "maxLength": 122,
-//    	    "mandatoryValue": "yes",
-//    	    "defaultValue": "Abhinav"
-//    	  },
-//    	  {
-//    	    "feildId": 7,
-//    	    "groupId": 1,
-//    	    "groupName": "Personal Details",
-//    	    "productId": 2,
-//    	    "categoryId": 2,
-//    	    "name": "lastName",
-//    	    "labelName": "Last Name",
-//    	    "inputType": "text",
-//    	    "commissionDate": "2016-01-22",
-//    	    "sunsetDate": "0207-01-22",
-//    	    "sequenceInGroup": 2,
-//    	    "minLength": 144,
-//    	    "maxLength": 122,
-//    	    "mandatoryValue": "yes",
-//    	    "defaultValue": "Thakare"
-//    	  },
-//    	  {
-//    	    "feildId": 7,
-//    	    "groupId": 2,
-//    	    "groupName": "Account Details",
-//    	    "productId": 2,
-//    	    "categoryId": 2,
-//    	    "name": "sortCode",
-//    	    "labelName": "Sort Code",
-//    	    "inputType": "text",
-//    	    "commissionDate": "2016-01-22",
-//    	    "sunsetDate": "0207-01-22",
-//    	    "sequenceInGroup": 2,
-//    	    "minLength": 144,
-//    	    "maxLength": 122,
-//    	    "mandatoryValue": "yes",
-//    	    "defaultValue": "0000"
-//    	  },
-//    	  {
-//    	    "feildId": 7,
-//    	    "groupId": 2,
-//    	    "groupName": "Account Details",
-//    	    "productId": 2,
-//    	    "categoryId": 2,
-//    	    "name": "accountNumber",
-//    	    "labelName": "Account Number",
-//    	    "inputType": "text",
-//    	    "commissionDate": "2016-01-22",
-//    	    "sunsetDate": "0207-01-22",
-//    	    "sequenceInGroup": 2,
-//    	    "minLength": 144,
-//    	    "maxLength": 122,
-//    	    "mandatoryValue": "yes",
-//    	    "defaultValue": "0000"
-//    	  }
-//    	];
-//    	 $scope.entity.items = [
-//       	 {
-//       		"groupId": 1,
-//        	"groupName": "Personal Details",
-//       	 },
-//       	 {
-//    		"groupId": 2,
-//     	    "groupName": "Account Details",
-//    	 },
-//       	];
+	ProductService.getFormDetails(input).then(function(formViewResponse) {
+		$scope.entity = formViewResponse.data;
+      }, function(err) {
+          console.log('Problem in loading all fields');
+      });
+	
     }
     $scope.addNewProduct = function() {
         $scope.productModal.show();
@@ -150,6 +62,18 @@ angular.module('starter')
     }
     $scope.closeCategoryModal = function() {
         $scope.categoryModal.hide();
+    }
+    $scope.addNewField = function(productId) {
+    	$scope.productId = productId;
+    	FieldService.getAllField().then(function(allFieldResponse) {
+            $scope.allFields = allFieldResponse.data;
+            $scope.fieldModal.show();
+        }, function(err) {
+            console.log('There was some problem in add category');
+        });
+    }
+    $scope.closeFieldModal = function() {
+        $scope.fieldModal.hide();
     }
     $scope.addProduct = function(data) {
         ProductService.createProduct(data).then(function(productResponse) {
@@ -172,11 +96,39 @@ angular.module('starter')
             console.log('There was some problem in add category');
         });
     }
-    $scope.addInput = function() {
-        $scope.inputs.push({});
+    $scope.search = function(data) {
+    	$scope.selection = [];
+    	FieldService.getAllField(data).then(function(fieldResponse) {
+            $scope.allFields = fieldResponse.data;
+        }, function(err) {
+            console.log('There was some problem in add category');
+        });
     }
-    $scope.removeInput = function(index) {
-        $scope.inputs.splice(index, 1);
+    $scope.toggleSelection = function toggleSelection(option) {
+        var idx = $scope.selection.indexOf(option);
+        if (idx > -1) {
+          $scope.selection.splice(idx, 1);
+        }
+        else {
+          $scope.selection.push(option);
+        }
+      };
+    $scope.addField = function() {
+    	var productId = $scope.productId;
+    	var selectedFields = $scope.selection;
+    	FieldService.addField(productId, selectedFields).then(function(fieldResponse) {
+            $scope.allFields = fieldResponse.data;
+            $scope.closeFieldModal();
+            $scope.selection = [];
+            FieldService.getSelectedFields(productId).then(function(selectedFieldResponse) {
+                $scope.seletedFields = selectedFieldResponse.data;
+            }, function(err) {
+                console.log('There was some problem in add category');
+            });
+        }, function(err) {
+        	$scope.fieldErrorMessage = true;
+            console.log('There was some problem in add category');
+        });
     }
     $scope.saveProductTemplate = function(data) {
         ProductService.saveProductTemplate(data, $scope.inputs).then(function(templateSaveResponse) {

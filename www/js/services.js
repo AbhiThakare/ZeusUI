@@ -97,6 +97,100 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
         addGroup: addGroup,
         fetchAllGroup: fetchAllGroup
     };
+}).service('FieldService', function($q, $http, URL) {
+	var getAllField = function(data) {
+	    if(data == undefined){
+	    	data = {}
+	    }else{
+	    	data = {
+				"name": data.fieldName,
+				"description": data.fieldDesc
+	    	}
+	    }
+        return $q(function(resolve, reject) {
+            var req = {
+                url: URL.url + "field/master",
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data :data
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var addField = function(productId, SelectedFields) {
+        return $q(function(resolve, reject) {
+        	var formFieldbean = [];
+            for (var i = 0; i < SelectedFields.length; i++) {
+                formFieldbean[i] = {
+                    "productId": productId,
+                    "name": SelectedFields[i].name,
+                    "labelName": SelectedFields[i].label,
+                    "fieldMasterId" :SelectedFields[i].fieldMasterId
+                }
+            }
+            var req = {
+                url: URL.url + "field",
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data :formFieldbean
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var getSelectedFields = function(productId) {
+        return $q(function(resolve, reject) {
+        	var formFieldbean = [];
+            for (var i = 0; i < SelectedFields.length; i++) {
+                formFieldbean[i] = {
+                    "productId": productId,
+                    "name": SelectedFields[i].name,
+                    "labelName": SelectedFields[i].label,
+                    "fieldMasterId" :SelectedFields[i].fieldMasterId
+                }
+            }
+            var req = {
+                url: URL.url + "field/product/"+productId,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    return {
+    	getAllField: getAllField,
+    	addField: addField,
+    	getSelectedFields: getSelectedFields
+    };
 }).service('ProductService', function($q, $http, URL) {
     var saveProductTemplate = function(categoryData, fieldData) {
         return $q(function(resolve, reject) {
@@ -187,7 +281,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var getFormDetails = function(input) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "field/" + input.selectCategory + "/" + input.selectProduct,
+                url: URL.url + "field/product/" + input.selectProduct,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

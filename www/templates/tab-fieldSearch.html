@@ -1,0 +1,43 @@
+<ion-modal-view>
+   <ion-header-bar>
+      <h1 class="title">Search for field</h1>
+      <button class=" button-icon ion-close-circled assertive flat" ng-click="closeFieldModal()"></button>
+   </ion-header-bar>
+   <ion-view  style="" class="" id="page17" title="">
+      <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
+       <div ng-show="fieldErrorMessage"class="error">There was some problem creating new product</div>
+       <h4 id="signup-heading2" style="color:#000000;font-weight:400;text-align:left;" class=" ">Search Field Criteria</h4>
+       <form class="list animated bounceIn " name="fieldSearchForm" class="css-form" novalidate id="signup-form4">
+            <div class="row responsive-sm">
+               <div class="col">
+                  <span class="input-label">Field Name</span>
+               </div>
+               <div class="col">
+                  <input type="text" name="fieldName" ng-model="data.fieldName"  placeholder="Enter name">
+               </div>
+            </div>
+            <div class="row responsive-sm">
+               <div class="col">
+                  <span class="input-label">Field Description </span>
+               </div>
+               <div class="col">
+               		<input type="text" name="fieldDesc" ng-model="data.fieldDesc"  placeholder="Enter name">
+               </div>
+            </div>
+            <div class="col text-center">
+               <button ng-click="search(data)" class="button  button  button-calm">
+               Search
+               </button>
+            </div>
+         	<label ng-repeat="oprion in allFields">
+			  <input type="checkbox" name="selectedFruits[]"  value="{{oprion.name}}" ng-checked="selection.indexOf(oprion.name) > -1" ng-click="toggleSelection(oprion)"> {{oprion.name}}<br>
+			</label>
+            <div class="col text-center">
+               <button ng-click="addField()" class="button  button  button-calm">
+               Add Field
+               </button>
+            </div>
+        </form>
+      </ion-content>
+   </ion-view>
+</ion-modal-view>

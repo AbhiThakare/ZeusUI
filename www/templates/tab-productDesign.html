@@ -86,11 +86,11 @@
 	                     <span class="input-label">{{field.label}}</span>
 	                     <div class="col-sm-6">
 	                        <div class="checkbox" ng-repeat="option in field.options" >
-	                  <label>
-	                  <input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
-	                  </label>
-	                  </div>
-	                  </div>
+			                  	<label>
+			                  		<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
+		                  		</label>
+	                  		</div>
+	                  	</div>
 	                  <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
 	                     <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
 	                  </div>
@@ -109,105 +109,12 @@
                   </ion-item>
                </div>
             </ion-list>
-            <h4 ng-show="entity" id="signup-heading2" style="color:#000000;font-weight:400;" class=" ">Existing Fields </h4>
-            <div ng-repeat="field in entity">
-               
-            </div>
+            <label ng-repeat="oprion in entity">
+			  {{oprion.name}}<br>
+			</label>
             <div style="height: 10px;" class="spacer"></div>
-            <button class=" button-icon ion-plus flat balanced"  ng-click="addInput()">  Add new Field </button>
+            <button class=" button-icon ion-plus flat balanced"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
             <div style="height: 10px;" class="spacer"></div>
-            <div  data-ng-repeat="input in inputs">
-               <ng-form name="innerForm">
-                  <label class="item item-input " id="signup-input4" name="selectProduct">
-                  <button class="button-icon ion-close-circled assertive flat"  ng-click="removeInput($index)"></button>
-                  </label>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Name</span>
-                     </div>
-                     <div class="col col-60">
-                        <input type="text" ng-model="input.name" name="Name" placeholder="Enter name">
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Select Form Group</span>
-                     </div>
-                     <div class="col col-60">
-                        <select name="groupName" ng-model="input.groupId" >
-                           <option ng-repeat="group in fieldGroups" ng-value="group.groupId">{{group.name}}</option>
-                        </select>
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Select Input Type</span>
-                     </div>
-                     <div class="col col-60">
-                        <select name="selectInput" ng-model="input.selectInput" >
-                           <option value="text">Text</option>
-                           <option value="radio">Radio</option>
-                           <option value="checkbox">Checkbox</option>
-                           <option value="email">Email</option>
-                           <option value="password">Password</option>
-                           <option value="textarea">Textarea</option>
-                        </select>
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Label Name</span>
-                     </div>
-                     <div class="col col-60">
-                        <input type="text" ng-model="input.lableName" name="lableName" placeholder="Enter Label name">
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Sequence in Group</span>
-                     </div>
-                     <div class="col col-60">
-                        <input type="text" ng-model="input.sequenceNo" name="sequenceNo" placeholder="Enter sequence number">
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Commission date</span>
-                     </div>
-                     <div class="col col-60">
-                        <input type="text" ng-model="input.commissionDate" name="commissionDate" placeholder="Enter Commission date">
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Sunset date</span>
-                     </div>
-                     <div class="col col-60">
-                        <input type="text" ng-model="input.sunsetDate" name="sunsetDate" placeholder="Enter Sunset date">
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Is mandatory</span>
-                     </div>
-                     <div class="col col-60">
-                        <select name="isMandatory" ng-model="input.isMandatory" >
-                           <option value='yes'> Yes </option>
-                           <option value="no"> No </option>
-                        </select>
-                     </div>
-                  </div>
-                  <div class="row responsive-sm">
-                     <div class="col col-30">
-                        <span class="input-label">Default value</span>
-                     </div>
-                     <div class="col col-60">
-                        <input type="text" ng-model="input.defaultValue" name="sunsetDate" placeholder="Enter dafault value">
-                     </div>
-                  </div>
-               </ng-form>
-               <div style="height: 40px;" class="spacer"></div>
-            </div>
             <div class="row" style="margin-bottom: 68%;">
                <div class="col text-center">
                   <button ng-click="productDesignForm.$valid && saveProductTemplate(input)" class="button  button  button-calm">
