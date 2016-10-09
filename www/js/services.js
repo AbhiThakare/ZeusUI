@@ -159,18 +159,29 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     };
     var getSelectedFields = function(productId) {
         return $q(function(resolve, reject) {
-        	var formFieldbean = [];
-            for (var i = 0; i < SelectedFields.length; i++) {
-                formFieldbean[i] = {
-                    "productId": productId,
-                    "name": SelectedFields[i].name,
-                    "labelName": SelectedFields[i].label,
-                    "fieldMasterId" :SelectedFields[i].fieldMasterId
-                }
-            }
             var req = {
                 url: URL.url + "field/product/"+productId,
-                method: 'POST',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var getFieldDetails = function(fieldId){
+    	return $q(function(resolve, reject) {
+            var req = {
+                url: URL.url + "field/"+fieldId,
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -189,7 +200,8 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     return {
     	getAllField: getAllField,
     	addField: addField,
-    	getSelectedFields: getSelectedFields
+    	getSelectedFields: getSelectedFields,
+    	getFieldDetails: getFieldDetails
     };
 }).service('ProductService', function($q, $http, URL) {
     var saveProductTemplate = function(categoryData, fieldData) {

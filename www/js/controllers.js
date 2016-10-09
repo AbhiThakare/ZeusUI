@@ -10,6 +10,22 @@ angular.module('starter')
     $scope.groups = [];
     $scope.inputs = [];
     $scope.selection = [];
+    $scope.myDate = new Date();
+
+    $scope.minDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth() - 2,
+        $scope.myDate.getDate());
+
+    $scope.maxDate = new Date(
+        $scope.myDate.getFullYear(),
+        $scope.myDate.getMonth() + 2,
+        $scope.myDate.getDate());
+
+    $scope.onlyWeekendsPredicate = function(date) {
+      var day = date.getDay();
+      return day === 0 || day === 6;
+    };
     $ionicModal.fromTemplateUrl('templates/tab-product.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -27,6 +43,12 @@ angular.module('starter')
         animation: 'slide-in-up'
     }).then(function(modal) {
         $scope.fieldModal = modal;
+    });
+    $ionicModal.fromTemplateUrl('templates/tab-editField.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.editFieldModal = modal;
     });
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
         $scope.categoryOptions = allCategoryResponse.data;
@@ -49,7 +71,6 @@ angular.module('starter')
       }, function(err) {
           console.log('Problem in loading all fields');
       });
-	
     }
     $scope.addNewProduct = function() {
         $scope.productModal.show();
@@ -63,6 +84,12 @@ angular.module('starter')
     $scope.closeCategoryModal = function() {
         $scope.categoryModal.hide();
     }
+    $scope.closeFieldModal = function() {
+        $scope.fieldModal.hide();
+    }
+    $scope.closeEditFieldModal = function() {
+        $scope.editFieldModal.hide();
+    }
     $scope.addNewField = function(productId) {
     	$scope.productId = productId;
     	FieldService.getAllField().then(function(allFieldResponse) {
@@ -71,9 +98,6 @@ angular.module('starter')
         }, function(err) {
             console.log('There was some problem in add category');
         });
-    }
-    $scope.closeFieldModal = function() {
-        $scope.fieldModal.hide();
     }
     $scope.addProduct = function(data) {
         ProductService.createProduct(data).then(function(productResponse) {
@@ -129,6 +153,23 @@ angular.module('starter')
         	$scope.fieldErrorMessage = true;
             console.log('There was some problem in add category');
         });
+    }
+    $scope.editField = function(fieldId){
+    	FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
+            $scope.fieldDetails = fieldResponse.data;
+            $scope.editFieldModal.show();
+        }, function(err) {
+            console.log('There was some problem in add category');
+        });
+    }
+    $scope.updateFields = function(data){
+    	console.log(data);
+//    	FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
+//            $scope.fieldDetails = fieldResponse.data;
+//            $scope.editFieldModal.show();
+//        }, function(err) {
+//            console.log('There was some problem in add category');
+//        });
     }
     $scope.saveProductTemplate = function(data) {
         ProductService.saveProductTemplate(data, $scope.inputs).then(function(templateSaveResponse) {

@@ -109,12 +109,13 @@
                   </ion-item>
                </div>
             </ion-list>
-            <label ng-repeat="oprion in entity">
-			  {{oprion.name}}<br>
-			</label>
             <div style="height: 10px;" class="spacer"></div>
             <button class=" button-icon ion-plus flat balanced"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
             <div style="height: 10px;" class="spacer"></div>
+            <div  class="row responsive-sm" ng-repeat="option in entity">
+			  &nbsp;&nbsp;{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button><br>
+			</div>
+			<div style="height: 10px;" class="spacer"></div>
             <div class="row" style="margin-bottom: 68%;">
                <div class="col text-center">
                   <button ng-click="productDesignForm.$valid && saveProductTemplate(input)" class="button  button  button-calm">
