@@ -10,22 +10,7 @@ angular.module('starter')
     $scope.groups = [];
     $scope.inputs = [];
     $scope.selection = [];
-    $scope.myDate = new Date();
-
-    $scope.minDate = new Date(
-        $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth() - 2,
-        $scope.myDate.getDate());
-
-    $scope.maxDate = new Date(
-        $scope.myDate.getFullYear(),
-        $scope.myDate.getMonth() + 2,
-        $scope.myDate.getDate());
-
-    $scope.onlyWeekendsPredicate = function(date) {
-      var day = date.getDay();
-      return day === 0 || day === 6;
-    };
+ 
     $ionicModal.fromTemplateUrl('templates/tab-product.html', {
         scope: $scope,
         animation: 'slide-in-up'

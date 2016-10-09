@@ -47,7 +47,7 @@
                      <span class="input-label">Commission Date</span>
                   </div>
                   <div class="col">
-                     <input type="text" required=""  name="commissionDate" ng-model="data.commissionDate" placeholder="Enter commision date">
+                     <label><input type="date" required=""  name="commissionDate" ng-model="data.commissionDate" placeholder="Enter commision date"></label>
                   </div>
                </div>
                <div ng-show="catgoryform.$submitted || catgoryform.commissionDate.$touched">
@@ -58,7 +58,7 @@
                      <span class="input-label">Sunset Date</span>
                   </div>
                   <div class="col">
-                     <input type="text" required=""  name="sunsetDate" ng-model="data.sunsetDate" placeholder="Enter sunset date">
+                     <label><input type="date" required=""  name="sunsetDate" ng-model="data.sunsetDate" placeholder="Enter sunset date"></label>
                   </div>
                </div>
                <div ng-show="catgoryform.$submitted || catgoryform.sunsetDate.$touched">
