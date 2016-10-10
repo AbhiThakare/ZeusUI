@@ -1,5 +1,4 @@
-angular.module('starter')
-.controller('ProductDesignController', function($scope, $ionicModal, ProductService, CategoryService, FieldService) {
+angular.module('starter').controller('ProductDesignController', function($scope, $ionicModal, $state, $filter, ProductService, CategoryService, FieldService) {
     $scope.successMessage = false;
     $scope.errorMessage = false;
     $scope.ProductSuccessMessage = false;
@@ -10,7 +9,6 @@ angular.module('starter')
     $scope.groups = [];
     $scope.inputs = [];
     $scope.selection = [];
- 
     $ionicModal.fromTemplateUrl('templates/tab-product.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -51,11 +49,12 @@ angular.module('starter')
         console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
-	ProductService.getFormDetails(input).then(function(formViewResponse) {
-		$scope.entity = formViewResponse.data;
-      }, function(err) {
-          console.log('Problem in loading all fields');
-      });
+        $scope.groups = $scope.fieldGroups
+        ProductService.getFormDetails(input).then(function(formViewResponse) {
+            $scope.entity = formViewResponse.data;
+        }, function(err) {
+            console.log('Problem in loading all fields');
+        });
     }
     $scope.addNewProduct = function() {
         $scope.productModal.show();
@@ -76,8 +75,8 @@ angular.module('starter')
         $scope.editFieldModal.hide();
     }
     $scope.addNewField = function(productId) {
-    	$scope.productId = productId;
-    	FieldService.getAllField().then(function(allFieldResponse) {
+        $scope.productId = productId;
+        FieldService.getAllField(undefined, productId).then(function(allFieldResponse) {
             $scope.allFields = allFieldResponse.data;
             $scope.fieldModal.show();
         }, function(err) {
@@ -88,6 +87,9 @@ angular.module('starter')
         ProductService.createProduct(data).then(function(productResponse) {
             $scope.ProductSuccessMessage = true;
             $scope.ProductErrorMessage = false;
+            $state.go('productDesign', {}, {
+                reload: true
+            });
         }, function(err) {
             $scope.ProductSuccessMessage = false;
             $scope.ProductErrorMessage = true;
@@ -99,6 +101,9 @@ angular.module('starter')
             $scope.CategorySuccessMessage = true;
             $scope.CategoryErrorMessage = false;
             $scope.data = {};
+            $state.go('productDesign', {}, {
+                reload: true
+            });
         }, function(err) {
             $scope.CategorySuccessMessage = false;
             $scope.CategoryErrorMessage = true;
@@ -106,8 +111,8 @@ angular.module('starter')
         });
     }
     $scope.search = function(data) {
-    	$scope.selection = [];
-    	FieldService.getAllField(data).then(function(fieldResponse) {
+        $scope.selection = [];
+        FieldService.getAllField(data, $scope.productId).then(function(fieldResponse) {
             $scope.allFields = fieldResponse.data;
         }, function(err) {
             console.log('There was some problem in add category');
@@ -116,16 +121,15 @@ angular.module('starter')
     $scope.toggleSelection = function toggleSelection(option) {
         var idx = $scope.selection.indexOf(option);
         if (idx > -1) {
-          $scope.selection.splice(idx, 1);
+            $scope.selection.splice(idx, 1);
+        } else {
+            $scope.selection.push(option);
         }
-        else {
-          $scope.selection.push(option);
-        }
-      };
+    };
     $scope.addField = function() {
-    	var productId = $scope.productId;
-    	var selectedFields = $scope.selection;
-    	FieldService.addField(productId, selectedFields).then(function(fieldResponse) {
+        var productId = $scope.productId;
+        var selectedFields = $scope.selection;
+        FieldService.addField(productId, selectedFields).then(function(fieldResponse) {
             $scope.allFields = fieldResponse.data;
             $scope.closeFieldModal();
             $scope.selection = [];
@@ -135,26 +139,34 @@ angular.module('starter')
                 console.log('There was some problem in add category');
             });
         }, function(err) {
-        	$scope.fieldErrorMessage = true;
+            $scope.fieldErrorMessage = true;
             console.log('There was some problem in add category');
         });
     }
-    $scope.editField = function(fieldId){
-    	FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
+    $scope.editField = function(fieldId) {
+        FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
             $scope.fieldDetails = fieldResponse.data;
+            $scope.fieldDetails.commissionDate = $filter('date')(fieldResponse.data.commissionDate, 'MM/dd/yyyy')
+            CategoryService.fetchAllGroup().then(function(allGroupsResponse) {
+                $scope.fieldGroups = allGroupsResponse.data;
+            }, function(err) {
+                console.log('There was some problem in add category');
+            });
             $scope.editFieldModal.show();
         }, function(err) {
             console.log('There was some problem in add category');
         });
     }
-    $scope.updateFields = function(data){
-    	console.log(data);
-//    	FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
-//            $scope.fieldDetails = fieldResponse.data;
-//            $scope.editFieldModal.show();
-//        }, function(err) {
-//            console.log('There was some problem in add category');
-//        });
+    $scope.updateFields = function(data) {
+        FieldService.updateFields(data).then(function(updateFieldResponse) {
+            $scope.fieldDetails = updateFieldResponse.data;
+            $scope.editFieldModal.hide();
+            $state.go('productDesign', {}, {
+                reload: true
+            });
+        }, function(err) {
+            console.log('There was some problem in add category');
+        });
     }
     $scope.saveProductTemplate = function(data) {
         ProductService.saveProductTemplate(data, $scope.inputs).then(function(templateSaveResponse) {
@@ -168,16 +180,15 @@ angular.module('starter')
         });
     }
     $scope.toggleGroup = function(group) {
-      if ($scope.isGroupShown(group)) {
-        $scope.shownGroup = null;
-      } else {
-        $scope.shownGroup = group;
-      }
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
     };
     $scope.isGroupShown = function(group) {
-      return $scope.shownGroup === group;
+        return $scope.shownGroup === group;
     };
-    
 }).controller('groupController', function($scope, CategoryService) {
     $scope.successMessage = false;
     $scope.errorMessage = false;
@@ -203,24 +214,27 @@ angular.module('starter')
     }, function(err) {
         console.log('not saved');
     });
-    $scope.getFormView = function(input) {
-            ProductService.getFormDetails(input).then(function(formViewResponse) {
-                $scope.entity = formViewResponse.data;
-            }, function(err) {
-                console.log('not saved');
-            });
+    CategoryService.fetchAllGroup().then(function(allGroupResponse) {
+        $scope.fieldGroups = allGroupResponse.data;
+    }, function(err) {
+        console.log('Problem in loading all groups ');
+    });
+    $scope.toggleGroup = function(group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
         }
-        //	$scope.entity={
-        //	   formName:"catgoryform",
-        //       fields:[
-        //         {type:"text",name:"firstname",label:"FirstName",required:!0,data:""},
-        //         {type:"text",name:"midlename",label:"MidleName",required:!0,data:""},
-        //         {type:"text",name:"Lasttname",label:"LastName",required:!0,data:""},
-        //         {type:"textarea",name:"Address",label:"Address",required:!0,data:""},
-        //         {type:"email",name:"emailUser",label:"Email",required:!0,data:""},{type:"text",name:"city",label:"City",required:!0,data:""},
-        //         {type:"password",name:"pass",label:"Password",min:6,max:20,required:!0,data:""},
-        //		   {type:"radio",name:"color_id",label:"Colors",options:[{id:1,name:"orange"},{id:2,name:"pink"},{id:3,name:"gray"},{id:4,name:"cyan"}],required:!0,data:""},
-        //         {type:"select",name:"teacher_id",label:"Teacher",options:[{name:"Mark"},{name:"Claire"},{name:"Daniel"},{name:"Gary"}],required:!0,data:"",value:"Mark"},
-        //         {type:"checkbox",name:"car_id",label:"Cars",options:[{id:1,name:"bmw"},{id:2,name:"audi"},{id:3,name:"porche"},{id:4,name:"jaguar"}],required:!0,data:""}
-        //       ]};
+    };
+    $scope.isGroupShown = function(group) {
+        return $scope.shownGroup === group;
+    };
+    $scope.getFormView = function(input) {
+        $scope.groups = $scope.fieldGroups
+        ProductService.getFormDetails(input).then(function(formViewResponse) {
+            $scope.entity = formViewResponse.data;
+        }, function(err) {
+            console.log('Problem in loading all fields');
+        });
+    }
 });

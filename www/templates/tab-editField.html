@@ -1,133 +1,128 @@
 <ion-modal-view>
-   <ion-header-bar>
-      <h1 class="title">Modify Field</h1>
-      <button class="button icon icon-left button-icon ion-close-circled assertive flat" ng-click="closeEditFieldModal()"></button>
-   </ion-header-bar>
-   <ion-view  style="" class="" id="page17" title="">
-      <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-         <div ng-show="fieldErrorMessage"class="error">There was some problem updating Fields</div>
-         <form class="list animated bounceIn " name="updateFieldForm" class="css-form" novalidate id="signup-form4" ng-submit="updateFieldForm.$valid && updateFields(fieldDetails)">
-            <ion-list id="signup-list5" class=" ">
-               <div class="row responsive-sm">
-                  <div class="col">
-                     <span class="input-label">Field Name</span>
-                  </div>
-                  <div class="col">
-                     <input type="text" placeholder="" value="fieldDetails.name" required=""  name="name" ng-model="fieldDetails.name">
-                  </div>
-               </div>
-               <div ng-show="updateFieldForm.$submitted || updateFieldForm.name.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.name.$error.required">Please enter field name.</div>
-               </div>
-               <div class="row responsive-sm">
-                  <div class="col">
-                     <span class="input-label">label</span>
-                  </div>
-                  <div class="col">
-                     <input type="text" required=""  name="displayname" ng-model="fieldDetails.labelName" placeholder="">
-                  </div>
-               </div>
-               <div ng-show="updateFieldForm.$submitted || updateFieldForm.displayname.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.displayname.$error.required">Please enter label name.</div>
-               </div>
-               <div class="row responsive-sm">
-				 <div class="col">
-					<span class="input-label">Input Type</span>
-				 </div>
-				 <div class="col">
-					<select name="selectInput" required="" ng-model="fieldDetails.selectInput" >
-					   <option value="text">Text</option>
-					   <option value="radio">Radio</option>
-					   <option value="checkbox">Checkbox</option>
-					   <option value="email">Email</option>
-					   <option value="password">Password</option>
-					   <option value="textarea">Textarea</option>
-					</select>
-				 </div>
-			   </div>
-			   <div ng-show="updateFieldForm.$submitted || updateFieldForm.selectInput.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.selectInput.$error.required">Please select input type.</div>
-               </div>
-               <div class="row responsive-sm">
-				 <div class="col">
-					<span class="input-label">Group</span>
-				 </div>
-				 <div class="col">
-					<select name="selectGroup" required="" ng-model="fieldDetails.selectGroup" >
-					   <option value="text">Text</option>
-					   <option value="radio">Radio</option>
-					   <option value="checkbox">Checkbox</option>
-					   <option value="email">Email</option>
-					   <option value="password">Password</option>
-					   <option value="textarea">Textarea</option>
-					</select>
-				 </div>
-			   </div>
-			   <div ng-show="updateFieldForm.$submitted || updateFieldForm.selectGroup.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.selectGroup.$error.required">Please select group.</div>
-               </div>
-               <div class="row responsive-sm">
-                  <div class="col">
-                     <span class="input-label">Sequence in Group</span>
-                  </div>
-                  <div class="col">
-                     <input type="text" required=""  name="orderingDis" ng-model="fieldDetails.orderingDis" placeholder="Enter sequence order">
-                  </div>
-               </div>
-               <div ng-show="updateFieldForm.$submitted || updateFieldForm.orderingDis.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.orderingDis.$error.required">Please enter Ordering sequence.</div>
-               </div>
-               <div class="row responsive-sm">
-                  <div class="col">
-                     <span class="input-label">Commission Date</span>
-                  </div>
-                  <div class="col">
-                     <label><input type="date" required=""  name="commissionDate" ng-model="fieldDetails.commissionDate" placeholder="Enter commision date"></label>
-                  </div>
-               </div>
-               <div ng-show="updateFieldForm.$submitted || updateFieldForm.commissionDate.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.commissionDate.$error.required">Please enter Commission date.</div>
-               </div>
-               <div class="row responsive-sm">
-                  <div class="col">
-                     <span class="input-label">Sunset Date</span>
-                  </div>
-                  <div class="col">
-                     <label><input type="date" required=""  name="sunsetDate" ng-model="fieldDetails.sunsetDate" placeholder="Enter sunset date"></label>
-                  </div>
-               </div>
-               <div ng-show="updateFieldForm.$submitted || updateFieldForm.sunsetDate.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sunsetDate.$error.required">Please enter Sunset date.</div>
-               </div>
-               <div class="row responsive-sm">
-                  <div class="col">
-                     <span class="input-label">Is Mandatory</span>
-                  </div>
-                  <div class="col">
-                     <input type="radio" class="radio" name="isMandatory" selected = "selected" ng-checked="true" ng-model="fieldDetails.ismandatory"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
-                     <input type="radio" class="radio" name="isMandatory" ng-checked="false" ng-model="fieldDetails.ismandatory">&nbsp;&nbsp;No
-                  </div>
-               </div>
-               <div class="row responsive-sm">
-					 <div class="col">
-						<span class="input-label">Default value</span>
-					 </div>
-					 <div class="col">
-						<input type="text" required="" ng-model="fieldDetails.defaultValue" name="defaultValue" placeholder="Enter dafault value">
-					 </div>
-			    </div>
-			    <div ng-show="updateFieldForm.$submitted || updateFieldForm.defaultValue.$touched">
-                  <div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.defaultValue.$error.required">Please enter default value.</div>
-               </div>
-            </ion-list>
-            <div class="row">
-               <div class="col text-center">
-                  <button class="button  button  button-calm">
-                  Update
-                  </button>
-               </div>
-            </div>
-         </form>
-      </ion-content>
-   </ion-view>
+	<ion-header-bar>
+		<h1 class="title">Modify Field</h1>
+		<button class="button icon icon-left button-icon ion-close-circled assertive flat" ng-click="closeEditFieldModal()"></button>
+	</ion-header-bar>
+	<ion-view  style="" class="" id="page17" title="">
+		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
+			<div ng-show="fieldErrorMessage"class="error">There was some problem updating Fields</div>
+			<form class="list animated bounceIn " name="updateFieldForm" class="css-form" novalidate id="signup-form4" ng-submit="updateFieldForm.$valid && updateFields(fieldDetails)">
+				<ion-list id="signup-list5" class=" ">
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Field Name</span>
+						</div>
+						<div class="col">
+							<input type="text" placeholder="" value="fieldDetails.name" required=""  name="name" ng-model="fieldDetails.name">
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.name.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.name.$error.required">Please enter field name.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">label</span>
+						</div>
+						<div class="col">
+							<input type="text" required=""  name="displayname" ng-model="fieldDetails.labelName" placeholder="">
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.displayname.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.displayname.$error.required">Please enter label name.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Input Type</span>
+						</div>
+						<div class="col">
+							<select name="inputType" required="" ng-model="fieldDetails.inputType" >
+								<option ng-selected = "{{fieldDetails.inputType == text}}" value="text">Text</option>
+								<option ng-selected = "{{fieldDetails.inputType == radio}}" value="radio">Radio</option>
+								<option ng-selected = "{{fieldDetails.inputType == checkbox}}" value="checkbox">Checkbox</option>
+								<option ng-selected = "{{fieldDetails.inputType == email}}" value="email">Email</option>
+								<option ng-selected = "{{fieldDetails.inputType == password}}" value="password">Password</option>
+								<option ng-selected = "{{fieldDetails.inputType == textarea}}" value="textarea">Textarea</option>
+							</select>
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.inputType.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.inputType.$error.required">Please select input type.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Group</span>
+						</div>
+						<div class="col">
+							<select  name="groupId" required="" ng-model="fieldDetails.groupId">
+								<option ng-repeat="option in fieldGroups" ng-selected ="{{fieldDetails.groupId == option.groupId}}"  ng-value="option.groupId">{{option.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.groupId.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.groupId.$error.required">Please select group.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Sequence in Group</span>
+						</div>
+						<div class="col">
+							<input type="text" required=""  name="sequenceInGroup" ng-model="fieldDetails.sequenceInGroup" placeholder="Enter sequence order">
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.sequenceInGroup.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sequenceInGroup.$error.required">Please enter Ordering sequence.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Commission Date</span>
+						</div>
+						<div class="col">
+							<label><input type="date" required=""  name="commissionDate" ng-model="fieldDetails.commissionDate" value="fieldDetails.commissionDate" placeholder="Enter commision date"></label>
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.commissionDate.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.commissionDate.$error.required">Please enter Commission date.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Sunset Date</span>
+						</div>
+						<div class="col">
+							<label><input type="date" required=""  name="sunsetDate" ng-model="fieldDetails.sunsetDate" value="fieldDetails.sunsetDate" placeholder="Enter sunset date"></label>
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.sunsetDate.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sunsetDate.$error.required">Please enter Sunset date.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Is Mandatory</span>
+						</div>
+						<div class="col">
+							<input type="radio" class="radio" name="mandatory" selected = "selected" ng-checked="true" ng-model="fieldDetails.mandatory"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
+							<input type="radio" class="radio" name="mandatory" ng-checked="false" ng-model="fieldDetails.mandatory">&nbsp;&nbsp;No
+						</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Default value</span>
+						</div>
+						<div class="col">
+							<input type="text" required="" ng-model="fieldDetails.defaultValue" name="defaultValue" placeholder="Enter dafault value">
+						</div>
+					</div>
+					<div ng-show="updateFieldForm.$submitted || updateFieldForm.defaultValue.$touched">
+						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.defaultValue.$error.required">Please enter default value.</div>
+					</div>
+				</ion-list>
+				<div class="row">
+					<div class="col text-center">
+						<button class="button  button  button-calm">
+						Update
+						</button>
+					</div>
+				</div>
+			</form>
+		</ion-content>
+	</ion-view>
 </ion-modal-view>

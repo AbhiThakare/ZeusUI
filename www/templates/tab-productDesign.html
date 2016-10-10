@@ -1,129 +1,130 @@
 <div style="">
-   <ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
-      <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-         <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Add / Edit Product</h2>
-         <div ng-show="successMessage" class="success">Form created successfully </div>
-         <div ng-show="errorMessage"class="error">There was some problem creating new form</div>
-         <form class="list animated bounceIn " name="productDesignForm" class="css-form" novalidate id="signup-form4">
-            <div class="row responsive-sm">
-               <div class="col">
-                  <span class="input-label">Select Category</span>
-               </div>
-               <div class="col">
-                  <select  name="selectCategory" required="" ng-model="input.selectCategory">
-                     <option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
-                  </select>
-                  <button class=" button-icon ion-edit energized flat"  ng-click="editCategory()"> </button>
-                  <button class=" button-icon ion-trash-a assertive flat" ng-click="deleteCategory()"></button>
-                  <button class=" button-icon ion-plus balanced flat" ng-click="addNewCategory()"></button>
-               </div>
-            </div>
-            <div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
-            </div>
-            <div class="row responsive-sm">
-               <div class="col">
-                  <span class="input-label">Select Product</span>
-               </div>
-               <div class="col">
-                  <select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input)">
-                     <option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
-                  </select>
-                  <button class=" button-icon ion-edit energized flat"  ng-click="editProduct()"> </button>
-                  <button class=" button-icon ion-trash-a assertive flat" ng-click="deleteProduct()"></button>
-                  <button class=" button-icon ion-plus balanced flat" ng-click="addNewProduct()"></button>
-               </div>
-            </div>
-            <div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
-               <div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
-            </div>
-            <ion-list>
-               <div ng-repeat="group in groups">
-                  <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
-                     <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
-                     {{group.name}}
-                  </ion-item>
-                  <ion-item class="item-accordion" ng-repeat="field in group.items"ng-show="isGroupShown(group)">
-                  <ng-form name="form">
-	                  <!-- TEXT FIELDS -->
-	                  <label ng-if="field.inputType=='text'"  class="item item-input " id="signup-input4" name="name">
-	                  <span class="input-label">{{field.labelName}}</span>
-	                  <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="name" ng-model="data.name">
-	                  </label>
-	                  <!-- TEXTAREA FIELDS -->
-	                  <label ng-if="field.inputType=='textarea'"  class="item item-input " id="signup-input4" name="name">
-	                  <span class="input-label">{{field.labelName}}</span>
-	                  <textarea ng-model="data.name" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
-	                  </label>
-	                  <!-- RADIO FIELDS -->
-	                  <label ng-if="field.inputType=='radio'" class="form-group " id="signup-input4" name="name">
-	                     <span class="input-label">{{field.labelName}}</span>
-	                     <div class="checkbox" ng-repeat="option in field.options" >
-	                  <label>                
-	                  <input type="{{ field.type}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}">{{option.name}}
-	                  </label>
-	                  </div>
-	                  <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-	                     <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-	                  </div>
-	                  </label>
-	                  <!-- EMAIL FIELDS -->
-	                  <label ng-if="field.inputType=='email'"  class="item item-input " id="signup-input4" name="name">
-	                  <span class="input-label">{{field.labelName}}</span>
-	                  <input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} " required=""  name="{{field.name}}" ng-model="data.name">
-	                  </label>
-	                  <!-- PASSWORD FIELDS -->
-	                  <label ng-if="field.inputType=='password'"  class="item item-input " id="signup-input4" name="name">
-	                     <span class="input-label">{{field.label}}</span>
-	                     <input type="{{ field.type }}" placeholder="Please enter {{field.label}}" required=""  name="name" ng-model="data.name">
-	                     <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-	                        <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-	                        <div style="color:red;margin:5px;padding:5px;" ng-show=" {{'!form.'+field.name+'.required && (form.'+field.name+'.$error.minlength || form.'+field.name+'.$error.maxlength)' }}">Passwords must be between 8 and 20 characters.</div>
-	                     </div>
-	                  </label>
-	                  <!-- CHECKBOX FIELDS -->
-	                  <label ng-if="field.inputType=='checkbox'"  class="form-group " id="signup-input4" name="name">
-	                     <span class="input-label">{{field.label}}</span>
-	                     <div class="col-sm-6">
-	                        <div class="checkbox" ng-repeat="option in field.options" >
-			                  	<label>
-			                  		<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
-		                  		</label>
-	                  		</div>
-	                  	</div>
-	                  <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-	                     <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-	                  </div>
-	                  </label>
-	                  <!-- SELECTBOX FIELDS -->
-	                  <label ng-if="field.inputType=='select'" class="item item-input " id="signup-input4" name="selectCategory">
-	                     <span class="input-label">{{field.label}}</span>
-	                     <select  required="" data-ng-model="field.data">
-	                        <option ng-repeat="option in field.options" ng-value="option.name">{{option.name}}</option>
-	                     </select>
-	                     <div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-	                        <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-	                     </div>
-	                  </label>
-	               </ng-form>
-                  </ion-item>
-               </div>
-            </ion-list>
-            <div style="height: 10px;" class="spacer"></div>
-            <button class=" button-icon ion-plus flat balanced"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
-            <div style="height: 10px;" class="spacer"></div>
-            <div  class="row responsive-sm" ng-repeat="option in entity">
-			  &nbsp;&nbsp;{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button><br>
-			</div>
-			<div style="height: 10px;" class="spacer"></div>
-            <div class="row" style="margin-bottom: 68%;">
-               <div class="col text-center">
-                  <button ng-click="productDesignForm.$valid && saveProductTemplate(input)" class="button  button  button-calm">
-                  Submit
-                  </button>
-               </div>
-            </div>
-         </form>
-      </ion-content>
-   </ion-view>
+	<ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
+		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
+			<h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Add / Edit Product</h2>
+			<div ng-show="successMessage" class="success">Form created successfully </div>
+			<div ng-show="errorMessage"class="error">There was some problem creating new form</div>
+			<form class="list animated bounceIn " name="productDesignForm" class="css-form" novalidate id="signup-form4">
+				<div class="row responsive-sm">
+					<div class="col">
+						<span class="input-label">Select Category</span>
+					</div>
+					<div class="col">
+						<select  name="selectCategory" required="" ng-model="input.selectCategory">
+							<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
+						</select>
+						<button class=" button-icon ion-edit energized flat"  ng-click="editCategory()"> </button>
+						<button class=" button-icon ion-trash-a assertive flat" ng-click="deleteCategory()"></button>
+						<button class=" button-icon ion-plus balanced flat" ng-click="addNewCategory()"></button>
+					</div>
+				</div>
+				<div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
+					<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
+				</div>
+				<div class="row responsive-sm">
+					<div class="col">
+						<span class="input-label">Select Product</span>
+					</div>
+					<div class="col">
+						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input)">
+							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
+						</select>
+						<button class=" button-icon ion-edit energized flat"  ng-click="editProduct()"> </button>
+						<button class=" button-icon ion-trash-a assertive flat" ng-click="deleteProduct()"></button>
+						<button class=" button-icon ion-plus balanced flat" ng-click="addNewProduct()"></button>
+					</div>
+				</div>
+				<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
+					<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
+				</div>
+				<ion-list>
+					<div ng-repeat="group in groups"  >
+						<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+							<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+							{{group.name}}
+						</ion-item>
+						<ion-item class="item-accordion" ng-repeat="field in entity" ng-show="isGroupShown(group) && field.groupId === group.groupId">
+							<ng-form name="form">
+								<!-- TEXT FIELDS -->
+								<div ng-if="field.inputType=='text' || field.inputType=='email' || field.inputType=='password'" class="row responsive-sm">
+									<div class="col">
+										<span class="input-label">{{field.labelName}}</span>
+									</div>
+									<div class="col">
+										<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="data.name"/>
+									</div>
+									<div class="col">
+										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
+									</div>
+								</div>
+								<!-- TEXTAREA FIELDS -->
+								<div ng-if="field.inputType=='textarea'" class="row responsive-sm">
+									<div class="col">
+										<span class="input-label">{{field.labelName}}</span>
+									</div>
+									<div class="col">
+										<textarea ng-model="data.name" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
+									</div>
+									<div class="col">
+										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
+									</div>
+								</div>
+								<!-- RADIO FIELDS -->
+								<!--  <label ng-if="field.inputType=='radio'" class="form-group " id="signup-input4" name="name">
+									<span class="input-label">{{field.labelName}}</span>
+									<div class="checkbox" ng-repeat="option in field.options" >
+									<label>                
+									<input type="{{ field.type}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}">{{option.name}}
+									</label>
+									</div>
+									
+									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+									<div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+									</div>
+									</label> -->
+								<!-- CHECKBOX FIELDS -->
+								<!-- <label ng-if="field.inputType=='checkbox'"  class="form-group " id="signup-input4" name="name">
+									<span class="input-label">{{field.label}}</span>
+									<div class="col-sm-6">
+									   <div class="checkbox" ng-repeat="option in field.options" >
+									<label>
+										<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
+									</label>
+									</div>
+									</div>
+									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+									<div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+									</div>
+									</label> -->
+								<!-- SELECTBOX FIELDS -->
+								<!-- <label ng-if="field.inputType=='select'" class="item item-input " id="signup-input4" name="selectCategory">
+									<span class="input-label">{{field.label}}</span>
+									<select  data-ng-model="field.data">
+									   <option ng-repeat="option in field.options" ng-value="option.name">{{option.name}}</option>
+									</select>
+									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
+									   <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
+									</div>
+									</label> -->
+							</ng-form>
+						</ion-item>
+					</div>
+				</ion-list>
+				<div style="height: 10px;" class="spacer"></div>
+				<button class=" button-icon ion-plus flat balanced"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
+				<div style="height: 10px;" class="spacer"></div>
+				<div  class="row responsive-sm" ng-repeat="option in entity | filter:{groupId: 0}">
+					&nbsp;&nbsp;{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button><br>
+				</div>
+				<div style="height: 10px;" class="spacer"></div>
+				<div class="row" style="margin-bottom: 68%;">
+					<div class="col text-center">
+						<button ng-click="productDesignForm.$valid && saveProductTemplate(input)" class="button  button  button-calm">
+						Submit
+						</button>
+					</div>
+				</div>
+			</form>
+		</ion-content>
+	</ion-view>
 </div>

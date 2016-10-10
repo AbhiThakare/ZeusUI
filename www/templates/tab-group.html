@@ -1,39 +1,39 @@
 <ion-view style="" class=" " hide-nav-bar="true" id="page17" title="Create New Product">
-    <ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-        <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Create New Group</h2>
-        <div ng-show="successMessage" class="success">Group created successfully </div>
-        <div ng-show="errorMessage"class="error">There was some problem creating new group</div>
-        <form class="list animated bounceIn " name="groupForm" class="css-form" novalidate id="signup-form4" ng-submit="groupForm.$valid && addGroup(data)">
-            <ion-list id="signup-list5" class=" ">
-                <label class="item item-input " id="signup-input4" name="name">
-                <span class="input-label">Name</span>
-                <input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
-                </label>
-                <div ng-show="groupForm.$submitted || groupForm.name.$touched">
-                    <div style="color:red;margin:5px;padding:5px;" ng-show="groupForm.name.$error.required">Please enter Name.</div>
-                </div>
-                <label class="item item-input " id="signup-input7">
-                <span class="input-label">Label name</span>
-                <input type="text"  required=""  name="displayname" ng-model="data.displayname" placeholder="Enter label">
-                </label>
-                <div ng-show="groupForm.$submitted || groupForm.displayname.$touched">
-                    <div style="color:red;margin:5px;padding:5px;" ng-show="groupForm.displayname.$error.required">Please enter label name.</div>
-                </div>
-                <label class="item item-input " id="signup-input8" name="orderingDis">
-                <span class="input-label">Display Sequence</span>
-                <input type="text" required=""  name="orderingDis" ng-model="data.orderingDis" placeholder="Enter sequence order">
-                </label>
-                <div ng-show="groupForm.$submitted ||groupForm.orderingDis.$touched">
-                    <div style="color:red;margin:5px;padding:5px;" ng-show="groupForm.orderingDis.$error.required">Please enter sequence order.</div>
-                </div>
-            </ion-list>
-            <div class="row">
-                <div class="col text-center">
-                    <button class="button  button  button-calm">
-                    Submit
-                    </button>
-                </div>
-            </div>
-        </form>
-    </ion-content>
+	<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
+		<h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Create New Group</h2>
+		<div ng-show="successMessage" class="success">Group created successfully </div>
+		<div ng-show="errorMessage"class="error">There was some problem creating new group</div>
+		<form class="list animated bounceIn " name="groupForm" class="css-form" novalidate id="signup-form4" ng-submit="groupForm.$valid && addGroup(data)">
+			<ion-list id="signup-list5" class=" ">
+				<label class="item item-input " id="signup-input4" name="name">
+				<span class="input-label">Name</span>
+				<input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
+				</label>
+				<div ng-show="groupForm.$submitted || groupForm.name.$touched">
+					<div style="color:red;margin:5px;padding:5px;" ng-show="groupForm.name.$error.required">Please enter Name.</div>
+				</div>
+				<label class="item item-input " id="signup-input7">
+				<span class="input-label">Label name</span>
+				<input type="text"  required=""  name="displayname" ng-model="data.displayname" placeholder="Enter label">
+				</label>
+				<div ng-show="groupForm.$submitted || groupForm.displayname.$touched">
+					<div style="color:red;margin:5px;padding:5px;" ng-show="groupForm.displayname.$error.required">Please enter label name.</div>
+				</div>
+				<label class="item item-input " id="signup-input8" name="orderingDis">
+				<span class="input-label">Display Sequence</span>
+				<input type="text" required=""  name="orderingDis" ng-model="data.orderingDis" placeholder="Enter sequence order">
+				</label>
+				<div ng-show="groupForm.$submitted ||groupForm.orderingDis.$touched">
+					<div style="color:red;margin:5px;padding:5px;" ng-show="groupForm.orderingDis.$error.required">Please enter sequence order.</div>
+				</div>
+			</ion-list>
+			<div class="row">
+				<div class="col text-center">
+					<button class="button  button  button-calm">
+					Submit
+					</button>
+				</div>
+			</div>
+		</form>
+	</ion-content>
 </ion-view>

@@ -1,4 +1,4 @@
-angular.module('starter').service('CategoryService', function($q, $http, URL) {
+angular.module('starter').service('CategoryService', function($q, $http, $filter, URL) {
     var createCategory = function(userData) {
         return $q(function(resolve, reject) {
             var req = {
@@ -8,8 +8,8 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                     "name": userData.name,
                     "displayName": userData.displayname,
                     "orderOfDisplay": userData.orderingDis,
-                    "commissionDate": userData.commissionDate,
-                    "sunsetDate": userData.sunsetDate
+                    "commissionDate": $filter('date')(userData.commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(userData.sunsetDate, 'dd/MM/yyyy')
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -97,24 +97,24 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
         addGroup: addGroup,
         fetchAllGroup: fetchAllGroup
     };
-}).service('FieldService', function($q, $http, URL) {
-	var getAllField = function(data) {
-	    if(data == undefined){
-	    	data = {}
-	    }else{
-	    	data = {
-				"name": data.fieldName,
-				"description": data.fieldDesc
-	    	}
-	    }
+}).service('FieldService', function($q, $http, URL, $filter) {
+    var getAllField = function(data, productId) {
+        if (data == undefined) {
+            data = {}
+        } else {
+            data = {
+                "name": data.fieldName,
+                "description": data.fieldDesc
+            }
+        }
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "field/master",
+                url: URL.url + "field/master/" + productId,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data :data
+                data: data
             }
             $http(req).then(function(data) {
                 if (data.statusText == 'OK') {
@@ -129,13 +129,13 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     };
     var addField = function(productId, SelectedFields) {
         return $q(function(resolve, reject) {
-        	var formFieldbean = [];
+            var formFieldbean = [];
             for (var i = 0; i < SelectedFields.length; i++) {
                 formFieldbean[i] = {
                     "productId": productId,
                     "name": SelectedFields[i].name,
                     "labelName": SelectedFields[i].label,
-                    "fieldMasterId" :SelectedFields[i].fieldMasterId
+                    "fieldMasterId": SelectedFields[i].fieldMasterId
                 }
             }
             var req = {
@@ -144,7 +144,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                data :formFieldbean
+                data: formFieldbean
             }
             $http(req).then(function(data) {
                 if (data.statusText == 'OK') {
@@ -160,7 +160,7 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
     var getSelectedFields = function(productId) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "field/product/"+productId,
+                url: URL.url + "field/product/" + productId,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -177,11 +177,47 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
             });
         });
     };
-    var getFieldDetails = function(fieldId){
-    	return $q(function(resolve, reject) {
+    var getFieldDetails = function(fieldId) {
+        return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "field/"+fieldId,
+                url: URL.url + "field/" + fieldId,
                 method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
+    var updateFields = function(data) {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: URL.url + "field/update",
+                method: 'POST',
+                data: {
+                    "fieldId": data.fieldId,
+                    "fieldMasterId": data.fieldMasterId,
+                    "groupId": data.groupId,
+                    "productId": data.productId,
+                    "name": data.name,
+                    "labelName": data.labelName,
+                    "inputType": data.inputType,
+                    "commissionDate": $filter('date')(data.commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(data.sunsetDate, 'dd/MM/yyyy'),
+                    "sequenceInGroup": data.sequenceInGroup,
+                    "minLength": 144,
+                    "maxLength": 122,
+                    "mandatory": data.mandatory,
+                    "defaultValue": data.defaultValue
+                },
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -198,12 +234,13 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
         });
     };
     return {
-    	getAllField: getAllField,
-    	addField: addField,
-    	getSelectedFields: getSelectedFields,
-    	getFieldDetails: getFieldDetails
+        getAllField: getAllField,
+        addField: addField,
+        getSelectedFields: getSelectedFields,
+        getFieldDetails: getFieldDetails,
+        updateFields: updateFields
     };
-}).service('ProductService', function($q, $http, URL) {
+}).service('ProductService', function($q, $http, URL, $filter) {
     var saveProductTemplate = function(categoryData, fieldData) {
         return $q(function(resolve, reject) {
             var formFieldbean = [];
@@ -214,8 +251,8 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                     "name": fieldData[i].name,
                     "labelName": fieldData[i].lableName,
                     "inputType": fieldData[i].selectInput,
-                    "commissionDate": fieldData[i].commissionDate,
-                    "sunsetDate": fieldData[i].sunsetDate,
+                    "commissionDate": $filter('date')(fieldData[i].commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(fieldData[i].sunsetDate, 'dd/MM/yyyy'),
                     "sequenceInGroup": fieldData[i].sequenceNo,
                     "minLength": 144,
                     "maxLength": 122,
@@ -251,8 +288,8 @@ angular.module('starter').service('CategoryService', function($q, $http, URL) {
                     "categoryId": userData.selectCategory,
                     "name": userData.name,
                     "displayName": userData.displayname,
-                    "commissionDate": userData.commissionDate,
-                    "sunsetDate": userData.sunsetDate,
+                    "commissionDate": $filter('date')(userData.commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(userData.sunsetDate, 'dd/MM/yyyy'),
                     "saveAsTemplate": "Yes"
                 },
                 headers: {

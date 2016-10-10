@@ -1,7 +1,7 @@
 angular.module('starter').config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
     // Each tab has its own nav history stack:
-    .state('group', {
+        .state('group', {
         url: '/group',
         cache: false,
         templateUrl: 'templates/tab-group.html',
