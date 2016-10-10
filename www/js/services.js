@@ -197,6 +197,26 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
             });
         });
     };
+    var getGroupByProduct = function(productId){
+    	return $q(function(resolve, reject) {
+            var req = {
+                url: URL.url + "field/group/product/" + productId,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    }
     var updateFields = function(data) {
         return $q(function(resolve, reject) {
             var req = {
@@ -238,7 +258,8 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
         addField: addField,
         getSelectedFields: getSelectedFields,
         getFieldDetails: getFieldDetails,
-        updateFields: updateFields
+        updateFields: updateFields,
+        getGroupByProduct: getGroupByProduct
     };
 }).service('ProductService', function($q, $http, URL, $filter) {
     var saveProductTemplate = function(categoryData, fieldData) {
@@ -347,10 +368,31 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
             });
         });
     };
+    var fetchAsPerType = function(workType,categoryId) {
+        return $q(function(resolve, reject) {
+            var req = {
+                url: URL.url + "product/"+categoryId+"/"+workType,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            $http(req).then(function(data) {
+                if (data.statusText == 'OK') {
+                    resolve(data);
+                } else {
+                    reject('Update Expertise Failed!');
+                }
+            }, function(err) {
+                reject(err);
+            });
+        });
+    };
     return {
         createProduct: createProduct,
         fetchAllProducts: fetchAllProducts,
         getFormDetails: getFormDetails,
-        saveProductTemplate: saveProductTemplate
+        saveProductTemplate: saveProductTemplate,
+        fetchAsPerType: fetchAsPerType
     };
 });

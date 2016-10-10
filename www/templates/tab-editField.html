@@ -77,7 +77,7 @@
 							<span class="input-label">Commission Date</span>
 						</div>
 						<div class="col">
-							<label><input type="date" required=""  name="commissionDate" ng-model="fieldDetails.commissionDate" value="fieldDetails.commissionDate" placeholder="Enter commision date"></label>
+							<label><input type="date"  value="{{fieldDetails.commissionDate}}" required=""  name="commissionDate" ng-model="fieldDetails.commissionDate"></label>
 						</div>
 					</div>
 					<div ng-show="updateFieldForm.$submitted || updateFieldForm.commissionDate.$touched">
@@ -88,7 +88,7 @@
 							<span class="input-label">Sunset Date</span>
 						</div>
 						<div class="col">
-							<label><input type="date" required=""  name="sunsetDate" ng-model="fieldDetails.sunsetDate" value="fieldDetails.sunsetDate" placeholder="Enter sunset date"></label>
+							<label><input type="date" required="" value="{{fieldDetails.sunsetDate}}" name="sunsetDate" ng-model="fieldDetails.sunsetDate"></label>
 						</div>
 					</div>
 					<div ng-show="updateFieldForm.$submitted || updateFieldForm.sunsetDate.$touched">
@@ -99,8 +99,8 @@
 							<span class="input-label">Is Mandatory</span>
 						</div>
 						<div class="col">
-							<input type="radio" class="radio" name="mandatory" selected = "selected" ng-checked="true" ng-model="fieldDetails.mandatory"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
-							<input type="radio" class="radio" name="mandatory" ng-checked="false" ng-model="fieldDetails.mandatory">&nbsp;&nbsp;No
+							<input type="radio" class="radio" name="mandatory" ng-model="fieldDetails.mandatory" ng-value="'yes'"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
+							<input type="radio" class="radio" name="mandatory" ng-model="fieldDetails.mandatory" ng-value="'no'">&nbsp;&nbsp;No
 						</div>
 					</div>
 					<div class="row responsive-sm">

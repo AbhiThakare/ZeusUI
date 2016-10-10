@@ -49,9 +49,13 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
-        $scope.groups = $scope.fieldGroups
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
+            FieldService.getGroupByProduct(input.selectProduct).then(function(groupByProductResponse) {
+                $scope.groups = groupByProductResponse.data;
+            }, function(err) {
+                console.log('Problem in loading all fields');
+            });
         }, function(err) {
             console.log('Problem in loading all fields');
         });
@@ -95,6 +99,14 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             $scope.ProductErrorMessage = true;
             console.log('There was some Probmem in add products');
         });
+    }
+    $scope.newValue = function(workType, categoryId) {
+    	 ProductService.fetchAsPerType(workType, categoryId).then(function(productTemplateResponse) {
+    		 $scope.productOptions = productTemplateResponse.data;
+         }, function(err) {
+             console.log('There was some Probmem in add products');
+         });
+    	
     }
     $scope.addCategory = function(data) {
         CategoryService.createCategory(data).then(function(categoryResponse) {
@@ -146,7 +158,8 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     $scope.editField = function(fieldId) {
         FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
             $scope.fieldDetails = fieldResponse.data;
-            $scope.fieldDetails.commissionDate = $filter('date')(fieldResponse.data.commissionDate, 'MM/dd/yyyy')
+            $scope.fieldDetails.commissionDate = $filter('date')(fieldResponse.data.commissionDate, 'yyyy-MM-dd');
+            $scope.fieldDetails.sunsetDate = $filter('date')(fieldResponse.data.sunsetDate, 'yyyy-MM-dd');
             CategoryService.fetchAllGroup().then(function(allGroupsResponse) {
                 $scope.fieldGroups = allGroupsResponse.data;
             }, function(err) {
@@ -203,7 +216,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('not saved');
         });
     }
-}).controller('ProductViewController', function($scope, ProductService, CategoryService) {
+}).controller('ProductViewController', function($scope, ProductService, CategoryService, FieldService) {
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
         $scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
@@ -213,11 +226,6 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         $scope.productOptions = allProductResponse.data;
     }, function(err) {
         console.log('not saved');
-    });
-    CategoryService.fetchAllGroup().then(function(allGroupResponse) {
-        $scope.fieldGroups = allGroupResponse.data;
-    }, function(err) {
-        console.log('Problem in loading all groups ');
     });
     $scope.toggleGroup = function(group) {
         if ($scope.isGroupShown(group)) {
@@ -230,9 +238,13 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         return $scope.shownGroup === group;
     };
     $scope.getFormView = function(input) {
-        $scope.groups = $scope.fieldGroups
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
+            FieldService.getGroupByProduct(input.selectProduct).then(function(groupByProductResponse) {
+                $scope.groups = groupByProductResponse.data;
+            }, function(err) {
+                console.log('Problem in loading all fields');
+            });
         }, function(err) {
             console.log('Problem in loading all fields');
         });

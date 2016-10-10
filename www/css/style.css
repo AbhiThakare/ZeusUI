@@ -245,10 +245,13 @@ ul.tab li a:focus, .active {
 		text-align: center;
 	}
 
+@media (min-width:1025px) { 
 	.header-two-bars .header-second-bar nav a{
 		display: block;
 		padding: 8px;
 	}
+}
+	
 
 	.header-two-bars .header-second-bar nav i.fa{
 		margin-left:0;
