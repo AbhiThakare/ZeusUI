@@ -38,14 +38,7 @@
 							<span class="input-label">Input Type</span>
 						</div>
 						<div class="col">
-							<select name="inputType" required="" ng-model="fieldDetails.inputType" >
-								<option ng-selected = "{{fieldDetails.inputType == text}}" value="text">Text</option>
-								<option ng-selected = "{{fieldDetails.inputType == radio}}" value="radio">Radio</option>
-								<option ng-selected = "{{fieldDetails.inputType == checkbox}}" value="checkbox">Checkbox</option>
-								<option ng-selected = "{{fieldDetails.inputType == email}}" value="email">Email</option>
-								<option ng-selected = "{{fieldDetails.inputType == password}}" value="password">Password</option>
-								<option ng-selected = "{{fieldDetails.inputType == textarea}}" value="textarea">Textarea</option>
-							</select>
+							<input type="text" ng-model="fieldDetails.inputType" value="fieldDetails.inputType" readonly="readonly"/>
 						</div>
 					</div>
 					<div ng-show="updateFieldForm.$submitted || updateFieldForm.inputType.$touched">
