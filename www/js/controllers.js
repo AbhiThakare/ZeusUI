@@ -38,11 +38,11 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     }, function(err) {
         console.log('Problem in loading all categories');
     });
-    ProductService.fetchAllProducts().then(function(allProductResponse) {
-        $scope.productOptions = allProductResponse.data;
-    }, function(err) {
-        console.log('Problem in loading all products');
-    });
+//    ProductService.fetchAllProducts().then(function(allProductResponse) {
+//        $scope.productOptions = allProductResponse.data;
+//    }, function(err) {
+//        console.log('Problem in loading all products');
+//    });
     CategoryService.fetchAllGroup().then(function(allGroupResponse) {
         $scope.fieldGroups = allGroupResponse.data;
     }, function(err) {
