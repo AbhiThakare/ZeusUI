@@ -313,7 +313,7 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
                     "sunsetDate": $filter('date')(userData.sunsetDate, 'dd/MM/yyyy'),
                     "saveAsTemplate": userData.saveAsTemplate,
                     "productFeature" : userData.saveOption,
-                    "templateId" : userData.productId
+                    "templateId" : userData.selectTemplate
                 },
                 headers: {
                     'Content-Type': 'application/json'
