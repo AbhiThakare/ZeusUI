@@ -74,6 +74,15 @@ ul.tab li a:focus, .active {
     padding: 3% 20% 1% 20%;
 
 }
+.item-stable.item{
+	background-color: #e6e6e6 !important;
+	font-weight: 500;
+}
+legend{
+	background-color: #e6e6e6 !important;
+	font-weight: 500;
+	font-size:15px
+}
 
 .button.active{
   background-color: #00aeef !important;
@@ -81,10 +90,12 @@ ul.tab li a:focus, .active {
 .bar.bar-header{
 	background:#00aeef;
 }
-
-input {
-    border: 1px solid #4195fc; /* some kind of blue border */
-
+.input-label{
+	font-weight: 450;
+}
+input[type="text"],input[type="email"],input[type="password"],input[type="date"]{
+    border: 1px solid #lightblue; /* some kind of blue border */
+	padding: 5px;
     /* other CSS styles */
 
     /* round the corners */
