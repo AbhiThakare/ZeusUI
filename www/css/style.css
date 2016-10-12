@@ -70,6 +70,17 @@ ul.tab li a:focus, .active {
     border: 1px solid #ccc;
     border-top: none;
 }
+.button-bar {
+    padding: 3% 20% 1% 20%;
+
+}
+
+.button.active{
+  background-color: #00aeef !important;
+}
+.bar.bar-header{
+	background:#00aeef;
+}
 
 input {
     border: 1px solid #4195fc; /* some kind of blue border */

@@ -1,13 +1,16 @@
 <ion-modal-view>
 	<ion-header-bar>
 		<h1 class="title">Create New Category</h1>
-		<button class="button icon icon-left button-icon ion-close-circled assertive flat" ng-click="closeCategoryModal()"></button>
+		<button class="button icon icon-left button-icon ion-close-circled flat" ng-click="closeCategoryModal()"></button>
 	</ion-header-bar>
 	<ion-view  style="" class="" id="page17" title="">
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
 			<div ng-show="CategorySuccessMessage" class="success">Category created successfully </div>
 			<div ng-show="CategoryErrorMessage"class="error">There was some problem creating new category</div>
 			<form class="list animated bounceIn " name="catgoryform" class="css-form" novalidate id="signup-form4" ng-submit="catgoryform.$valid && addCategory(data)">
+			<div style="height: 20px;" class="spacer"></div>
+			<fieldset>
+			 <legend> Create Category</legend>
 				<ion-list id="signup-list5" class=" ">
 					<div class="row responsive-sm">
 						<div class="col">
@@ -73,6 +76,7 @@
 						</button>
 					</div>
 				</div>
+				</fieldset>
 			</form>
 		</ion-content>
 	</ion-view>

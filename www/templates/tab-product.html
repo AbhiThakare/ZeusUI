@@ -1,13 +1,16 @@
 <ion-modal-view>
 	<ion-header-bar>
 		<h1 class="title">Create New Product / Template</h1>
-		<button class="button icon icon-left button-icon ion-close-circled assertive flat" ng-click="closeProuctModal()"></button>
+		<button class="button icon icon-left button-icon ion-close-circled flat" ng-click="closeProuctModal()"></button>
 	</ion-header-bar>
 	<ion-view  style="" class="" id="page17" title="">
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
 			<div ng-show="ProductSuccessMessage" class="success">Product created successfully </div>
 			<div ng-show="ProductErrorMessage"class="error">There was some problem creating new product</div>
+			<div style="height: 20px;" class="spacer"></div>
 			<form class="list animated bounceIn " name="productForm" class="css-form" novalidate id="signup-form4" ng-submit="productForm.$valid && addProduct(data)">
+			<fieldset>
+			 <legend> Create Product / Template</legend>
 				<ion-list id="signup-list5" class=" ">
 					<div class="row responsive-sm">
 						<div class="col">
@@ -91,6 +94,7 @@
 						</button>
 					</div>
 				</div>
+				</fieldset>
 			</form>
 		</ion-content>
 	</ion-view>

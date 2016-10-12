@@ -1,13 +1,15 @@
 <ion-modal-view>
 	<ion-header-bar>
 		<h1 class="title">Search for field</h1>
-		<button class="button icon icon-left button-icon ion-close-circled assertive flat" ng-click="closeFieldModal()"></button>
+		<button class="button icon icon-left button-icon ion-close-circled flat" ng-click="closeFieldModal()"></button>
 	</ion-header-bar>
 	<ion-view  style="" class="" id="page17" title="">
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
 			<div ng-show="fieldErrorMessage"class="error">There was some problem creating new product</div>
-			<h4 id="signup-heading2" style="color:#000000;font-weight:400;text-align:left;" class=" ">Search Field Criteria</h4>
+			<div style="height: 20px;" class="spacer"></div>
 			<form class="list animated bounceIn " name="fieldSearchForm" class="css-form" novalidate id="signup-form4">
+			<fieldset>
+			 <legend> Search Field Criteria </legend>
 				<div class="row responsive-sm">
 					<div class="col">
 						<span class="input-label">Field Name</span>
@@ -25,17 +27,15 @@
 					</div>
 				</div>
 				<div class="col text-center">
-					<button ng-click="search(data)" class="button-icon ion-search button-calm flat">
-					Search
-					</button>
+					<button ng-click="search(data)" class="button icon-left ion-search button-calm">Search</button>
 				</div>
 				<div style="height: 10px;" class="spacer"></div>
 				<div class="row responsive-sm">
 					<div class="col">
-						<span class="input-label">Quick lookup </span>
+						<input type="text" name="quickSearch" ng-model="data.quickSearch"  placeholder="Sarch for field name">
 					</div>
 					<div class="col">
-						<input type="text" name="quickSearch" ng-model="data.quickSearch"  placeholder="Sarch for field name">
+						
 					</div>
 				</div>
 				<div ng-repeat="oprion in allFields | filter:data.quickSearch" class="row responsive-sm">
@@ -44,10 +44,10 @@
 					</label>
 				</div>
 				<div class="col text-center">
-					<button ng-click="addField()" class="button-icon ion-plus button-calm flat balanced">
-					Add Field
-					</button>
+					<button ng-click="addField()"class="button button-calm icon-left ion-plus">Add Field</button>
+					
 				</div>
+				</fieldset>
 			</form>
 		</ion-content>
 	</ion-view>

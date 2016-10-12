@@ -37,35 +37,35 @@
 					</div>
 				</div>
 				<ion-list>
-					<div ng-repeat="group in groups"  >
+					<div ng-repeat="group in groups.fields"  >
 						<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
 							<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
 							{{group.name}}
 						</ion-item>
-						<ion-item class="item-accordion" ng-repeat="field in entity" ng-show="isGroupShown(group) && field.groupId === group.groupId">
+						<ion-item class="item-accordion" ng-repeat="field in groups.fields" ng-show="isGroupShown(group) && field.groupId === group.groupId">
 							<ng-form name="form">
 							<ng-form name="form">
 								<!-- TEXT FIELDS -->
-								<div ng-if="field.inputType=='text' || field.inputType=='email' || field.inputType=='password'" class="row responsive-sm">
+								<div ng-if="field.type=='text' || field.type=='email' || field.type=='password'" class="row responsive-sm">
 									<div class="col">
-										<span class="input-label">{{field.labelName}}</span>
+										<span class="input-label">{{field.label}}</span>
 									</div>
 									<div class="col">
 										<input type="{{ field.inputType }}" value="{{field.defaultValue}}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
 									</div>
 								</div>
 								<!-- TEXTAREA FIELDS -->
-								<div ng-if="field.inputType=='textarea'" class="row responsive-sm">
+								<div ng-if="field.type=='textarea'" class="row responsive-sm">
 									<div class="col">
-										<span class="input-label">{{field.labelName}}</span>
+										<span class="input-label">{{field.label}}</span>
 									</div>
 									<div class="col">
 										<textarea ng-model="field.defaultValue" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
 									</div>
 								</div>
 								<!-- RADIO FIELDS -->
-								<!--  <label ng-if="field.inputType=='radio'" class="form-group " id="signup-input4" name="name">
-									<span class="input-label">{{field.labelName}}</span>
+								 <label ng-if="field.type=='radio'" class="form-group " id="signup-input4" name="name">
+									<span class="input-label">{{field.label}}</span>
 									<div class="checkbox" ng-repeat="option in field.options" >
 									<label>                
 									<input type="{{ field.type}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}">{{option.name}}
@@ -75,9 +75,9 @@
 									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
 									<div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
 									</div>
-									</label> -->
+									</label>
 								<!-- CHECKBOX FIELDS -->
-								<!-- <label ng-if="field.inputType=='checkbox'"  class="form-group " id="signup-input4" name="name">
+								 <label ng-if="field.type=='checkbox'"  class="form-group " id="signup-input4" name="name">
 									<span class="input-label">{{field.label}}</span>
 									<div class="col-sm-6">
 									   <div class="checkbox" ng-repeat="option in field.options" >
@@ -89,9 +89,9 @@
 									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
 									<div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
 									</div>
-									</label> -->
+									</label>
 								<!-- SELECTBOX FIELDS -->
-								<!-- <label ng-if="field.inputType=='select'" class="item item-input " id="signup-input4" name="selectCategory">
+								<label ng-if="field.type=='select'" class="item item-input " id="signup-input4" name="selectCategory">
 									<span class="input-label">{{field.label}}</span>
 									<select  data-ng-model="field.data">
 									   <option ng-repeat="option in field.options" ng-value="option.name">{{option.name}}</option>
@@ -99,7 +99,7 @@
 									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
 									   <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
 									</div>
-									</label> -->
+									</label>
 							</ng-form>
 						</ion-item>
 					</div>

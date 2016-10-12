@@ -33,8 +33,9 @@
 					<h2><a href="#"><img class="title-image" widht="250" height="40" src="img/barclays.png" /></a></h2>
 					<nav>
 					<!-- 	<a href="#/group"><i class="fa fa-comments-o"></i> Group</a> -->
-						<a href="#/productDesign"><i class="fa fa-file-text"></i> Product Form Design</a>
-						<a href="#/viewProduct"><i class="fa fa-group"></i> View Product</a>
+						<a href="#/productDesign" class="button button-small"  ng-click="activeButton = 'a'" ng-class="{ 'active': activeButton === 'a' }"> Product Form Design </a>
+            			<a href="#/viewProduct" class="button button-small"  ng-click="activeButton = 'b'" ng-class="{ 'active': activeButton === 'b' }"> View Product </a>
+						
 					</nav>
 				</div>
 			</div>
