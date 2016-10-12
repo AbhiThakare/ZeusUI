@@ -14,23 +14,25 @@
 							<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
 						</select>
 						<button class=" button-icon ion-plus balanced flat" ng-click="addNewCategory()"></button>
+						<div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
+						</div>
 					</div>
 				</div>
-				<div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
-					<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
-				</div>
+				
 				<div class="row responsive-sm">
 					<div class="col">
 						<span class="input-label">Work on product or template</span>
 					</div>
 					<div class="col">
-						<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'product'" ng-change="input.selectCategory && newValue('no',input.selectCategory)"> &nbsp;&nbsp;Product&nbsp;&nbsp;
-						<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'template'" ng-change="input.selectCategory && newValue('yes',input.selectCategory)">&nbsp;&nbsp;Template
+						<input type="radio" ng-disabled="!input.selectCategory" class="radio" name="WPT" ng-model="data.WPT" ng-value="'product'" ng-change="input.selectCategory && newValue('no',input.selectCategory)"> &nbsp;&nbsp;Product&nbsp;&nbsp;
+						<input type="radio" ng-disabled="!input.selectCategory" class="radio" name="WPT" ng-model="data.WPT" ng-value="'template'" ng-change="input.selectCategory && newValue('yes',input.selectCategory)">&nbsp;&nbsp;Template
+						<div ng-show="productDesignForm.$submitted || productDesignForm.WPT.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.WPT.$error.required">Please select work type.</div>
+						</div>
 					</div>
 				</div>
-				<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
-					<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
-				</div>
+				
 				<div class="row responsive-sm">
 					<div class="col">
 						<span class="input-label">Select Product</span>
@@ -39,12 +41,13 @@
 						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input.selectProduct)">
 							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
 						</select>
-						<button class="button-icon ion-plus flat" ng-class="{balanced : input.selectCategory}" ng-click="input.selectCategory && addNewProduct(input.selectCategory)"></button>
+						<button class="button-icon ion-plus flat"  ng-disabled="!input.selectCategory && !data.WPT" ng-class="{balanced : input.selectCategory && data.WPT }" ng-click="input.selectCategory && addNewProduct(input.selectCategory)"></button>
+						<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
+						</div>
 					</div>
 				</div>
-				<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
-					<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
-				</div>
+				
 				<ion-list>
 					<div ng-repeat="group in groups">
 						<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">

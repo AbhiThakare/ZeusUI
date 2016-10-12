@@ -34,21 +34,22 @@
 						</div>
 						<div class="col">
 							<input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
+							<div ng-show="productForm.$submitted || productForm.name.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.name.$error.required">Please enter Name.</div>
+							</div>
 						</div>
 					</div>
-					<div ng-show="productForm.$submitted || productForm.name.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.name.$error.required">Please enter Name.</div>
-					</div>
+					
 					<div class="row responsive-sm">
 						<div class="col">
 							<span class="input-label">Display name</span>
 						</div>
 						<div class="col">
 							<input type="text"  required=""  name="displayname" ng-model="data.displayname" placeholder="Enter display name">
+							<div ng-show="productForm.$submitted || productForm.displayname.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.displayname.$error.required">Please enter Display name.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="productForm.$submitted || productForm.displayname.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.displayname.$error.required">Please enter Display name.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
@@ -56,10 +57,10 @@
 						</div>
 						<div class="col">
 							<label><input type="date" required=""  name="commissionDate" ng-model="data.commissionDate" placeholder="Enter commission date"></label>
+							<div ng-show="productForm.$submitted ||productForm.commissionDate.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.commissionDate.$error.required">Please enter Commission date.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="productForm.$submitted ||productForm.commissionDate.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.commissionDate.$error.required">Please enter Commission date.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
@@ -67,10 +68,10 @@
 						</div>
 						<div class="col">
 							<label><input type="date" required=""  name="sunsetDate" ng-model="data.sunsetDate" placeholder="Enter sunset date"></label>
+							<div ng-show="productForm.$submitted || productForm.sunsetDate.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.sunsetDate.$error.required">Please enter Sunset date.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="productForm.$submitted || productForm.sunsetDate.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.sunsetDate.$error.required">Please enter Sunset date.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">

@@ -98,9 +98,8 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         ProductService.createProduct(data,categoryId).then(function(productResponse) {
             $scope.ProductSuccessMessage = true;
             $scope.ProductErrorMessage = false;
-            $state.go('productDesign', {}, {
-                reload: true
-            });
+            $scope.closeProuctModal ();
+            $scope.addNewField();
         }, function(err) {
             $scope.ProductSuccessMessage = false;
             $scope.ProductErrorMessage = true;

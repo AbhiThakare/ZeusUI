@@ -11,10 +11,10 @@
 						<select  name="selectCategory" required="" ng-model="input.selectCategory" ng-change="getAllproducts(input.selectCategory)">
 							<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
 						</select>
+						<div ng-show="productViewForm.$submitted || productViewForm.selectCategory.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productViewForm.selectCategory.$error.required">Please select category.</div>
+						</div>
 					</div>
-				</div>
-				<div ng-show="productViewForm.$submitted || productViewForm.selectCategory.$touched">
-					<div style="color:red;margin:5px;padding:5px;" ng-show="productViewForm.selectCategory.$error.required">Please select category.</div>
 				</div>
 				<div class="row responsive-sm">
 					<div class="col">
@@ -24,10 +24,10 @@
 						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input)">
 							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
 						</select>
+						<div ng-show="productViewForm.$submitted || productViewForm.selectProduct.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productViewForm.selectProduct.$error.required">Please select product.</div>
+						</div>
 					</div>
-				</div>
-				<div ng-show="productViewForm.$submitted || productViewForm.selectProduct.$touched">
-					<div style="color:red;margin:5px;padding:5px;" ng-show="productViewForm.selectProduct.$error.required">Please select product.</div>
 				</div>
 				<div class="row">
 					<div class="col text-center">
