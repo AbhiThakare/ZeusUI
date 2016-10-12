@@ -26,21 +26,24 @@
 						<span class="input-label">Work on product or template</span>
 					</div>
 					<div class="col">
-						<input type="radio" class="radio" name="WPT" ng-model="fieldDetails.WPT" ng-value="'product'" ng-change="input.selectCategory && newValue('no',input.selectCategory)"> &nbsp;&nbsp;Product&nbsp;&nbsp;
-						<input type="radio" class="radio" name="WPT" ng-model="fieldDetails.WPT" ng-value="'template'" ng-change="input.selectCategory && newValue('yes',input.selectCategory)">&nbsp;&nbsp;Template
+						<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'product'" ng-change="input.selectCategory && newValue('no',input.selectCategory)"> &nbsp;&nbsp;Product&nbsp;&nbsp;
+						<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'template'" ng-change="input.selectCategory && newValue('yes',input.selectCategory)">&nbsp;&nbsp;Template
 					</div>
+				</div>
+				<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
+					<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
 				</div>
 				<div class="row responsive-sm">
 					<div class="col">
 						<span class="input-label">Select Product</span>
 					</div>
 					<div class="col">
-						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input)">
+						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input.selectProduct)">
 							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
 						</select>
-						<button class=" button-icon ion-edit energized flat"  ng-click="editProduct()"> </button>
-						<button class=" button-icon ion-trash-a assertive flat" ng-click="deleteProduct()"></button>
-						<button class=" button-icon ion-plus balanced flat" ng-click="addNewProduct()"></button>
+						<button class="button-icon ion-edit energized flat"  ng-click="editProduct()"> </button>
+						<button class="button-icon ion-trash-a assertive flat" ng-click="deleteProduct()"></button>
+						<button class="button-icon ion-plus balanced flat" ng-click="addNewProduct()"></button>
 					</div>
 				</div>
 				<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
@@ -60,7 +63,7 @@
 										<span class="input-label">{{field.labelName}}</span>
 									</div>
 									<div class="col">
-										<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="data.name"/>
+										<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
 									</div>
 									<div class="col">
 										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
@@ -72,7 +75,7 @@
 										<span class="input-label">{{field.labelName}}</span>
 									</div>
 									<div class="col">
-										<textarea ng-model="data.name" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
+										<textarea ng-model="field.defaultValue" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
 									</div>
 									<div class="col">
 										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
@@ -122,8 +125,10 @@
 				<div style="height: 10px;" class="spacer"></div>
 				<button class=" button-icon ion-plus flat balanced"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
 				<div style="height: 10px;" class="spacer"></div>
+				<h3 ng-show="entity.length > 0" id="signup-heading2" style="color:#000000;font-weight:400;text-align:left;" class=" ">Unallocated Fields</h3>
+				<div style="height: 5px;" class="spacer"></div>
 				<div  class="row responsive-sm" ng-repeat="option in entity | filter:{groupId: 0}">
-					&nbsp;&nbsp;{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button><br>
+					<div class="col">{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button></div>
 				</div>
 				<div style="height: 10px;" class="spacer"></div>
 				<div class="row" style="margin-bottom: 68%;">

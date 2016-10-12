@@ -311,7 +311,9 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
                     "displayName": userData.displayname,
                     "commissionDate": $filter('date')(userData.commissionDate, 'dd/MM/yyyy'),
                     "sunsetDate": $filter('date')(userData.sunsetDate, 'dd/MM/yyyy'),
-                    "saveAsTemplate": "Yes"
+                    "saveAsTemplate": userData.saveAsTemplate,
+                    "productFeature" : userData.saveOption,
+                    "templateId" : userData.selectTemplate
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -351,7 +353,7 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
     var getFormDetails = function(input) {
         return $q(function(resolve, reject) {
             var req = {
-                url: URL.url + "field/product/" + input.selectProduct,
+                url: URL.url + "field/product/" + input,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

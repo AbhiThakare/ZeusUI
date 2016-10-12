@@ -51,7 +51,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     $scope.fetchExsitingFields = function(input) {
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
-            FieldService.getGroupByProduct(input.selectProduct).then(function(groupByProductResponse) {
+            FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
                 $scope.groups = groupByProductResponse.data;
             }, function(err) {
                 console.log('Problem in loading all fields');
@@ -145,6 +145,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             $scope.allFields = fieldResponse.data;
             $scope.closeFieldModal();
             $scope.selection = [];
+            $scope.fetchExsitingFields(productId);
             FieldService.getSelectedFields(productId).then(function(selectedFieldResponse) {
                 $scope.seletedFields = selectedFieldResponse.data;
             }, function(err) {
@@ -171,12 +172,11 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         });
     }
     $scope.updateFields = function(data) {
+    	var input = data.productId;
         FieldService.updateFields(data).then(function(updateFieldResponse) {
             $scope.fieldDetails = updateFieldResponse.data;
             $scope.editFieldModal.hide();
-            $state.go('productDesign', {}, {
-                reload: true
-            });
+            $scope.fetchExsitingFields(input);
         }, function(err) {
             console.log('There was some problem in add category');
         });
@@ -240,7 +240,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     $scope.getFormView = function(input) {
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
-            FieldService.getGroupByProduct(input.selectProduct).then(function(groupByProductResponse) {
+            FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
                 $scope.groups = groupByProductResponse.data;
             }, function(err) {
                 console.log('Problem in loading all fields');

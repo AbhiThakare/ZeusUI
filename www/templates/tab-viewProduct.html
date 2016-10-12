@@ -2,7 +2,7 @@
 	<ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
 			<h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Product View</h2>
-			<form class="list animated bounceIn " name="productViewForm" class="css-form" novalidate ng-submit="productViewForm.$valid && getFormView(input)">
+			<form class="list animated bounceIn " name="productViewForm" class="css-form" novalidate ng-submit="productViewForm.$valid && getFormView(input.selectProduct)">
 				<div class="row responsive-sm">
 					<div class="col">
 						<span class="input-label">Select Category</span>
@@ -51,7 +51,7 @@
 										<span class="input-label">{{field.labelName}}</span>
 									</div>
 									<div class="col">
-										<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="data.name"/>
+										<input type="{{ field.inputType }}" value="{{field.defaultValue}}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
 									</div>
 								</div>
 								<!-- TEXTAREA FIELDS -->
@@ -60,7 +60,7 @@
 										<span class="input-label">{{field.labelName}}</span>
 									</div>
 									<div class="col">
-										<textarea ng-model="data.name" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
+										<textarea ng-model="field.defaultValue" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
 									</div>
 								</div>
 								<!-- RADIO FIELDS -->
@@ -105,6 +105,14 @@
 					</div>
 				</ion-list>
 			</form>
+			<div style="height: 10px;" class="spacer"></div>
+				<div ng-show = "groups.length > 0" class="row" style="margin-bottom: 68%;">
+					<div class="col text-center">
+						<button class="button  button  button-calm">
+						Submit
+						</button>
+					</div>
+				</div>
 		</ion-content>
 	</ion-view>
 </div>

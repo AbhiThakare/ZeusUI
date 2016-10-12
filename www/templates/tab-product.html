@@ -1,6 +1,6 @@
 <ion-modal-view>
 	<ion-header-bar>
-		<h1 class="title">Create New Product</h1>
+		<h1 class="title">Create New Product / Template</h1>
 		<button class="button icon icon-left button-icon ion-close-circled assertive flat" ng-click="closeProuctModal()"></button>
 	</ion-header-bar>
 	<ion-view  style="" class="" id="page17" title="">
@@ -21,6 +21,25 @@
 					</div>
 					<div ng-show="productForm.$submitted || productForm.selectCategory.$touched">
 						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.selectCategory.$error.required">Please select category.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Create Product from template</span>
+						</div>
+						<div class="col">
+							<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'yes'" ng-change="data.selectCategory && newValue('no',data.selectCategory)"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
+							<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'no'" ng-change="data.selectCategory && newValue('yes',data.selectCategory)">&nbsp;&nbsp;No
+						</div>
+					</div>
+					<div ng-show="data.WPT=='yes'" class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Select a template</span>
+						</div>
+						<div class="col">
+							<select name="selecttemplate" required="" ng-model="data.selectTemplate">
+								<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
+							</select>
+						</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
@@ -65,6 +84,16 @@
 					</div>
 					<div ng-show="productForm.$submitted || productForm.sunsetDate.$touched">
 						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.sunsetDate.$error.required">Please enter Sunset date.</div>
+					</div>
+					<div class="row responsive-sm">
+						<div class="col">
+							<span class="input-label">Create Product from template</span>
+						</div>
+						<div class="col">
+							<input type="radio" class="radio" name="saveOption" ng-model="data.saveOption" ng-value="'t'">&nbsp;&nbsp;Create only template<br>
+							<input type="radio" class="radio" name="saveOption" ng-model="data.saveOption" ng-value="'b'">&nbsp;&nbsp;Save as template and product<br>
+							<input type="radio" class="radio" name="saveOption" ng-model="data.saveOption" ng-value="'p'">&nbsp;&nbsp;Save only product<br>
+						</div>
 					</div>
 				</ion-list>
 				<div class="row">

@@ -25,15 +25,26 @@
 					</div>
 				</div>
 				<div class="col text-center">
-					<button ng-click="search(data)" class="button  button  button-calm">
+					<button ng-click="search(data)" class="button-icon ion-search button-calm flat">
 					Search
 					</button>
 				</div>
-				<label ng-repeat="oprion in allFields">
-				<input type="checkbox" name="selectedFruits[]"  value="{{oprion.name}}" ng-checked="selection.indexOf(oprion.name) > -1" ng-click="toggleSelection(oprion)"> {{oprion.name}}<br>
-				</label>
+				<div style="height: 10px;" class="spacer"></div>
+				<div class="row responsive-sm">
+					<div class="col">
+						<span class="input-label">Quick lookup </span>
+					</div>
+					<div class="col">
+						<input type="text" name="quickSearch" ng-model="data.quickSearch"  placeholder="Sarch for field name">
+					</div>
+				</div>
+				<div ng-repeat="oprion in allFields | filter:data.quickSearch" class="row responsive-sm">
+					<label>
+						<div class="col"><input type="checkbox" name="selectedFruits[]"  value="{{oprion.name}}" ng-checked="selection.indexOf(oprion.name) > -1" ng-click="toggleSelection(oprion)"> {{oprion.name}}<br></div>
+					</label>
+				</div>
 				<div class="col text-center">
-					<button ng-click="addField()" class="button  button  button-calm">
+					<button ng-click="addField()" class="button-icon ion-plus button-calm flat balanced">
 					Add Field
 					</button>
 				</div>
