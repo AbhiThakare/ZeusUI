@@ -99,7 +99,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             $scope.ProductSuccessMessage = true;
             $scope.ProductErrorMessage = false;
             $scope.closeProuctModal ();
-            $scope.addNewField();
+            $scope.addNewField(productResponse.data.insertedRecordId);
         }, function(err) {
             $scope.ProductSuccessMessage = false;
             $scope.ProductErrorMessage = true;
