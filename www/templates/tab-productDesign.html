@@ -13,7 +13,7 @@
 					</div>
 					<div class="col col-60">
 						<select  name="selectCategory" required="" ng-model="input.selectCategory" ng-change="clearData()">
-							<option ng-repeat="option in categoryOptions" ng-selected="input.selectCategory"  ng-value="option.categoryId">{{option.name}}</option>
+							<option ng-repeat="option in categoryOptions"  ng-value="option.categoryId">{{option.name}}</option>
 						</select>
 						<button class=" button-icon ion-plus balanced flat" ng-click="addNewCategory()"></button>
 						<div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
@@ -40,8 +40,8 @@
 						<span class="input-label">Select Product:</span>
 					</div>
 					<div class="col col-60">
-						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input.selectProduct)">
-							<option ng-repeat="option in productOptions" ng-selected="input.selectProduct" ng-value="option.productId">{{option.name}}</option>
+						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="fetchExsitingFields(input.selectProduct)">
+							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
 						</select>
 						<button class="button-icon ion-plus flat"  ng-disabled="!input.selectCategory && !data.WPT" ng-class="{balanced : input.selectCategory && data.WPT }" ng-click="input.selectCategory && addNewProduct(input.selectCategory)"></button>
 						<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
@@ -100,13 +100,16 @@
 									</div>
 									</label> 
 								<!-- SELECTBOX FIELDS -->
-								<label ng-if="field.inputType=='select'" class="item item-input " id="signup-input4" name="selectCategory">
+								<div ng-if="field.inputType=='select'" class="row responsive-sm">
+								<div class="col col-30">
 									<span class="input-label">{{field.labelName}}</span>
+								</div>
+								<div class="col col-60">
 									<select  data-ng-model="field.data">
 									   <option ng-repeat="option in field.options" ng-value="option.keyValue">{{option.keyName}}</option>
 									</select>
-									
-									</label>
+								</div>
+								</div>
 							</ng-form>
 						</ion-item>
 					</div>
@@ -124,10 +127,8 @@
 				<div style="height: 10px;" class="spacer"></div>
 				<div class="row" style="margin-bottom: 68%;">
 					<div class="col text-center">
-						
 					</div>
 				</div>
-				 
 			</form>
 		</ion-content>
 	</ion-view>

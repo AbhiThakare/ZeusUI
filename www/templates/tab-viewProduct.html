@@ -1,118 +1,105 @@
 <div style="">
 	<ion-view hide-nav-bar="true" style="" class="" id="page17" title="">
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-			<h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Product View</h2>
-			<form class="list animated bounceIn " name="productViewForm" class="css-form" novalidate ng-submit="productViewForm.$valid && getFormView(input.selectProduct)">
+			<!-- <h2 id="signup-heading2" style="color:#000000;font-weight:400;text-align:center;" class=" ">Product Design</h2> -->
+			<div ng-show="successMessage" class="success">Form created successfully </div>
+			<div ng-show="errorMessage"class="error">There was some problem creating new form</div>
+			<form class="list animated bounceIn " name="productDesignForm" class="css-form" novalidate id="signup-form4">
+			<fieldset>
+			 <legend> Product View</legend>
 				<div class="row responsive-sm">
-					<div class="col">
-						<span class="input-label">Select Category</span>
+					<div class="col col-30">
+						<span class="input-label">Select Category:</span>
 					</div>
-					<div class="col">
-						<select  name="selectCategory" required="" ng-model="input.selectCategory" ng-change="getAllproducts(input.selectCategory)">
+					<div class="col col-60">
+						<select  name="selectCategory" required="" ng-model="input.selectCategory"  ng-change="getAllproducts(input.selectCategory)">
 							<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
 						</select>
-						<div ng-show="productViewForm.$submitted || productViewForm.selectCategory.$touched">
-							<div style="color:red;margin:5px;padding:5px;" ng-show="productViewForm.selectCategory.$error.required">Please select category.</div>
+						<div ng-show="productDesignForm.$submitted || productDesignForm.selectCategory.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectCategory.$error.required">Please select category.</div>
 						</div>
 					</div>
 				</div>
+				
 				<div class="row responsive-sm">
-					<div class="col">
-						<span class="input-label">Select Product</span>
+					<div class="col col-30">
+						<span class="input-label">Select Product:</span>
 					</div>
-					<div class="col">
-						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input)">
+					<div class="col col-60">
+						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="getFormView(input.selectProduct)">
 							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
 						</select>
-						<div ng-show="productViewForm.$submitted || productViewForm.selectProduct.$touched">
-							<div style="color:red;margin:5px;padding:5px;" ng-show="productViewForm.selectProduct.$error.required">Please select product.</div>
+						<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
+							<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col text-center">
-						<button  class="button  button  button-calm">
-						Submit
-						</button>
-					</div>
-				</div>
+				</fieldset>
+				<div style="height: 10px;" class="spacer"></div>
 				<ion-list>
-					<div ng-repeat="group in groups.fields"  >
+					<div ng-repeat="group in groups">
 						<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
 							<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
 							{{group.name}}
 						</ion-item>
-						<ion-item class="item-accordion" ng-repeat="field in groups.fields" ng-show="isGroupShown(group) && field.groupId === group.groupId">
-							<ng-form name="form">
+						<ion-item class="item-accordion" ng-repeat="field in entity" ng-show="isGroupShown(group) && field.groupId === group.groupId">
 							<ng-form name="form">
 								<!-- TEXT FIELDS -->
-								<div ng-if="field.type=='text' || field.type=='email' || field.type=='password'" class="row responsive-sm">
-									<div class="col">
-										<span class="input-label">{{field.label}}</span>
+								<div ng-if="field.inputType=='text' || field.inputType=='email' || field.inputType=='password'" class="row responsive-sm">
+									<div class="col col-30">
+										<span class="input-label">{{field.labelName}}</span>
 									</div>
-									<div class="col">
-										<input type="{{ field.inputType }}" value="{{field.defaultValue}}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
+									<div class="col col-60">
+										<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
+										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
 									</div>
 								</div>
 								<!-- TEXTAREA FIELDS -->
-								<div ng-if="field.type=='textarea'" class="row responsive-sm">
-									<div class="col">
-										<span class="input-label">{{field.label}}</span>
+								<div ng-if="field.inputType=='textarea'" class="row responsive-sm">
+									<div class="col col-30">
+										<span class="input-label">{{field.labelName}}</span>
 									</div>
-									<div class="col">
+									<div class="col col-60">
 										<textarea ng-model="field.defaultValue" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
+										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
 									</div>
 								</div>
 								<!-- RADIO FIELDS -->
-								 <label ng-if="field.type=='radio'" class="form-group " id="signup-input4" name="name">
-									<span class="input-label">{{field.label}}</span>
+								  <label ng-if="field.inputType=='radio'" class="form-group " id="signup-input4" name="name">
+									<span class="input-label">{{field.labelName}}</span>
 									<div class="checkbox" ng-repeat="option in field.options" >
 									<label>                
-									<input type="{{ field.type}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}">{{option.name}}
+									<input type="{{ field.inputType}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.keyName}}" value="{{option.keyValue}}">{{option.keyName}}
 									</label>
-									</div>
-									
-									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-									<div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
 									</div>
 									</label>
 								<!-- CHECKBOX FIELDS -->
-								 <label ng-if="field.type=='checkbox'"  class="form-group " id="signup-input4" name="name">
-									<span class="input-label">{{field.label}}</span>
+								 <label ng-if="field.inputType=='checkbox'"  class="form-group " id="signup-input4" name="name">
+									<span class="input-label">{{field.labelName}}</span>
 									<div class="col-sm-6">
 									   <div class="checkbox" ng-repeat="option in field.options" >
 									<label>
-										<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.name}}" value="{{option.id}}" >{{option.name}}
+										<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.keyName}}" value="{{option.keyValue}}" >{{option.keyName}}
 									</label>
 									</div>
 									</div>
-									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-									<div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-									</div>
-									</label>
+									</label> 
 								<!-- SELECTBOX FIELDS -->
-								<label ng-if="field.type=='select'" class="item item-input " id="signup-input4" name="selectCategory">
-									<span class="input-label">{{field.label}}</span>
+								<div ng-if="field.inputType=='select'" class="row responsive-sm">
+								<div class="col col-30">
+									<span class="input-label">{{field.labelName}}</span>
+								</div>
+								<div class="col col-60">
 									<select  data-ng-model="field.data">
-									   <option ng-repeat="option in field.options" ng-value="option.name">{{option.name}}</option>
+									   <option ng-repeat="option in field.options" ng-value="option.keyValue">{{option.keyName}}</option>
 									</select>
-									<div data-ng-show="{{'form.'+field.name+'.$dirty && form.'+field.name+'.$error.required'}}">
-									   <div style="color:red;margin:5px;padding:5px;" ng-show="{{'form.'+field.name+'.$error.required'}}">Required.</div>
-									</div>
-									</label>
+								</div>
+								</div>
 							</ng-form>
 						</ion-item>
 					</div>
 				</ion-list>
 			</form>
-			<div style="height: 10px;" class="spacer"></div>
-				<div ng-show = "groups.length > 0" class="row" style="margin-bottom: 68%;">
-					<div class="col text-center">
-						<button class="button  button  button-calm">
-						Submit
-						</button>
-					</div>
-				</div>
 		</ion-content>
 	</ion-view>
 </div>

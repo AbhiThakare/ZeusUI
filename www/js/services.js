@@ -135,7 +135,8 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
                     "productId": productId,
                     "name": SelectedFields[i].name,
                     "labelName": SelectedFields[i].label,
-                    "fieldMasterId": SelectedFields[i].fieldMasterId
+                    "fieldMasterId": SelectedFields[i].fieldMasterId,
+                    "inputType":SelectedFields[i].inputType
                 }
             }
             var req = {

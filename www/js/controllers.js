@@ -229,6 +229,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         console.log('not saved');
     });
     $scope.getAllproducts = function(categoryId) {
+    	$scope.productOptions = [];
+    	$scope.data= [];
+    	$scope.groups= [];
     	ProductService.fetchAsPerType('no', categoryId).then(function(productTemplateResponse) {
    		 $scope.productOptions = productTemplateResponse.data;
        }, function(err) {
@@ -247,28 +250,28 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         return $scope.shownGroup === group;
     };
     $scope.getFormView = function(input) {
-//        ProductService.getFormDetails(input).then(function(formViewResponse) {
-//            $scope.entity = formViewResponse.data;
-//            FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
-//                $scope.groups = groupByProductResponse.data;
-//            }, function(err) {
-//                console.log('Problem in loading all fields');
-//            });
-//        }, function(err) {
-//            console.log('Problem in loading all fields');
-//        });
-    	$scope.groups={
-    			   formName:"catgoryform",
-    				fields:[
-    				 {type:"text",name:"firstname",label:"FirstName",required:!0,data:""},
-    				 {type:"text",name:"midlename",label:"MidleName",required:!0,data:""},
-    				  {type:"text",name:"Lasttname",label:"LastName",required:!0,data:""},
-    				  {type:"textarea",name:"Address",label:"Address",required:!0,data:""},
-    				 {type:"email",name:"emailUser",label:"Email",required:!0,data:""},{type:"text",name:"city",label:"City",required:!0,data:""},
-    				 {type:"password",name:"pass",label:"Password",min:6,max:20,required:!0,data:""},
-    				  {type:"radio",name:"color_id",label:"Colors",options:[{id:1,name:"orange"},{id:2,name:"pink"},{id:3,name:"gray"},{id:4,name:"cyan"}],required:!0,data:""},
-    				 {type:"select",name:"teacher_id",label:"Teacher",options:[{name:"Mark"},{name:"Claire"},{name:"Daniel"},{name:"Gary"}],required:!0,data:"",value:"Mark"},
-    			   {type:"checkbox",name:"car_id",label:"Cars",options:[{id:1,name:"bmw"},{id:2,name:"audi"},{id:3,name:"porche"},{id:4,name:"jaguar"}],required:!0,data:""}
-    			   ]};
+        ProductService.getFormDetails(input).then(function(formViewResponse) {
+            $scope.entity = formViewResponse.data;
+            FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
+                $scope.groups = groupByProductResponse.data;
+            }, function(err) {
+                console.log('Problem in loading all fields');
+            });
+        }, function(err) {
+            console.log('Problem in loading all fields');
+        });
+//    	$scope.groups={
+//    			   formName:"catgoryform",
+//    				fields:[
+//    				 {type:"text",name:"firstname",label:"FirstName",required:!0,data:""},
+//    				 {type:"text",name:"midlename",label:"MidleName",required:!0,data:""},
+//    				  {type:"text",name:"Lasttname",label:"LastName",required:!0,data:""},
+//    				  {type:"textarea",name:"Address",label:"Address",required:!0,data:""},
+//    				 {type:"email",name:"emailUser",label:"Email",required:!0,data:""},{type:"text",name:"city",label:"City",required:!0,data:""},
+//    				 {type:"password",name:"pass",label:"Password",min:6,max:20,required:!0,data:""},
+//    				  {type:"radio",name:"color_id",label:"Colors",options:[{id:1,name:"orange"},{id:2,name:"pink"},{id:3,name:"gray"},{id:4,name:"cyan"}],required:!0,data:""},
+//    				 {type:"select",name:"teacher_id",label:"Teacher",options:[{name:"Mark"},{name:"Claire"},{name:"Daniel"},{name:"Gary"}],required:!0,data:"",value:"Mark"},
+//    			   {type:"checkbox",name:"car_id",label:"Cars",options:[{id:1,name:"bmw"},{id:2,name:"audi"},{id:3,name:"porche"},{id:4,name:"jaguar"}],required:!0,data:""}
+//    			   ]};
     }
 });
