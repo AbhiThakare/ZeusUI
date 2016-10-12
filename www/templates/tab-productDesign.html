@@ -10,11 +10,9 @@
 						<span class="input-label">Select Category</span>
 					</div>
 					<div class="col">
-						<select  name="selectCategory" required="" ng-model="input.selectCategory">
+						<select  name="selectCategory" required="" ng-model="input.selectCategory" ng-change="clearData()">
 							<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
 						</select>
-						<button class=" button-icon ion-edit energized flat"  ng-click="editCategory()"> </button>
-						<button class=" button-icon ion-trash-a assertive flat" ng-click="deleteCategory()"></button>
 						<button class=" button-icon ion-plus balanced flat" ng-click="addNewCategory()"></button>
 					</div>
 				</div>
@@ -41,9 +39,7 @@
 						<select  name="selectProduct" required="" ng-model="input.selectProduct" ng-change="(input.selectProduct!=='' && input.selectCategory!=='' ) && fetchExsitingFields(input.selectProduct)">
 							<option ng-repeat="option in productOptions" ng-value="option.productId">{{option.name}}</option>
 						</select>
-						<button class="button-icon ion-edit energized flat"  ng-click="editProduct()"> </button>
-						<button class="button-icon ion-trash-a assertive flat" ng-click="deleteProduct()"></button>
-						<button class="button-icon ion-plus balanced flat" ng-click="addNewProduct()"></button>
+						<button class="button-icon ion-plus flat" ng-class="{balanced : input.selectCategory}" ng-click="input.selectCategory && addNewProduct(input.selectCategory)"></button>
 					</div>
 				</div>
 				<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">

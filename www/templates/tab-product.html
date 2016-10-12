@@ -11,24 +11,11 @@
 				<ion-list id="signup-list5" class=" ">
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Select Category</span>
-						</div>
-						<div class="col">
-							<select  name="selectCategory" required="" ng-model="data.selectCategory">
-								<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
-							</select>
-						</div>
-					</div>
-					<div ng-show="productForm.$submitted || productForm.selectCategory.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.selectCategory.$error.required">Please select category.</div>
-					</div>
-					<div class="row responsive-sm">
-						<div class="col">
 							<span class="input-label">Create Product from template</span>
 						</div>
 						<div class="col">
-							<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'yes'" ng-change="data.selectCategory && newValue('yes',data.selectCategory)"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
-							<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'no'" ng-change="data.selectCategory && newValue('no',data.selectCategory)">&nbsp;&nbsp;No
+							<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'yes'" ng-change="newValue('yes',categoryId)"> &nbsp;&nbsp;Yes&nbsp;&nbsp;
+							<input type="radio" class="radio" name="WPT" ng-model="data.WPT" ng-value="'no'" ng-change="newValue('no', categoryId">&nbsp;&nbsp;No
 						</div>
 					</div>
 					<div ng-show="data.WPT=='yes'" class="row responsive-sm">

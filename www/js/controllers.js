@@ -33,6 +33,11 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     }).then(function(modal) {
         $scope.editFieldModal = modal;
     });
+    $scope.clearData = function(){
+    	$scope.data= [];
+    	$scope.groups= [];
+    	$scope.productOptions = [];
+    }
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
         $scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
@@ -60,7 +65,8 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('Problem in loading all fields');
         });
     }
-    $scope.addNewProduct = function() {
+    $scope.addNewProduct = function(categoryId) {
+    	$scope.categoryId = categoryId;
         $scope.productModal.show();
     }
     $scope.closeProuctModal = function() {
@@ -88,7 +94,8 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         });
     }
     $scope.addProduct = function(data) {
-        ProductService.createProduct(data).then(function(productResponse) {
+    	var categoryId = $scope.categoryId;
+        ProductService.createProduct(data,categoryId).then(function(productResponse) {
             $scope.ProductSuccessMessage = true;
             $scope.ProductErrorMessage = false;
             $state.go('productDesign', {}, {
@@ -112,7 +119,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         CategoryService.createCategory(data).then(function(categoryResponse) {
             $scope.CategorySuccessMessage = true;
             $scope.CategoryErrorMessage = false;
-            $scope.data = {};
+            $scope.closeCategoryModal();
             $state.go('productDesign', {}, {
                 reload: true
             });
@@ -222,11 +229,14 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     }, function(err) {
         console.log('not saved');
     });
-    ProductService.fetchAllProducts().then(function(allProductResponse) {
-        $scope.productOptions = allProductResponse.data;
-    }, function(err) {
-        console.log('not saved');
-    });
+    $scope.getAllproducts = function(categoryId) {
+    	ProductService.fetchAsPerType('no', categoryId).then(function(productTemplateResponse) {
+   		 $scope.productOptions = productTemplateResponse.data;
+       }, function(err) {
+           console.log('There was some Probmem in add products');
+       });
+    	
+    }
     $scope.toggleGroup = function(group) {
         if ($scope.isGroupShown(group)) {
             $scope.shownGroup = null;

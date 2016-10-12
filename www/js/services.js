@@ -300,13 +300,13 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
             });
         });
     };
-    var createProduct = function(userData) {
+    var createProduct = function(userData, categoryId) {
         return $q(function(resolve, reject) {
             var req = {
                 url: URL.url + "product",
                 method: 'POST',
                 data: {
-                    "categoryId": userData.selectCategory,
+                    "categoryId": categoryId,
                     "name": userData.name,
                     "displayName": userData.displayname,
                     "commissionDate": $filter('date')(userData.commissionDate, 'dd/MM/yyyy'),

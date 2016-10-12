@@ -8,7 +8,7 @@
 						<span class="input-label">Select Category</span>
 					</div>
 					<div class="col">
-						<select  name="selectCategory" required="" ng-model="input.selectCategory">
+						<select  name="selectCategory" required="" ng-model="input.selectCategory" ng-change="getAllproducts(input.selectCategory)">
 							<option ng-repeat="option in categoryOptions" ng-value="option.categoryId">{{option.name}}</option>
 						</select>
 					</div>
