@@ -7,6 +7,7 @@
 			<form class="list animated bounceIn " name="productDesignForm" class="css-form" novalidate id="signup-form4">
 			<fieldset>
 			 <legend> Product Design</legend>
+			<input id="dp" type="text" ng-model="userInfo.person.mDate" name="mDate" my-datepicker/>
 				<div class="row responsive-sm">
 					<div class="col col-30">
 						<span class="input-label">Select Category:</span>
@@ -51,82 +52,92 @@
 				</div>
 				</fieldset>
 				<div style="height: 10px;" class="spacer"></div>
-				<ion-list>
-					<div ng-repeat="group in groups">
-						<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
-							<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
-							{{group.name}}
-						</ion-item>
-						<ion-item class="item-accordion" ng-repeat="field in entity" ng-show="isGroupShown(group) && field.groupId === group.groupId">
-							<ng-form name="form">
-								<!-- TEXT FIELDS -->
-								<div ng-if="field.inputType=='text' || field.inputType=='email' || field.inputType=='password'" class="row responsive-sm">
-									<div class="col col-30">
-										<span class="input-label">{{field.labelName}}</span>
-									</div>
-									<div class="col col-60">
-										<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
-									</div>
-								</div>
-								<!-- TEXTAREA FIELDS -->
-								<div ng-if="field.inputType=='textarea'" class="row responsive-sm">
-									<div class="col col-30">
-										<span class="input-label">{{field.labelName}}</span>
-									</div>
-									<div class="col col-60">
-										<textarea ng-model="field.defaultValue" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
-									</div>
-								</div>
-								<!-- RADIO FIELDS -->
-								<div ng-if="field.inputType=='radio'" class="row responsive-sm">
-									<div class="col col-30"> 
-										<span class="input-label">{{field.labelName}}</span>
-									</div>
-									<div class="col col-60">
-										<div class="checkbox" ng-repeat="option in field.options" >
-										<label>                
-										<input type="{{ field.inputType}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.keyName}}" value="{{option.keyValue}}">{{option.keyName}}
-										</label>
-										</div>
-									</div>
-								</div>
-								<!-- CHECKBOX FIELDS -->
-								<div ng-if="field.inputType=='checkbox'" class="row responsive-sm">
-									<div class="col col-30"> 
-										<span class="input-label">{{field.labelName}}</span>
-									</div>
-									<div class="col col-60">
-										<div class="checkbox" ng-repeat="option in field.options" >
-										<label>
-											<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.keyName}}" value="{{option.keyValue}}" >{{option.keyName}}
-										</label>
-									</div>
-									</div>
-								</div>
-								<!-- SELECTBOX FIELDS -->
-								<div ng-if="field.inputType=='select'" class="row responsive-sm">
-								<div class="col col-30">
-									<span class="input-label">{{field.labelName}}</span>
-								</div>
-								<div class="col col-60">
-									<select  data-ng-model="field.data">
-									   <option ng-repeat="option in field.options" ng-value="option.keyValue">{{option.keyName}}</option>
-									</select>
-								</div>
-								</div>
-							</ng-form>
-						</ion-item>
-					</div>
-				</ion-list>
-				<div style="height: 10px;" class="spacer"></div>
 				<button class=" button-icon ion-plus flat calm"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
 				<div style="height: 10px;" class="spacer"></div>
 				<fieldset ng-show="entity.length > 0">
-			    <legend> Unallocated Fields </legend>
-				<div style="height: 5px;" class="spacer"></div>
-				<div  class="row responsive-sm" ng-repeat="option in entity | filter:{groupId: 0}">
-					<div class="col">{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button></div>
-				</div>
+				    <legend> Configured fields </legend>
+				    <div style="height: 10px;" class="spacer"></div>
+					<ion-list>
+						<div ng-repeat="group in groups">
+							<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
+								<i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+								{{group.name}}
+							</ion-item>
+							<ion-item class="item-accordion" ng-repeat="field in entity" ng-show="isGroupShown(group) && field.groupId === group.groupId">
+								<ng-form name="form">
+									<!-- TEXT FIELDS -->
+									<div ng-if="field.inputType=='text' || field.inputType=='email' || field.inputType=='password'" class="row responsive-sm">
+										<div class="col col-30">
+											<span class="input-label">{{field.labelName}}</span>
+										</div>
+										<div class="col col-60">
+											<input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/>
+											<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>			
+										</div>
+															
+									</div>
+									<!-- TEXTAREA FIELDS -->
+									<div ng-if="field.inputType=='textarea'" class="row responsive-sm">
+										<div class="col col-30">
+											<span class="input-label">{{field.labelName}}</span>
+										</div>
+										<div class="col col-60">
+											<textarea ng-model="field.defaultValue" rows="" cols="" placeholder="Please enter {{field.labelName}} "></textarea>
+											<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
+										</div>
+									</div>
+									<!-- RADIO FIELDS -->
+									<div ng-if="field.inputType=='radio'" class="row responsive-sm">
+										<div class="col col-30"> 
+											<span class="input-label">{{field.labelName}}</span>
+										</div>
+										<div class="col col-60">
+											<div class="checkbox" ng-repeat="option in field.options" >
+												<label>                
+												<input type="{{ field.inputType}}" data-ng-model="field.data"  name="taskGroup"  id="{{option.keyName}}" value="{{option.keyValue}}">{{option.keyName}}
+												</label>
+											</div>
+											<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
+										</div>
+									</div>
+									<!-- CHECKBOX FIELDS -->
+									<div ng-if="field.inputType=='checkbox'" class="row responsive-sm">
+										<div class="col col-30"> 
+											<span class="input-label">{{field.labelName}}</span>
+										</div>
+										<div class="col col-60">
+											<div class="checkbox" ng-repeat="option in field.options" >
+												<label>
+													<input type="checkbox" data-ng-model="option.data"  name="taskGroup"  id="{{option.keyName}}" value="{{option.keyValue}}" >{{option.keyName}}
+												</label>
+											</div>
+										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
+										</div>
+									</div>
+									<!-- SELECTBOX FIELDS -->
+									<div ng-if="field.inputType=='select'" class="row responsive-sm">
+									<div class="col col-30">
+										<span class="input-label">{{field.labelName}}</span>
+									</div>
+									<div class="col col-60">
+										<select  data-ng-model="field.data">
+										   <option ng-repeat="option in field.options" ng-value="option.keyValue">{{option.keyName}}</option>
+										</select>
+										<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>
+									</div>
+									</div>
+								</ng-form>
+							</ion-item>
+						</div>
+					</ion-list>
+				</fieldset>
+				<div style="height: 20px;" class="spacer"></div>
+				<fieldset ng-show="entity.length > 0">
+				    <legend> Unallocated Fields </legend>
+					<div style="height: 5px;" class="spacer"></div>
+					<div  class="row responsive-sm" ng-repeat="option in entity | filter:{groupId: 0}">
+						<div class="col">{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button></div>
+					</div>
 				</fieldset>
 				<div style="height: 10px;" class="spacer"></div>
 				<div class="row" style="margin-bottom: 68%;">

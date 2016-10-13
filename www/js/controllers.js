@@ -36,6 +36,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     $scope.clearData = function(){
     	$scope.data= [];
     	$scope.groups= [];
+    	$scope.entity = [];
     	$scope.productOptions = [];
     }
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
@@ -43,11 +44,6 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     }, function(err) {
         console.log('Problem in loading all categories');
     });
-//    ProductService.fetchAllProducts().then(function(allProductResponse) {
-//        $scope.productOptions = allProductResponse.data;
-//    }, function(err) {
-//        console.log('Problem in loading all products');
-//    });
     CategoryService.fetchAllGroup().then(function(allGroupResponse) {
         $scope.fieldGroups = allGroupResponse.data;
     }, function(err) {
@@ -260,18 +256,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         }, function(err) {
             console.log('Problem in loading all fields');
         });
-//    	$scope.groups={
-//    			   formName:"catgoryform",
-//    				fields:[
-//    				 {type:"text",name:"firstname",label:"FirstName",required:!0,data:""},
-//    				 {type:"text",name:"midlename",label:"MidleName",required:!0,data:""},
-//    				  {type:"text",name:"Lasttname",label:"LastName",required:!0,data:""},
-//    				  {type:"textarea",name:"Address",label:"Address",required:!0,data:""},
-//    				 {type:"email",name:"emailUser",label:"Email",required:!0,data:""},{type:"text",name:"city",label:"City",required:!0,data:""},
-//    				 {type:"password",name:"pass",label:"Password",min:6,max:20,required:!0,data:""},
-//    				  {type:"radio",name:"color_id",label:"Colors",options:[{id:1,name:"orange"},{id:2,name:"pink"},{id:3,name:"gray"},{id:4,name:"cyan"}],required:!0,data:""},
-//    				 {type:"select",name:"teacher_id",label:"Teacher",options:[{name:"Mark"},{name:"Claire"},{name:"Daniel"},{name:"Gary"}],required:!0,data:"",value:"Mark"},
-//    			   {type:"checkbox",name:"car_id",label:"Cars",options:[{id:1,name:"bmw"},{id:2,name:"audi"},{id:3,name:"porche"},{id:4,name:"jaguar"}],required:!0,data:""}
-//    			   ]};
     }
+}).controller('MenuController', function($scope){
+	$scope.activeButton = 'a';	
 });

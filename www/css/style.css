@@ -63,6 +63,10 @@ ul.tab li a:focus, .active {
     background-color: #ccc;
 }
 
+.col-60{
+	display: inline-flex;
+}
+
 /* Style the tab content */
 .tabcontent {
     display: none;
@@ -75,23 +79,24 @@ ul.tab li a:focus, .active {
 
 }
 .item-stable.item{
-	background-color: #e6e6e6 !important;
+	background-color: #f8f8f8 !important;
 	font-weight: 500;
 }
 legend{
-	background-color: #e6e6e6 !important;
+	background-color: #f8f8f8 !important;
 	font-weight: 500;
-	font-size:15px
+	font-size:15px;
+	padding-left:10px;
 }
 
 .button.active{
-  background-color: #00aeef !important;
+  background-color: #11c1f3 !important;
 }
 .bar.bar-header{
-	background:#00aeef;
+	background:#11c1f3;
 }
 .input-label{
-	font-weight: 450;
+	font-weight: 500;
 }
 input[type="text"],input[type="email"],input[type="password"],input[type="date"]{
     border: 1px solid #lightblue; /* some kind of blue border */
@@ -138,7 +143,7 @@ input[type="text"],input[type="email"],input[type="password"],input[type="date"]
 /* The first bar */
 
 .header-two-bars .header-first-bar{
-	background-color:#00aeef;
+	background-color:#11c1f3;
 	box-shadow:0 1px 1px #ccc;
 	padding: 20px 40px;
 	height: 80px;
