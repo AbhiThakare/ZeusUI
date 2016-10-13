@@ -5,10 +5,8 @@
 	</ion-header-bar>
 	<ion-view  style="" class="" id="page17" title="">
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
-			<div ng-show="ProductSuccessMessage" class="success">Product created successfully </div>
-			<div ng-show="ProductErrorMessage"class="error">There was some problem creating new product</div>
 			<div style="height: 20px;" class="spacer"></div>
-			<form class="list animated bounceIn " name="productForm" class="css-form" novalidate id="signup-form4" ng-submit="productForm.$valid && addProduct(data)">
+			<form class="list animated bounceIn " name="productForm" class="css-form" novalidate id="signup-form4" ng-submit="productForm.$valid && addProduct(data,commissionDate,sunsetDate)">
 			<fieldset>
 			 <legend> Create Product / Template</legend>
 				<ion-list id="signup-list5" class=" ">
@@ -23,7 +21,7 @@
 					</div>
 					<div ng-show="data.WPT=='yes'" class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Select a template:</span>
+							<span class="input-label">Select a template: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<select name="selecttemplate"  ng-model="data.selectTemplate">
@@ -33,7 +31,7 @@
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Name:</span>
+							<span class="input-label">Name: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<input type="text"  required=""  name="name" ng-model="data.name"  placeholder="Enter name">
@@ -45,7 +43,7 @@
 					
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Display name:</span>
+							<span class="input-label">Display name: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<input type="text"  required=""  name="displayname" ng-model="data.displayname" placeholder="Enter display name">
@@ -56,10 +54,10 @@
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Commission Date:</span>
+							<span class="input-label">Commission Date: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
-							<label><input type="date" required=""  name="commissionDate" ng-model="data.commissionDate" placeholder="Enter commission date"></label>
+							<label><input type="date" required=""  name="commissionDate" ng-model="commissionDate" placeholder="Enter commission date"></label>
 							<div ng-show="productForm.$submitted ||productForm.commissionDate.$touched">
 								<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.commissionDate.$error.required">Please enter Commission date.</div>
 							</div>
@@ -67,10 +65,10 @@
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Sunset Date:</span>
+							<span class="input-label">Sunset Date: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
-							<label><input type="date" required=""  name="sunsetDate" ng-model="data.sunsetDate" placeholder="Enter sunset date"></label>
+							<label><input type="date" required=""  name="sunsetDate" ng-model="sunsetDate" placeholder="Enter sunset date"></label>
 							<div ng-show="productForm.$submitted || productForm.sunsetDate.$touched">
 								<div style="color:red;margin:5px;padding:5px;" ng-show="productForm.sunsetDate.$error.required">Please enter Sunset date.</div>
 							</div>
@@ -78,7 +76,7 @@
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Create Product from template:</span>
+							<span class="input-label">Create Product from template: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<input type="radio" class="radio" name="saveOption" ng-model="data.saveOption" ng-value="'t'">&nbsp;&nbsp;Create only template<br>

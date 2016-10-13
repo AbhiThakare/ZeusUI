@@ -1,5 +1,5 @@
 angular.module('starter').service('CategoryService', function($q, $http, $filter, URL) {
-    var createCategory = function(userData) {
+    var createCategory = function(userData,commissionDate,sunsetDate) {
         return $q(function(resolve, reject) {
             var req = {
                 url: URL.url + "category",
@@ -8,8 +8,8 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
                     "name": userData.name,
                     "displayName": userData.displayname,
                     "orderOfDisplay": userData.orderingDis,
-                    "commissionDate": $filter('date')(userData.commissionDate, 'dd/MM/yyyy'),
-                    "sunsetDate": $filter('date')(userData.sunsetDate, 'dd/MM/yyyy')
+                    "commissionDate": $filter('date')(commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(sunsetDate, 'dd/MM/yyyy')
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -178,6 +178,26 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
             });
         });
     };
+    var deleteField = function(fieldId){
+    	 return $q(function(resolve, reject) {
+             var req = {
+                 url: URL.url + "field/" + fieldId,
+                 method: 'DELETE',
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             }
+             $http(req).then(function(data) {
+                 if (data.statusText == 'OK') {
+                     resolve(data);
+                 } else {
+                     reject('Update Expertise Failed!');
+                 }
+             }, function(err) {
+                 reject(err);
+             });
+         });
+    };
     var getFieldDetails = function(fieldId) {
         return $q(function(resolve, reject) {
             var req = {
@@ -218,7 +238,7 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
             });
         });
     }
-    var updateFields = function(data) {
+    var updateFields = function(data,commissionDate,sunsetDate) {
         return $q(function(resolve, reject) {
             var req = {
                 url: URL.url + "field/update",
@@ -231,8 +251,8 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
                     "name": data.name,
                     "labelName": data.labelName,
                     "inputType": data.inputType,
-                    "commissionDate": $filter('date')(data.commissionDate, 'dd/MM/yyyy'),
-                    "sunsetDate": $filter('date')(data.sunsetDate, 'dd/MM/yyyy'),
+                    "commissionDate": $filter('date')(commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(sunsetDate, 'dd/MM/yyyy'),
                     "sequenceInGroup": data.sequenceInGroup,
                     "minLength": 144,
                     "maxLength": 122,
@@ -257,6 +277,7 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
     return {
         getAllField: getAllField,
         addField: addField,
+        deleteField: deleteField,
         getSelectedFields: getSelectedFields,
         getFieldDetails: getFieldDetails,
         updateFields: updateFields,
@@ -301,7 +322,7 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
             });
         });
     };
-    var createProduct = function(userData, categoryId) {
+    var createProduct = function(userData, categoryId,  commissionDate, sunsetDate) {
         return $q(function(resolve, reject) {
             var req = {
                 url: URL.url + "product",
@@ -310,8 +331,8 @@ angular.module('starter').service('CategoryService', function($q, $http, $filter
                     "categoryId": categoryId,
                     "name": userData.name,
                     "displayName": userData.displayname,
-                    "commissionDate": $filter('date')(userData.commissionDate, 'dd/MM/yyyy'),
-                    "sunsetDate": $filter('date')(userData.sunsetDate, 'dd/MM/yyyy'),
+                    "commissionDate": $filter('date')(commissionDate, 'dd/MM/yyyy'),
+                    "sunsetDate": $filter('date')(sunsetDate, 'dd/MM/yyyy'),
                     "saveAsTemplate": userData.saveAsTemplate,
                     "productFeature" : userData.saveOption,
                     "templateId" : userData.selectTemplate

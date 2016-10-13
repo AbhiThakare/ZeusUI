@@ -1,4 +1,4 @@
-angular.module('starter').controller('ProductDesignController', function($scope, $ionicModal, $state, $filter, ProductService, CategoryService, FieldService) {
+angular.module('starter').controller('ProductDesignController', function($scope, $ionicModal,$ionicPopup, $state, $filter, ProductService, CategoryService, FieldService) {
 	$scope.successMessage = false;
     $scope.errorMessage = false;
     $scope.ProductSuccessMessage = false;
@@ -9,6 +9,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     $scope.groups = [];
     $scope.inputs = [];
     $scope.selection = [];
+    var currentDate = new Date();
+    $scope.commissionDate = new Date();
+    $scope.sunsetDate = new Date(currentDate.setFullYear(currentDate.getFullYear() +1));
     $ionicModal.fromTemplateUrl('templates/tab-product.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -89,9 +92,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('There was some problem in add category');
         });
     }
-    $scope.addProduct = function(data) {
+    $scope.addProduct = function(data,commissionDate,sunsetDate) {
     	var categoryId = $scope.categoryId;
-        ProductService.createProduct(data,categoryId).then(function(productResponse) {
+        ProductService.createProduct(data,categoryId, commissionDate, sunsetDate).then(function(productResponse) {
             $scope.ProductSuccessMessage = true;
             $scope.ProductErrorMessage = false;
             $scope.closeProuctModal ();
@@ -110,8 +113,8 @@ angular.module('starter').controller('ProductDesignController', function($scope,
          });
     	
     }
-    $scope.addCategory = function(data) {
-        CategoryService.createCategory(data).then(function(categoryResponse) {
+    $scope.addCategory = function(data,commissionDate,sunsetDate) {
+        CategoryService.createCategory(data,commissionDate,sunsetDate).then(function(categoryResponse) {
             $scope.CategorySuccessMessage = true;
             $scope.CategoryErrorMessage = false;
             $scope.closeCategoryModal();
@@ -158,6 +161,24 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('There was some problem in add category');
         });
     }
+    $scope.deleteField = function(fieldId, productId){
+		   var confirmPopup = $ionicPopup.confirm({
+		     title: 'Please Confirm',
+		     template: 'Are you sure you want to delete this field?'
+		   });
+		   confirmPopup.then(function(res) {
+		    if(res) {
+		     	FieldService.deleteField(fieldId).then(function(fieldDeleteResponse) {
+		     		$scope.fieldDetails = fieldDeleteResponse.data;
+		     		$scope.fetchExsitingFields(productId);
+		        }, function(err) {
+		            console.log('There was some problem in delete field');
+		        });
+		     } else {
+		       console.log('canceled');
+		     }
+		   });
+    }
     $scope.editField = function(fieldId) {
         FieldService.getFieldDetails(fieldId).then(function(fieldResponse) {
             $scope.fieldDetails = fieldResponse.data;
@@ -173,9 +194,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('There was some problem in add category');
         });
     }
-    $scope.updateFields = function(data) {
+    $scope.updateFields = function(data,commissionDate,sunsetDate) {
     	var input = data.productId;
-        FieldService.updateFields(data).then(function(updateFieldResponse) {
+        FieldService.updateFields(data,commissionDate,sunsetDate).then(function(updateFieldResponse) {
             $scope.fieldDetails = updateFieldResponse.data;
             $scope.editFieldModal.hide();
             $scope.fetchExsitingFields(input);
@@ -218,7 +239,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('not saved');
         });
     }
-}).controller('ProductViewController', function($scope, ProductService, CategoryService, FieldService) {
+}).controller('ProductViewController', function($scope, ProductService,$ionicPopup, CategoryService, FieldService) {
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
         $scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
@@ -234,7 +255,13 @@ angular.module('starter').controller('ProductDesignController', function($scope,
            console.log('There was some Probmem in add products');
        });
     	
-    }
+    };
+    $scope.showUnderConstuction = function(){
+    	var confirmPopup = $ionicPopup.confirm({
+		     title: 'oops!..',
+		     template: 'This is under construction !'
+		   });
+    };
     $scope.toggleGroup = function(group) {
         if ($scope.isGroupShown(group)) {
             $scope.shownGroup = null;

@@ -7,88 +7,88 @@
 		<ion-content scroll="true" padding="true" class="manual-ios-statusbar-padding sidepadding">
 			<div ng-show="fieldErrorMessage"class="error">There was some problem updating Fields</div>
 			<div style="height: 20px;" class="spacer"></div>
-			<form class="list animated bounceIn " name="updateFieldForm" class="css-form" novalidate id="signup-form4" ng-submit="updateFieldForm.$valid && updateFields(fieldDetails)">
+			<form class="list animated bounceIn " name="updateFieldForm" class="css-form" novalidate id="signup-form4" ng-submit="updateFieldForm.$valid && updateFields(fieldDetails,commissionDate,sunsetDate)">
 			<fieldset>
 			 <legend> Modify Fields</legend>
 				<ion-list id="signup-list5" class=" ">
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Field Name:</span>
+							<span class="input-label">Field Name: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<input type="text" placeholder="" value="fieldDetails.name" required=""  name="name" ng-model="fieldDetails.name">
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.name.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.name.$error.required">Please enter field name.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.name.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.name.$error.required">Please enter field name.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Label:</span>
+							<span class="input-label">Label: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<input type="text" required=""  name="displayname" ng-model="fieldDetails.labelName" placeholder="">
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.displayname.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.displayname.$error.required">Please enter label name.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.displayname.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.displayname.$error.required">Please enter label name.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Input Type:</span>
+							<span class="input-label">Input Type: </span>
 						</div>
 						<div class="col">
 							<input type="text" ng-model="fieldDetails.inputType" value="fieldDetails.inputType" readonly="readonly"/>
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.inputType.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.inputType.$error.required">Please select input type.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.inputType.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.inputType.$error.required">Please select input type.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Group:</span>
+							<span class="input-label">Group: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<select  name="groupId" required="" ng-model="fieldDetails.groupId">
 								<option ng-repeat="option in fieldGroups" ng-selected ="{{fieldDetails.groupId == option.groupId}}"  ng-value="option.groupId">{{option.name}}</option>
 							</select>
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.groupId.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.groupId.$error.required">Please select group.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.groupId.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.groupId.$error.required">Please select group.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Sequence in Group:</span>
+							<span class="input-label">Sequence in Group: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
 							<input type="text" required=""  name="sequenceInGroup" ng-model="fieldDetails.sequenceInGroup" placeholder="Enter sequence order">
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.sequenceInGroup.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sequenceInGroup.$error.required">Please enter Ordering sequence.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.sequenceInGroup.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sequenceInGroup.$error.required">Please enter Ordering sequence.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Commission Date:</span>
+							<span class="input-label">Commission Date: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
-							<label><input type="date"  value="{{fieldDetails.commissionDate}}" required=""  name="commissionDate" ng-model="fieldDetails.commissionDate"></label>
+							<label><input type="date" required=""  name="commissionDate" ng-model="commissionDate"></label>
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.commissionDate.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.commissionDate.$error.required">Please enter Commission date.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.commissionDate.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.commissionDate.$error.required">Please enter Commission date.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Sunset Date:</span>
+							<span class="input-label">Sunset Date: <span class="assertive">*</span></span>
 						</div>
 						<div class="col">
-							<label><input type="date" required="" value="{{fieldDetails.sunsetDate}}" name="sunsetDate" ng-model="fieldDetails.sunsetDate"></label>
+							<label><input type="date" required="" name="sunsetDate" ng-model="sunsetDate"></label>
+							<div ng-show="updateFieldForm.$submitted || updateFieldForm.sunsetDate.$touched">
+								<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sunsetDate.$error.required">Please enter Sunset date.</div>
+							</div>
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.sunsetDate.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.sunsetDate.$error.required">Please enter Sunset date.</div>
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
@@ -101,14 +101,11 @@
 					</div>
 					<div class="row responsive-sm">
 						<div class="col">
-							<span class="input-label">Default value:</span>
+							<span class="input-label">Default value: </span>
 						</div>
 						<div class="col">
-							<input type="text" required="" ng-model="fieldDetails.defaultValue" name="defaultValue" placeholder="Enter dafault value">
+							<input type="text"  ng-model="fieldDetails.defaultValue" name="defaultValue" placeholder="Enter dafault value">
 						</div>
-					</div>
-					<div ng-show="updateFieldForm.$submitted || updateFieldForm.defaultValue.$touched">
-						<div style="color:red;margin:5px;padding:5px;" ng-show="updateFieldForm.defaultValue.$error.required">Please enter default value.</div>
 					</div>
 				</ion-list>
 				<div class="row">
