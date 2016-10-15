@@ -64,6 +64,11 @@
 				<fieldset ng-show="entity.length > 0">
 				    <legend> Configured fields </legend>
 				    <div style="height: 10px;" class="spacer"></div>
+				    <ion-list class=" " id="profile-list4" ng-show='showUnallocated'>
+			        	 <ion-item style="" id="profile-list-item12" class="item-icon-left  ">
+			            	<i class="icon ion-android-alert calm"></i>No fields configured yet.
+			         	 </ion-item>
+			    	</ion-list>
 					<ion-list>
 						<div ng-repeat="group in groups">
 							<ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}">
@@ -148,8 +153,13 @@
 				    <legend> Unallocated Fields </legend>
 					<div style="height: 5px;" class="spacer"></div>
 					<div  class="row responsive-sm" ng-repeat="option in entity | filter:{groupId: 0}">
-						<div class="col">{{option.name}} <button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button></div>
+						<div class="col">{{option.name}} <button class="button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button></div>
 					</div>
+					<ion-list class=" " id="profile-list4" ng-show='!showUnallocated'>
+			        	 <ion-item style="" id="profile-list-item12" class="item-icon-left  ">
+			            	<i class="icon ion-android-alert calm"></i>Nothing to display
+			         	 </ion-item>
+			    	</ion-list>
 				</fieldset>
 				<div style="height: 10px;" class="spacer"></div>
 				<div class="row" style="margin-bottom: 68%;">

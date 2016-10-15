@@ -147,8 +147,8 @@ input[type="text"],input[type="email"],input[type="password"],input[type="date"]
 .header-two-bars .header-first-bar{
 	background-color:#11c1f3;
 	box-shadow:0 1px 1px #ccc;
-	padding: 20px 40px;
-	height: 80px;
+	padding: 10px 0px;
+	height: 60px;
 	color: #ffffff;
 	box-sizing: border-box;
 }
@@ -202,8 +202,7 @@ input[type="text"],input[type="email"],input[type="password"],input[type="date"]
 
 .header-two-bars .header-second-bar {
 	background-color: #ffffff;
-	box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, 0.05);
-	padding: 20px 40px;
+	padding: 10px 0px;
 }
 
 .header-two-bars .header-second-bar h2 {
