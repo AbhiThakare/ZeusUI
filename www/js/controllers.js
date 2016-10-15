@@ -56,10 +56,14 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
             $scope.showUnallocated =  false;
+            $scope.showallocated =  false;
             for (var i = 0; i < $scope.entity.length; i++){
             	if($scope.entity[i].groupId === 0){
             		$scope.showUnallocated =  true;
             		break;
+            	} 
+            	if($scope.entity[i].groupId > 0){
+            		$scope.showallocated =  true;
             	} 
             }
             FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
