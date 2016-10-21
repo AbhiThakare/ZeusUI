@@ -277,11 +277,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     	$scope.productOptions = [];
     	$scope.data= [];
     	$scope.groups= [];
-    	$ionicLoading.show({
-            templateUrl: "templates/loading.html"
-        });
+    	$scope.viewProductSpinner = true;
     	ProductService.fetchAsPerType('no', categoryId).then(function(productTemplateResponse) {
-    	 $ionicLoading.hide();
+    		$scope.viewProductSpinner = false;
    		 $scope.productOptions = productTemplateResponse.data;
        }, function(err) {
            console.log('There was some Probmem in add products');
