@@ -57,7 +57,11 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         console.log('Problem in loading all groups ');
     });
     $scope.fetchExsitingFields = function(input) {
+    	 $ionicLoading.show({
+    	        templateUrl: "templates/loading.html"
+    	    });
         ProductService.getFormDetails(input).then(function(formViewResponse) {
+        	 $ionicLoading.hide();
             $scope.entity = formViewResponse.data;
             $scope.showUnallocated =  false;
             $scope.showallocated =  false;
