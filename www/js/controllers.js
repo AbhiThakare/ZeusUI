@@ -61,21 +61,20 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     	        templateUrl: "templates/loading.html"
     	    });
         ProductService.getFormDetails(input).then(function(formViewResponse) {
-        	 $ionicLoading.hide();
             $scope.entity = formViewResponse.data;
             $scope.showUnallocated =  false;
             $scope.showallocated =  false;
             for (var i = 0; i < $scope.entity.length; i++){
-            	if($scope.entity[i].groupId === 0){
-            		$scope.showUnallocated =  true;
-            		break;
-            	} 
             	if($scope.entity[i].groupId > 0){
             		$scope.showallocated =  true;
+            	} 
+            	if($scope.entity[i].groupId === 0){
+            		$scope.showUnallocated =  true;
             	} 
             }
             FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
                 $scope.groups = groupByProductResponse.data;
+                $ionicLoading.hide();
             }, function(err) {
                 console.log('Problem in loading all fields');
             });
