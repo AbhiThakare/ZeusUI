@@ -1,4 +1,4 @@
-angular.module('starter').controller('ProductDesignController', function($scope, $ionicModal,$ionicPopup, $state, $filter, ProductService, CategoryService, FieldService) {
+angular.module('starter').controller('ProductDesignController', function($scope,$ionicLoading, $ionicModal,$ionicPopup, $state, $filter, ProductService, CategoryService, FieldService) {
 	$scope.successMessage = false;
     $scope.errorMessage = false;
     $scope.ProductSuccessMessage = false;
@@ -42,7 +42,11 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     	$scope.entity = [];
     	$scope.productOptions = [];
     }
+    $ionicLoading.show({
+        templateUrl: "templates/loading.html"
+    });
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
+    	 $ionicLoading.hide();
         $scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
         console.log('Problem in loading all categories');
