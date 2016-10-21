@@ -20,14 +20,14 @@
 				</div>
 				<div class="row responsive-sm">
 					<div class="col">
-						<span class="input-label">Field Description:</span>
+						<span class="input-label">Field Type:</span>
 					</div>
 					<div class="col">
-						<input type="text" name="fieldDesc" ng-model="data.fieldDesc"  placeholder="Enter name">
+						<input type="text" name="fieldDesc" ng-model="data.fieldDesc"  placeholder="Enter type">
 					</div>
 				</div>
 				<div class="col text-center">
-					<button ng-click="search(data)" class="button icon-left ion-search button-calm">Search</button>
+					<button ng-click="search(data)" class="button icon-left ion-search button-calm">Search</button> <ion-spinner ng-show="searchSpinner" icon="android"></ion-spinner>
 				</div>
 				<div style="height: 10px;" class="spacer"></div>
 				<div class="row responsive-sm">
@@ -40,14 +40,14 @@
 				</div>
 				
 				<div class="row header">
-		          <div class="col col-20" style="font-weight:500;">Select</div>
-		          <div class="col col-20" style="font-weight:500;">Name</div>
-		          <div class="col col-20" style="font-weight:500;">Type</div>
+		          <div class="col col-10" style="font-weight:500;">Select</div>
+		          <div class="col col-60" style="font-weight:500;">Name</div>
+		          <div class="col col-30" style="font-weight:500;">Type</div>
 		        </div>
 		        <div class="row" ng-repeat="oprion in allFields | filter:data.quickSearch">
-		          <div class="col col-20"><input type="checkbox" name="selectedFruits[]"  value="{{oprion.name}}" ng-checked="selection.indexOf(oprion.name) > -1" ng-click="toggleSelection(oprion)"></div>
-		          <div class="col col-20">{{oprion.name}}</div>
-		          <div class="col col-20">{{oprion.inputType}}</div>
+		          <div class="col col-10"><input type="checkbox" name="selectedFruits[]"  value="{{oprion.name}}" ng-checked="selection.indexOf(oprion.name) > -1" ng-click="toggleSelection(oprion)"></div>
+		          <div class="col col-60">{{oprion.name}}</div>
+		          <div class="col col-30">{{oprion.inputType}}</div>
 		        </div>
 				<div class="col text-center">
 					<button ng-click="addField()"class="button button-calm icon-left ion-plus">Add Field</button>

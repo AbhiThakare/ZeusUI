@@ -46,7 +46,7 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         templateUrl: "templates/loading.html"
     });
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
-    	 $ionicLoading.hide();
+    	$ionicLoading.hide();
         $scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
         console.log('Problem in loading all categories');
@@ -102,8 +102,10 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         $scope.editFieldModal.hide();
     }
     $scope.addNewField = function(productId) {
+    	$scope.showAddFieldSpinner = true;
         $scope.productId = productId;
         FieldService.getAllField(undefined, productId).then(function(allFieldResponse) {
+        	$scope.showAddFieldSpinner = false;
             $scope.allFields = allFieldResponse.data;
             $scope.fieldModal.show();
         }, function(err) {
@@ -124,7 +126,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         });
     }
     $scope.newValue = function(workType, categoryId) {
+    	 $scope.showSpinner = true;
     	 ProductService.fetchAsPerType(workType, categoryId).then(function(productTemplateResponse) {
+    		 $scope.showSpinner = false;
     		 $scope.productOptions = productTemplateResponse.data;
          }, function(err) {
              console.log('There was some Probmem in add products');
@@ -147,7 +151,9 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     }
     $scope.search = function(data) {
         $scope.selection = [];
+        $scope.searchSpinner = true;
         FieldService.getAllField(data, $scope.productId).then(function(fieldResponse) {
+        	$scope.searchSpinner = false;
             $scope.allFields = fieldResponse.data;
         }, function(err) {
             console.log('There was some problem in add category');

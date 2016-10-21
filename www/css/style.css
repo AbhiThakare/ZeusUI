@@ -7,6 +7,9 @@
 	}
 }
 
+.backdrop.active, .loading-container.active{
+	opacity: 0.2;
+}
 
 
 /***************SUCCESS MESSAGE************

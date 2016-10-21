@@ -55,11 +55,12 @@
 						<div ng-show="productDesignForm.$submitted || productDesignForm.selectProduct.$touched">
 							<div style="color:red;margin:5px;padding:5px;" ng-show="productDesignForm.selectProduct.$error.required">Please select product.</div>
 						</div>
+						<ion-spinner ng-show="showSpinner" icon="android" class="calm"></ion-spinner>
 					</div>
 				</div>
 				</fieldset>
 				<div style="height: 10px;" class="spacer"></div>
-				<button class=" button-icon ion-plus flat calm"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button>
+				<button class=" button-icon ion-plus flat calm"  ng-click="productDesignForm.$valid && addNewField(input.selectProduct)">  Add Field </button> <ion-spinner ng-show="showAddFieldSpinner" icon="android" class="calm"></ion-spinner>
 				<div style="height: 10px;" class="spacer"></div>
 				<fieldset ng-show="entity.length > 0">
 				    <legend> Configured fields </legend>
@@ -89,6 +90,17 @@
 										</div>
 															
 									</div>
+									<div ng-if="field.inputType=='date'" class="row responsive-sm">
+										<div class="col col-30">
+											<span class="input-label">{{field.labelName}} <span class="assertive" ng-show="field.mandatory == 'yes'">*</span></span>
+										</div>
+										<div class="col col-60">
+											<label><input type="{{ field.inputType }}" placeholder="Please enter {{field.labelName}} "  name="name" ng-model="field.defaultValue"/></label>
+											<button class=" button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{field.fieldId}})"></button>	
+											<button class=" button-icon ion-trash-a flat assertive"  ng-click="deleteField({{field.fieldId}},input.selectProduct)"></button>			
+										</div>
+															
+									</div>									
 									<!-- TEXTAREA FIELDS -->
 									<div ng-if="field.inputType=='textarea'" class="row responsive-sm">
 										<div class="col col-30">
@@ -153,7 +165,7 @@
 				    <legend> Unallocated Fields </legend>
 					<div style="height: 5px;" class="spacer"></div>
 					<div  class="row responsive-sm" ng-repeat="option in entity | filter:{groupId: 0}">
-						<div class="col">{{option.name}} <button class="button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button></div>
+						<div class="col">{{option.name}} <button class="button-icon ion-edit flat energized"  ng-click="productDesignForm.$valid && editField({{option.fieldId}})"></button> </div>
 					</div>
 					<ion-list class=" " id="profile-list4" ng-show='!showUnallocated'>
 			        	 <ion-item style="" id="profile-list-item12" class="item-icon-left  ">
