@@ -263,9 +263,13 @@ angular.module('starter').controller('ProductDesignController', function($scope,
             console.log('not saved');
         });
     }
-}).controller('ProductViewController', function($scope, ProductService,$ionicPopup, CategoryService, FieldService) {
+}).controller('ProductViewController', function($scope,$ionicLoading, ProductService,$ionicPopup, CategoryService, FieldService) {
+    $ionicLoading.show({
+        templateUrl: "templates/loading.html"
+    });
     CategoryService.fetchAllCategory().then(function(allCategoryResponse) {
-        $scope.categoryOptions = allCategoryResponse.data;
+    	$ionicLoading.hide();
+    	$scope.categoryOptions = allCategoryResponse.data;
     }, function(err) {
         console.log('not saved');
     });
@@ -273,7 +277,11 @@ angular.module('starter').controller('ProductDesignController', function($scope,
     	$scope.productOptions = [];
     	$scope.data= [];
     	$scope.groups= [];
+    	$ionicLoading.show({
+            templateUrl: "templates/loading.html"
+        });
     	ProductService.fetchAsPerType('no', categoryId).then(function(productTemplateResponse) {
+    	 $ionicLoading.hide();
    		 $scope.productOptions = productTemplateResponse.data;
        }, function(err) {
            console.log('There was some Probmem in add products');
@@ -297,9 +305,13 @@ angular.module('starter').controller('ProductDesignController', function($scope,
         return $scope.shownGroup === group;
     };
     $scope.getFormView = function(input) {
+    	$ionicLoading.show({
+            templateUrl: "templates/loading.html"
+        });
         ProductService.getFormDetails(input).then(function(formViewResponse) {
             $scope.entity = formViewResponse.data;
             FieldService.getGroupByProduct(input).then(function(groupByProductResponse) {
+            	$ionicLoading.hide();
                 $scope.groups = groupByProductResponse.data;
             }, function(err) {
                 console.log('Problem in loading all fields');
